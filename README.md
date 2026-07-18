@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StackShade — Visual Engineering
 
-## Getting Started
+> Learn Faster, Understand Deeper, Remember Longer, and Build Like Real Engineers.
 
-First, run the development server:
+Welcome to the repository for **StackShade**'s official landing page: [stack-shade.github.io](http://stack-shade.github.io/).
 
+StackShade is a visual engineering channel dedicated to helping developers master software architecture, computer science fundamentals, and full-stack development.
+
+---
+
+## 🔗 Quick Links
+
+- 📺 **YouTube Channel**: [youtube.com/@StackShade](https://www.youtube.com/@StackShade)
+- 📝 **StackShade HQ (Notion Workspace)**: [Access Notion Notes & Roadmaps](https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link)
+- 🌐 **Website**: [stack-shade.github.io](http://stack-shade.github.io/)
+- 👤 **Creator Portfolio**: [sh20raj.github.io](https://sh20raj.github.io/)
+
+---
+
+## 📚 What We Cover
+
+StackShade demystifies complex software engineering concepts through detailed visual tracing and diagrams:
+
+- 🧩 **DSA Patterns**: Visualizing algorithmic strategies (Sliding Window, Two Pointers, Backtracking, Graphs) for intuitive problem-solving.
+- 🏛️ **System Design**: Architectural breakdowns of distributed systems, caching, CDNs, load balancing, and replication.
+- ⚙️ **Backend Engineering**: Practical server APIs, database internals (PostgreSQL indexes, Redis cache), event streaming (Kafka), and containerization (Docker).
+- ⚡ **Next.js & Fullstack**: Core React Server Components, hydration flow, server action strategies, and high-performance UI optimization.
+- 🤖 **AI Engineering**: Retrieval-Augmented Generation (RAG), LLM streaming integrations, and modern AI Agent workflows.
+
+---
+
+## 🛠️ Technology Stack
+
+The landing page is built with:
+
+1. **Framework**: [Next.js 15](https://nextjs.org/) (App Router, static HTML export mode).
+2. **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with a custom grid-dot pattern background and elegant glassmorphism styles.
+3. **Icons**: [Lucide React](https://lucide.dev/).
+4. **Package Manager**: [Bun](https://bun.sh/).
+5. **Deployment**: [GitHub Pages](https://pages.github.com/) deployed automatically via [GitHub Actions](https://github.com/features/actions).
+
+---
+
+## 💻 Local Development
+
+### 1. Install Dependencies
+Make sure you have [Bun](https://bun.sh/) installed, then run:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run the Development Server
+Launch the local server:
+```bash
+bun run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Build & Export Statically
+Generate the production static assets inside the `out/` folder:
+```bash
+bun run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Deployment Pipeline
 
-To learn more about Next.js, take a look at the following resources:
+This website is automatically built and deployed via **GitHub Actions** defined in [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Every push or merge to the `main` or `master` branches:
+1. Triggers the action on a clean Ubuntu runner.
+2. Sets up Node.js & Bun environment.
+3. Installs dependencies and builds the Next.js static site (`bun run build`).
+4. Bundles output directory (`out/`) and deploys it to GitHub Pages.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🤝 Contributing & Support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Created and maintained by [Shaswat Raj (sh20raj)](https://github.com/sh20raj). If you enjoy the visual explanations on the channel, subscribe on [YouTube](https://www.youtube.com/@StackShade) and start building!
