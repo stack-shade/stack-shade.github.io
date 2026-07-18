@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative font-sans selection:bg-violet-500/30 selection:text-violet-200 bg-background text-foreground overflow-hidden">
+    <div className="min-h-screen relative font-sans selection:bg-foreground/20 selection:text-foreground bg-background text-foreground overflow-hidden">
       {/* Schema.org Organization/Website JSON-LD for rich snippets */}
       <script
         type="application/ld+json"
@@ -86,10 +86,6 @@ export default function Home() {
           })
         }}
       />
-      {/* Background soft glow effects */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/10 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute top-[30%] right-[-10%] w-[45%] h-[45%] rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute bottom-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-fuchsia-600/5 blur-[120px] pointer-events-none -z-10" />
 
       {/* Extracted client-side Navbar */}
       <Navbar />
@@ -99,14 +95,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
           <Badge 
             variant="outline" 
-            className="px-3.5 py-1 text-xs mb-6 text-violet-400 border-violet-500/20 bg-violet-500/5 hover:bg-violet-500/10 transition-colors font-medium tracking-wide uppercase"
+            className="px-3.5 py-1 text-xs mb-6 text-muted-foreground border-border bg-transparent font-medium tracking-wide uppercase"
           >
-            <Sparkles className="w-3.5 h-3.5 text-violet-400 mr-1.5 inline" />
+            <Sparkles className="w-3.5 h-3.5 mr-1.5 inline text-muted-foreground" />
             Code. Design. Engineer. Scale.
           </Badge>
           
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight max-w-3xl">
-            Learn Faster, <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Remember Longer</span>
+            Learn Faster, <span className="text-muted-foreground">Remember Longer</span>
           </h1>
 
           <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl mb-10 leading-relaxed">
@@ -118,7 +114,7 @@ export default function Home() {
               href="https://www.youtube.com/@StackShade" 
               target="_blank" 
               rel="noopener noreferrer"
-              className={buttonVariants({ size: "lg", className: "w-full sm:w-auto px-8 py-6 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-90 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-violet-500/10 cursor-pointer flex justify-center items-center" })}
+              className={buttonVariants({ size: "lg", className: "w-full sm:w-auto px-8 py-6 rounded-xl font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 hover:scale-[1.02] shadow-lg cursor-pointer flex justify-center items-center" })}
             >
               <Play className="w-5 h-5 fill-current mr-2" />
               Watch on YouTube
@@ -131,7 +127,7 @@ export default function Home() {
               className={buttonVariants({ size: "lg", variant: "outline", className: "w-full sm:w-auto px-8 py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center" })}
             >
               StackShade HQ (Notion)
-              <ArrowUpRight className="w-4 h-4 text-violet-400 ml-1" />
+              <ArrowUpRight className="w-4 h-4 text-muted-foreground ml-1" />
             </a>
           </div>
 
@@ -146,7 +142,7 @@ export default function Home() {
       </section>
 
       {/* Focus Areas Section */}
-      <section id="focus-areas" className="py-20 border-t bg-card/20">
+      <section id="focus-areas" className="py-20 border-t bg-card/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight">What We Build & Learn</h2>
@@ -157,9 +153,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Card 1: DSA */}
-            <Card className="bg-card/40 border-border hover:border-violet-500/30 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 hover:-translate-y-1">
+            <Card className="bg-card/30 border-border hover:border-foreground/30 hover:bg-muted/10 hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="flex flex-col gap-4">
-                <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 shadow-inner">
+                <div className="w-12 h-12 rounded-xl border border-border flex items-center justify-center text-foreground shadow-sm">
                   <Code2 className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-bold">DSA Patterns & Problem Solving</CardTitle>
@@ -177,9 +173,9 @@ export default function Home() {
             </Card>
 
             {/* Card 2: System Design */}
-            <Card className="bg-card/40 border-border hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-300 hover:-translate-y-1">
+            <Card className="bg-card/30 border-border hover:border-foreground/30 hover:bg-muted/10 hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="flex flex-col gap-4">
-                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner">
+                <div className="w-12 h-12 rounded-xl border border-border flex items-center justify-center text-foreground shadow-sm">
                   <Server className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-bold">System Design & Architecture</CardTitle>
@@ -197,9 +193,9 @@ export default function Home() {
             </Card>
 
             {/* Card 3: Backend & DevOps */}
-            <Card className="bg-card/40 border-border hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 hover:-translate-y-1">
+            <Card className="bg-card/30 border-border hover:border-foreground/30 hover:bg-muted/10 hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="flex flex-col gap-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-inner">
+                <div className="w-12 h-12 rounded-xl border border-border flex items-center justify-center text-foreground shadow-sm">
                   <Terminal className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-bold">Backend Engineering & Infrastructure</CardTitle>
@@ -217,9 +213,9 @@ export default function Home() {
             </Card>
 
             {/* Card 4: Next.js & AI */}
-            <Card className="bg-card/40 border-border hover:border-fuchsia-500/30 hover:shadow-lg hover:shadow-fuchsia-500/5 transition-all duration-300 hover:-translate-y-1">
+            <Card className="bg-card/30 border-border hover:border-foreground/30 hover:bg-muted/10 hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="flex flex-col gap-4">
-                <div className="w-12 h-12 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 shadow-inner">
+                <div className="w-12 h-12 rounded-xl border border-border flex items-center justify-center text-foreground shadow-sm">
                   <Sparkles className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-bold">Next.js & AI Engineering</CardTitle>
@@ -240,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="py-20 border-t bg-card/40">
+      <section id="courses" className="py-20 border-t bg-card/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight">Courses & Visual Series</h2>
@@ -251,26 +247,26 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Course 1 */}
-            <Card className="bg-card/55 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-violet-500/20 hover:-translate-y-0.5 transition-all duration-300">
+            <Card className="bg-card/30 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-foreground/30 hover:-translate-y-0.5 transition-all duration-300">
               <CardHeader className="p-6">
                 <div>
-                  <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors mb-4">
+                  <Badge variant="outline" className="border-border text-foreground mb-4">
                     Free Series
                   </Badge>
-                  <CardTitle className="text-lg font-bold group-hover:text-violet-400 transition-colors">Visual DSA Patterns</CardTitle>
+                  <CardTitle className="text-lg font-bold transition-colors">Visual DSA Patterns</CardTitle>
                   <p className="text-muted-foreground text-xs sm:text-sm mt-2 leading-relaxed">
                     20+ core algorithms explained through step-by-step visual execution flowcharts.
                   </p>
                 </div>
               </CardHeader>
               <CardContent className="px-6 pb-6 pt-0 mt-auto">
-                <div className="pt-4 border-t border-zinc-900/80 flex items-center justify-between">
+                <div className="pt-4 border-t border-border flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground/60">Algorithms</span>
                   <a 
                     href="https://www.youtube.com/@StackShade" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors group/link"
+                    className="flex items-center gap-1 text-xs font-semibold text-foreground hover:underline transition-all group/link"
                   >
                     Start Series
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
@@ -280,10 +276,10 @@ export default function Home() {
             </Card>
 
             {/* Course 2 */}
-            <Card className="bg-card/55 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-zinc-800 transition-all duration-300">
+            <Card className="bg-card/30 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-foreground/30 hover:-translate-y-0.5 transition-all duration-300">
               <CardHeader className="p-6">
                 <div>
-                  <Badge variant="outline" className="bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-colors mb-4">
+                  <Badge variant="outline" className="border-border text-muted-foreground mb-4">
                     Coming Soon
                   </Badge>
                   <CardTitle className="text-lg font-bold">System Design Cookbook</CardTitle>
@@ -293,7 +289,7 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardContent className="px-6 pb-6 pt-0 mt-auto">
-                <div className="pt-4 border-t border-zinc-900/80 flex items-center justify-between">
+                <div className="pt-4 border-t border-border flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground/60">Architecture</span>
                   <span className="text-xs font-semibold text-muted-foreground/50">Notify Me</span>
                 </div>
@@ -301,10 +297,10 @@ export default function Home() {
             </Card>
 
             {/* Course 3 */}
-            <Card className="bg-card/55 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-zinc-800 transition-all duration-300">
+            <Card className="bg-card/30 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-foreground/30 hover:-translate-y-0.5 transition-all duration-300">
               <CardHeader className="p-6">
                 <div>
-                  <Badge variant="outline" className="bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-colors mb-4">
+                  <Badge variant="outline" className="border-border text-muted-foreground mb-4">
                     Coming Soon
                   </Badge>
                   <CardTitle className="text-lg font-bold">Next.js & AI Eng</CardTitle>
@@ -314,7 +310,7 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardContent className="px-6 pb-6 pt-0 mt-auto">
-                <div className="pt-4 border-t border-zinc-900/80 flex items-center justify-between">
+                <div className="pt-4 border-t border-border flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground/60">Full Stack</span>
                   <span className="text-xs font-semibold text-muted-foreground/50">Notify Me</span>
                 </div>
@@ -322,10 +318,10 @@ export default function Home() {
             </Card>
 
             {/* Course 4 */}
-            <Card className="bg-card/55 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-zinc-800 transition-all duration-300">
+            <Card className="bg-card/30 border-border flex flex-col justify-between h-full relative overflow-hidden group hover:border-foreground/30 hover:-translate-y-0.5 transition-all duration-300">
               <CardHeader className="p-6">
                 <div>
-                  <Badge variant="outline" className="bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-colors mb-4">
+                  <Badge variant="outline" className="border-border text-muted-foreground mb-4">
                     Coming Soon
                   </Badge>
                   <CardTitle className="text-lg font-bold">DevOps & DB Internals</CardTitle>
@@ -335,7 +331,7 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardContent className="px-6 pb-6 pt-0 mt-auto">
-                <div className="pt-4 border-t border-zinc-900/80 flex items-center justify-between">
+                <div className="pt-4 border-t border-border flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground/60">Infrastructure</span>
                   <span className="text-xs font-semibold text-muted-foreground/50">Notify Me</span>
                 </div>
@@ -346,18 +342,18 @@ export default function Home() {
       </section>
 
       {/* Creator Section */}
-      <section id="creator" className="py-20 border-t bg-card/20">
+      <section id="creator" className="py-20 border-t bg-card/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-2">Meet the Creator</h2>
             <p className="text-muted-foreground text-sm">Building software with clarity and design.</p>
           </div>
 
-          <Card className="bg-card/30 border-border p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-center">
+          <Card className="bg-card/20 border-border p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-center">
             {/* Creator Avatar with initials */}
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500 flex items-center justify-center p-1 shadow-lg shadow-violet-500/10 shrink-0 select-none">
-              <div className="w-full h-full rounded-full bg-zinc-900 flex items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-fuchsia-400">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-border flex items-center justify-center p-1 shrink-0 select-none">
+              <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
+                <span className="text-2xl sm:text-3xl font-black tracking-widest text-foreground">
                   SR
                 </span>
               </div>
@@ -366,7 +362,7 @@ export default function Home() {
             {/* Bio & Details */}
             <div className="flex-1 text-center md:text-left">
               <h3 className="text-2xl font-bold text-foreground">Shaswat Raj</h3>
-              <p className="text-xs font-mono text-violet-400 mt-1 mb-4">Software Engineer & Tech Educator</p>
+              <p className="text-xs font-mono text-muted-foreground mt-1 mb-4">Software Engineer & Tech Educator</p>
               
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-6">
                 Shaswat is a software developer and the creator of StackShade. Driven by the philosophy of <em>&ldquo;learn deeply, build practically, and explain visually,&rdquo;</em> he focuses on demystifying complex concepts in computer science, system design, and AI engineering for developers worldwide.
@@ -413,7 +409,7 @@ export default function Home() {
             © {new Date().getFullYear()} StackShade. Created by{" "}
             <a 
               href="https://github.com/sh20raj" 
-              className="text-muted-foreground hover:text-violet-400 hover:underline transition-all"
+              className="text-muted-foreground hover:underline transition-all"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -428,7 +424,7 @@ export default function Home() {
               target="_blank" 
               rel="noopener noreferrer"
               aria-label="YouTube Channel" 
-              className="text-muted-foreground hover:text-red-500 transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Youtube className="w-5 h-5 fill-current" />
             </a>

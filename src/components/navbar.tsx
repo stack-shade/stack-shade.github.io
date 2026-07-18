@@ -37,7 +37,7 @@ export function Navbar() {
             href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1 font-semibold"
+            className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
           >
             StackShade HQ
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -49,7 +49,7 @@ export function Navbar() {
             href="https://www.youtube.com/@StackShade" 
             target="_blank" 
             rel="noopener noreferrer"
-            className={buttonVariants({ variant: "default", className: "bg-red-600 hover:bg-red-700 text-white font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer" })}
+            className={buttonVariants({ variant: "default", className: "font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer" })}
           >
             <Youtube className="w-4 h-4 fill-current mr-2" />
             Subscribe
@@ -95,7 +95,7 @@ export function Navbar() {
                 href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-lg font-medium text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1"
+                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
               >
                 StackShade HQ (Notion)
                 <ArrowUpRight className="w-4 h-4" />
@@ -105,7 +105,7 @@ export function Navbar() {
                 href="https://www.youtube.com/@StackShade" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={buttonVariants({ variant: "default", className: "bg-red-600 hover:bg-red-700 text-white font-semibold w-full py-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center" })}
+                className={buttonVariants({ variant: "default", className: "w-full py-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center font-semibold" })}
               >
                 <Youtube className="w-5 h-5 fill-current mr-2" />
                 Subscribe on YouTube
