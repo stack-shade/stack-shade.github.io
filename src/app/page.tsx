@@ -1,24 +1,32 @@
-'use client';
-
 import React from "react";
+import { Metadata } from "next";
 import { 
-  Layers, 
-  Youtube, 
-  Github, 
-  Globe, 
   ArrowUpRight, 
   Code2, 
   Server, 
   Terminal, 
   Sparkles, 
   ArrowRight,
-  Menu,
-  Play
+  Play,
+  Globe,
+  Github,
+  Youtube
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Navbar } from "@/components/navbar";
+
+export const metadata: Metadata = {
+  title: "StackShade — Learn Faster, Remember Longer",
+  description: "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "StackShade",
+    statusBarStyle: "default",
+  },
+};
 
 export default function Home() {
   return (
@@ -28,111 +36,8 @@ export default function Home() {
       <div className="absolute top-[30%] right-[-10%] w-[45%] h-[45%] rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-fuchsia-600/5 blur-[120px] pointer-events-none -z-10" />
 
-      {/* Header/Navbar */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
-              <Layers className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
-              StackShade
-            </span>
-          </div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="#focus-areas" className="text-muted-foreground hover:text-foreground transition-colors">Topics</a>
-            <a href="#courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</a>
-            <a href="#creator" className="text-muted-foreground hover:text-foreground transition-colors">Creator</a>
-            <a 
-              href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1 font-semibold"
-            >
-              StackShade HQ
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </nav>
-
-          <div className="hidden md:flex items-center gap-4">
-            <Button 
-              asChild
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold transition-all duration-300 hover:scale-[1.02] shadow-md shadow-red-600/10 cursor-pointer"
-            >
-              <a 
-                href="https://www.youtube.com/@StackShade" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Youtube className="w-4 h-4 fill-current mr-2" />
-                Subscribe
-              </a>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button using Sheet Component */}
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Toggle menu" className="cursor-pointer">
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-background/95 backdrop-blur-md border-l">
-              <SheetHeader>
-                <SheetTitle className="text-left flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-violet-400" />
-                  StackShade
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col gap-6 mt-8">
-                <a 
-                  href="#focus-areas" 
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Topics
-                </a>
-                <a 
-                  href="#courses" 
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Courses
-                </a>
-                <a 
-                  href="#creator" 
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Creator
-                </a>
-                <a 
-                  href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-lg font-medium text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1"
-                >
-                  StackShade HQ (Notion)
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-                <hr className="border-border" />
-                <Button 
-                  asChild
-                  className="bg-red-600 hover:bg-red-700 text-white font-semibold w-full py-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-                >
-                  <a 
-                    href="https://www.youtube.com/@StackShade" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Youtube className="w-5 h-5 fill-current mr-2" />
-                    Subscribe on YouTube
-                  </a>
-                </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </header>
+      {/* Extracted client-side Navbar */}
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-24 md:pt-32 md:pb-36 overflow-hidden">
@@ -146,7 +51,7 @@ export default function Home() {
           </Badge>
           
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight max-w-3xl">
-            Learn Faster, <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 animate-in fade-in duration-1000">Remember Longer</span>
+            Learn Faster, <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Remember Longer</span>
           </h1>
 
           <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl mb-10 leading-relaxed">
@@ -154,36 +59,25 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-lg">
-            <Button 
-              asChild
-              size="lg"
-              className="w-full sm:w-auto px-8 py-6 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-90 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-violet-500/10 cursor-pointer"
+            <a 
+              href="https://www.youtube.com/@StackShade" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={buttonVariants({ size: "lg", className: "w-full sm:w-auto px-8 py-6 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-90 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-violet-500/10 cursor-pointer flex justify-center items-center" })}
             >
-              <a 
-                href="https://www.youtube.com/@StackShade" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Play className="w-5 h-5 fill-current mr-2" />
-                Watch on YouTube
-              </a>
-            </Button>
+              <Play className="w-5 h-5 fill-current mr-2" />
+              Watch on YouTube
+            </a>
             
-            <Button 
-              asChild
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto px-8 py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+            <a 
+              href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ size: "lg", variant: "outline", className: "w-full sm:w-auto px-8 py-6 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center" })}
             >
-              <a 
-                href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                StackShade HQ (Notion)
-                <ArrowUpRight className="w-4 h-4 text-violet-400 ml-1" />
-              </a>
-            </Button>
+              StackShade HQ (Notion)
+              <ArrowUpRight className="w-4 h-4 text-violet-400 ml-1" />
+            </a>
           </div>
 
           <a 
@@ -423,40 +317,29 @@ export default function Home() {
                 Shaswat is a software developer and the creator of StackShade. Driven by the philosophy of <em>&ldquo;learn deeply, build practically, and explain visually,&rdquo;</em> he focuses on demystifying complex concepts in computer science, system design, and AI engineering for developers worldwide.
               </p>
 
-              {/* Creator Links using shadcn Buttons */}
+              {/* Creator Links using shadcn buttonVariants */}
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                <Button 
-                  asChild
-                  variant="secondary"
-                  size="sm"
-                  className="rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                <a 
+                  href="https://sh20raj.github.io/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "secondary", size: "sm", className: "rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02] flex items-center" })}
                 >
-                  <a 
-                    href="https://sh20raj.github.io/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Globe className="w-3.5 h-3.5 text-muted-foreground mr-1.5" />
-                    Portfolio Website
-                    <ArrowUpRight className="w-3 h-3 text-muted-foreground ml-1" />
-                  </a>
-                </Button>
-                <Button 
-                  asChild
-                  variant="secondary"
-                  size="sm"
-                  className="rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                  <Globe className="w-3.5 h-3.5 text-muted-foreground mr-1.5" />
+                  Portfolio Website
+                  <ArrowUpRight className="w-3 h-3 text-muted-foreground ml-1" />
+                </a>
+                
+                <a 
+                  href="https://github.com/sh20raj/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "secondary", size: "sm", className: "rounded-lg text-xs font-semibold cursor-pointer transition-all duration-300 hover:scale-[1.02] flex items-center" })}
                 >
-                  <a 
-                    href="https://github.com/sh20raj/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="w-3.5 h-3.5 text-muted-foreground mr-1.5" />
-                    GitHub Profile
-                    <ArrowUpRight className="w-3 h-3 text-muted-foreground ml-1" />
-                  </a>
-                </Button>
+                  <Github className="w-3.5 h-3.5 text-muted-foreground mr-1.5" />
+                  GitHub Profile
+                  <ArrowUpRight className="w-3 h-3 text-muted-foreground ml-1" />
+                </a>
               </div>
             </div>
           </Card>
@@ -467,7 +350,7 @@ export default function Home() {
       <footer className="py-12 border-t bg-background text-center">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <Layers className="w-5 h-5 text-violet-400" />
+            <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
             <span className="font-bold text-foreground tracking-tight">StackShade</span>
           </div>
 

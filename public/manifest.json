@@ -1,0 +1,18 @@
+{
+  "name": "StackShade — Visual Engineering",
+  "short_name": "StackShade",
+  "description": "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
