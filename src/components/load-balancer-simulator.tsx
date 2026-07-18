@@ -38,7 +38,7 @@ export function LoadBalancerSimulator() {
   const handleRequest = (count = 1) => {
     let currentServers = [...servers];
     let currIndex = nextIndex;
-    let newLogs: typeof requestLog = [];
+    const newLogs: typeof requestLog = [];
 
     for (let k = 0; k < count; k++) {
       let targetServerId = "";

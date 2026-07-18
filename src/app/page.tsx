@@ -401,6 +401,7 @@ export default function Home() {
       <footer className="py-12 border-t bg-background text-center">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
             <span className="font-bold text-foreground tracking-tight">StackShade</span>
           </div>

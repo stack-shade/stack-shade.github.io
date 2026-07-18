@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { 
   Youtube, 
   ArrowUpRight, 
@@ -22,20 +23,21 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+          <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="StackShade Logo" className="w-9 h-9 rounded-lg object-cover" />
             <span className="font-bold text-xl tracking-tight text-foreground">
               StackShade
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="/#focus-areas" className="text-muted-foreground hover:text-foreground transition-colors">Topics</a>
-          <a href="/#courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</a>
-          <a href="/#creator" className="text-muted-foreground hover:text-foreground transition-colors">Creator</a>
-          <a href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</a>
+          <Link href="/#focus-areas" className="text-muted-foreground hover:text-foreground transition-colors">Topics</Link>
+          <Link href="/#courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
+          <Link href="/#creator" className="text-muted-foreground hover:text-foreground transition-colors">Creator</Link>
+          <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
           <a 
             href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
             target="_blank" 
@@ -71,35 +73,36 @@ export function Navbar() {
           <SheetContent side="right" className="bg-background/95 backdrop-blur-md border-l">
             <SheetHeader>
               <SheetTitle className="text-left flex items-center gap-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/logo.png" alt="StackShade Logo" className="w-6 h-6 rounded-md object-cover" />
                 StackShade
               </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-6 mt-8">
-              <a 
+              <Link 
                 href="/#focus-areas" 
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 Topics
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/#courses" 
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 Courses
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/#creator" 
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 Creator
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/blog" 
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 Blog
-              </a>
+              </Link>
               <a 
                 href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
                 target="_blank" 

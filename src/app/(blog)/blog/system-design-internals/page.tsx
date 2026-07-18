@@ -12,11 +12,10 @@ import {
   GitBranch, 
   Layers 
 } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Navbar } from "@/components/navbar";
 import { LoadBalancerSimulator } from "@/components/load-balancer-simulator";
+import { ConsistentHashingSimulator } from "@/components/consistent-hashing-simulator";
 
 export const metadata: Metadata = {
   title: "Scaling High-Throughput Distributed Systems: A Visual Deep Dive",
@@ -56,7 +55,7 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   return (
-    <div className="min-h-screen relative font-sans selection:bg-foreground/20 selection:text-foreground bg-background text-foreground overflow-hidden">
+    <div className="selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
       {/* Article Schema JSON-LD */}
       <script
         type="application/ld+json"
@@ -88,9 +87,6 @@ export default function ArticlePage() {
           })
         }}
       />
-
-      {/* Navbar */}
-      <Navbar />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         {/* Back Link */}
@@ -133,6 +129,7 @@ export default function ArticlePage() {
 
           {/* Banner */}
           <div className="border border-border rounded-2xl overflow-hidden aspect-video relative bg-muted/10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/blog/system-design-banner.png" 
               alt="System Design Architecture Diagram" 
@@ -284,7 +281,7 @@ export default function ArticlePage() {
                   When a hot cache key expires, thousands of concurrent requests might hit the cache simultaneously, see a miss, and query the database at the exact same moment. This can easily trigger database lockouts.
                 </p>
                 <div className="bg-background/40 border border-border p-4 rounded-lg font-mono text-xs text-foreground">
-                  <span className="text-muted-foreground">// Mitigating Cache Stampede using Single-Flight / Mutex Locking</span>
+                  <span className="text-muted-foreground">{"// Mitigating Cache Stampede using Single-Flight / Mutex Locking"}</span>
                   <br />
                   <span className="text-violet-400">func</span> <span className="text-cyan-400">FetchHotKey</span>(key string) (Data, error) &#123;
                   <br />
@@ -293,14 +290,14 @@ export default function ArticlePage() {
                   &nbsp;&nbsp;<span className="text-violet-400">if</span> ok &#123; <span className="text-violet-400">return</span> val, nil &#125;
                   <br />
                   <br />
-                  &nbsp;&nbsp;<span className="text-muted-foreground">// Lock so only 1 thread fetches from DB</span>
+                  &nbsp;&nbsp;<span className="text-muted-foreground">{"// Lock so only 1 thread fetches from DB"}</span>
                   <br />
                   &nbsp;&nbsp;Mutex.Lock(key)
                   <br />
                   &nbsp;&nbsp;<span className="text-violet-400">defer</span> Mutex.Unlock(key)
                   <br />
                   <br />
-                  &nbsp;&nbsp;<span className="text-muted-foreground">// Double-check cache inside lock</span>
+                  &nbsp;&nbsp;<span className="text-muted-foreground">{"// Double-check cache inside lock"}</span>
                   <br />
                   &nbsp;&nbsp;val, ok = Cache.Get(key)
                   <br />
@@ -369,6 +366,8 @@ export default function ArticlePage() {
               <p>
                 Keys are hashed and mapped to a position on the ring. The system traverses clockwise to find the first server node. When a node is added or removed, only a fraction of keys (roughly <code>K/N</code>) need to be remapped to other nodes, leaving the rest of the database cluster unaffected.
               </p>
+
+              <ConsistentHashingSimulator />
             </section>
 
             <hr className="border-border/60" />
@@ -412,7 +411,7 @@ export default function ArticlePage() {
                     <Badge variant="outline">Transactions</Badge>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    Guarantees that a message is processed exactly once by using transactional coordination (like Kafka's transaction API) between producer, broker, and consumer database. This is slow and complex, but crucial for financial structures.
+                    Guarantees that a message is processed exactly once by using transactional coordination (like Kafka&apos;s transaction API) between producer, broker, and consumer database. This is slow and complex, but crucial for financial structures.
                   </p>
                 </div>
               </div>
@@ -455,13 +454,6 @@ export default function ArticlePage() {
           </div>
         </article>
       </main>
-
-      {/* Footer */}
-      <footer className="py-12 border-t bg-background text-center mt-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-muted-foreground/60">
-          © {new Date().getFullYear()} StackShade. All rights reserved.
-        </div>
-      </footer>
     </div>
   );
 }

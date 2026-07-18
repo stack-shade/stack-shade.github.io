@@ -9,7 +9,6 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Engineering Blog — StackShade",
@@ -47,10 +46,7 @@ export const metadata: Metadata = {
 
 export default function BlogIndex() {
   return (
-    <div className="min-h-screen relative font-sans selection:bg-foreground/20 selection:text-foreground bg-background text-foreground overflow-hidden">
-      {/* Navbar */}
-      <Navbar />
-
+    <div className="selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
       {/* Main Container */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         {/* Header */}
@@ -73,6 +69,7 @@ export default function BlogIndex() {
           <Card className="bg-card/20 border-border hover:border-foreground/30 transition-all duration-300 overflow-hidden group">
             {/* Banner image wrapper */}
             <a href="/blog/system-design-internals" className="block relative aspect-video md:aspect-[21/9] overflow-hidden border-b border-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/blog/system-design-banner.png" 
                 alt="Scaling Distributed Systems Banner" 
@@ -120,13 +117,6 @@ export default function BlogIndex() {
           </Card>
         </div>
       </main>
-
-      {/* Simple Footer */}
-      <footer className="py-12 border-t bg-background text-center mt-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-muted-foreground/60">
-          © {new Date().getFullYear()} StackShade. All rights reserved.
-        </div>
-      </footer>
     </div>
   );
 }
