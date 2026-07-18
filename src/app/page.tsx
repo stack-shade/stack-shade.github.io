@@ -26,11 +26,66 @@ export const metadata: Metadata = {
     title: "StackShade",
     statusBarStyle: "default",
   },
+  openGraph: {
+    title: "StackShade — Learn Faster, Remember Longer",
+    description: "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
+    url: "https://stack-shade.github.io",
+    siteName: "StackShade",
+    images: [
+      {
+        url: "https://stack-shade.github.io/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "StackShade — Visual Engineering Social Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StackShade — Learn Faster, Remember Longer",
+    description: "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
+    images: ["https://stack-shade.github.io/og-image.png"],
+  },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+  alternates: {
+    canonical: "https://stack-shade.github.io",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function Home() {
   return (
     <div className="min-h-screen relative font-sans selection:bg-violet-500/30 selection:text-violet-200 bg-background text-foreground overflow-hidden">
+      {/* Schema.org Organization/Website JSON-LD for rich snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "StackShade",
+            "url": "https://stack-shade.github.io",
+            "description": "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "StackShade",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://stack-shade.github.io/logo.png"
+              }
+            }
+          })
+        }}
+      />
       {/* Background soft glow effects */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/10 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute top-[30%] right-[-10%] w-[45%] h-[45%] rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none -z-10" />
