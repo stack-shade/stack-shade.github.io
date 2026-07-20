@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   verification: {
     google: "_rPi-600gMFYjNa9qzMTuIQg1_aey417EeAdaiIqgFg",
   },
+  other: {
+    "google-adsense-account": "ca-pub-1828915420581549",
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +35,11 @@ export default function RootLayout({
         className={`${plusJakarta.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         {children}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1828915420581549"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QDGSX2YTBT"
           strategy="afterInteractive"
