@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "StackShade — Learn Faster, Remember Longer",
   description: "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
+  verification: {
+    google: "_rPi-600gMFYjNa9qzMTuIQg1_aey417EeAdaiIqgFg",
+  },
 };
 
 export default function RootLayout({
