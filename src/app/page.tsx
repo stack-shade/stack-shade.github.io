@@ -413,7 +413,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors text-xs sm:text-sm"
           >
-            <span className="font-semibold text-foreground">AlgoForge</span>
+            <span className="font-semibold text-foreground">StackShade&apos;s Algoforge</span>
           </a>
 
           <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm">
