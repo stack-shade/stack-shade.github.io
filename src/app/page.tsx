@@ -406,6 +406,15 @@ export default function Home() {
             <span className="font-bold text-foreground tracking-tight">StackShade</span>
           </div>
 
+          <a 
+            href="https://stack-shade.github.io/algoforge" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-foreground transition-colors text-xs sm:text-sm"
+          >
+            <span className="font-semibold text-foreground">AlgoForge</span> — Master coding interviews with patterns, roadmaps, and original explanations.
+          </a>
+
           <p className="text-muted-foreground/60 text-xs sm:text-sm">
             © {new Date().getFullYear()} StackShade. Created by{" "}
             <a 

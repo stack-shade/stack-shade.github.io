@@ -34,9 +34,6 @@ export function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link href="/#focus-areas" className="text-muted-foreground hover:text-foreground transition-colors">Topics</Link>
-          <Link href="/#courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
-          <Link href="/#creator" className="text-muted-foreground hover:text-foreground transition-colors">Creator</Link>
           <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
           <a 
             href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
@@ -79,24 +76,6 @@ export function Navbar() {
               </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-6 mt-8">
-              <Link 
-                href="/#focus-areas" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Topics
-              </Link>
-              <Link 
-                href="/#courses" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Courses
-              </Link>
-              <Link 
-                href="/#creator" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Creator
-              </Link>
               <Link 
                 href="/blog" 
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
