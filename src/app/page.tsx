@@ -16,6 +16,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/navbar";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "StackShade — Learn Faster, Remember Longer",
@@ -399,7 +400,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 border-t bg-background text-center">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
@@ -412,8 +413,14 @@ export default function Home() {
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors text-xs sm:text-sm"
           >
-            <span className="font-semibold text-foreground">AlgoForge</span> — Master coding interviews with patterns, roadmaps, and original explanations.
+            <span className="font-semibold text-foreground">AlgoForge</span>
           </a>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm">
+            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
+            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+            <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy</Link>
+          </div>
 
           <p className="text-muted-foreground/60 text-xs sm:text-sm">
             © {new Date().getFullYear()} StackShade. Created by{" "}
