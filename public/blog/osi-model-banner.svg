@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#FAF9F6"/>
+  <rect x="24" y="24" width="1152" height="582" rx="20" fill="none" stroke="#E3E1DD" stroke-width="2"/>
+
+  <!-- Left: title block -->
+  <text x="80" y="120" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" letter-spacing="6" fill="#7A756E">STACKSHADE · NETWORKING</text>
+  <text x="80" y="215" font-family="ui-sans-serif, system-ui, sans-serif" font-weight="900" font-size="76" fill="#2E2A26">OSI Model</text>
+  <text x="80" y="295" font-family="ui-sans-serif, system-ui, sans-serif" font-weight="900" font-size="76" fill="#2E2A26">Explained</text>
+  <text x="80" y="350" font-family="ui-sans-serif, system-ui, sans-serif" font-size="24" fill="#7A756E">7 Layers of Networking for Beginners</text>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#2E2A26">
+    <rect x="80" y="395" width="330" height="40" rx="8" fill="none" stroke="#2E2A26" stroke-width="1.5"/>
+    <text x="100" y="421">All People Seem To Need Data Processing</text>
+  </g>
+  <text x="80" y="480" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7A756E">Encapsulation → Transmission → Decapsulation</text>
+  <text x="80" y="560" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7A756E">stack-shade.github.io/blog</text>
+
+  <!-- Right: layer stack -->
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <!-- bar template: y start 70, each 66 high, 8 gap -->
+    <g>
+      <rect x="640" y="70" width="460" height="66" rx="10" fill="#2E2A26"/>
+      <text x="668" y="112" font-size="22" font-weight="800" fill="#FAF9F6">Application</text>
+      <text x="1072" y="112" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L7</text>
+    </g>
+    <g>
+      <rect x="640" y="144" width="460" height="66" rx="10" fill="#45403A"/>
+      <text x="668" y="186" font-size="22" font-weight="800" fill="#FAF9F6">Presentation</text>
+      <text x="1072" y="186" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L6</text>
+    </g>
+    <g>
+      <rect x="640" y="218" width="460" height="66" rx="10" fill="#5C564F"/>
+      <text x="668" y="260" font-size="22" font-weight="800" fill="#FAF9F6">Session</text>
+      <text x="1072" y="260" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L5</text>
+    </g>
+    <g>
+      <rect x="640" y="292" width="460" height="66" rx="10" fill="#736C64"/>
+      <text x="668" y="334" font-size="22" font-weight="800" fill="#FAF9F6">Transport</text>
+      <text x="1072" y="334" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L4</text>
+    </g>
+    <g>
+      <rect x="640" y="366" width="460" height="66" rx="10" fill="#8A837A"/>
+      <text x="668" y="408" font-size="22" font-weight="800" fill="#FAF9F6">Network</text>
+      <text x="1072" y="408" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L3</text>
+    </g>
+    <g>
+      <rect x="640" y="440" width="460" height="66" rx="10" fill="#A29A90"/>
+      <text x="668" y="482" font-size="22" font-weight="800" fill="#FAF9F6">Data Link</text>
+      <text x="1072" y="482" font-size="18" font-weight="700" fill="#FAF9F6" text-anchor="end" font-family="ui-monospace, monospace">L2</text>
+    </g>
+    <g>
+      <rect x="640" y="514" width="460" height="66" rx="10" fill="#BAB2A8"/>
+      <text x="668" y="556" font-size="22" font-weight="800" fill="#2E2A26">Physical</text>
+      <text x="1072" y="556" font-size="18" font-weight="700" fill="#2E2A26" text-anchor="end" font-family="ui-monospace, monospace">L1</text>
+    </g>
+  </g>
+
+  <!-- side arrows -->
+  <g stroke="#7A756E" stroke-width="2" fill="none">
+    <path d="M 620 90 L 620 560" stroke-dasharray="4 5"/>
+    <polygon points="620,572 613,556 627,556" fill="#7A756E" stroke="none"/>
+    <path d="M 1120 560 L 1120 90" stroke-dasharray="4 5"/>
+    <polygon points="1120,78 1113,94 1127,94" fill="#7A756E" stroke="none"/>
+  </g>
+</svg>

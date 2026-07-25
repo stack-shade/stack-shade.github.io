@@ -115,6 +115,58 @@ export default function BlogIndex() {
               </a>
             </CardContent>
           </Card>
+
+          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 pt-4">More Deep Dives</h2>
+
+          <Card className="bg-card/20 border-border hover:border-foreground/30 transition-all duration-300 overflow-hidden group">
+            {/* Banner image wrapper */}
+            <a href="/blog/osi-model-explained" className="block relative aspect-video md:aspect-[21/9] overflow-hidden border-b border-border">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/blog/osi-model-banner.svg" 
+                alt="OSI Model 7 Layers Banner" 
+                className="object-cover w-full h-full group-hover:scale-[1.01] transition-transform duration-500"
+              />
+            </a>
+
+            <CardHeader className="p-6 md:p-8 space-y-4">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
+                <span className="flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  Shaswat Raj
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5" />
+                  July 25, 2026
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" />
+                  15 min read
+                </span>
+              </div>
+
+              <div>
+                <a href="/blog/osi-model-explained" className="block group-hover:underline">
+                  <CardTitle className="text-2xl font-bold tracking-tight mb-3">
+                    OSI Model Explained: 7 Layers of Networking for Beginners
+                  </CardTitle>
+                </a>
+                <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                  Master how data travels across the Internet with an interactive layer explorer, encapsulation simulator, animated TCP three-way handshake, OSI vs TCP/IP mapping, and a practice quiz built for CCNA, GATE, and interview prep.
+                </CardDescription>
+              </div>
+            </CardHeader>
+
+            <CardContent className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
+              <a 
+                href="/blog/osi-model-explained"
+                className={buttonVariants({ variant: "default", size: "sm", className: "cursor-pointer font-semibold" })}
+              >
+                Read Article
+                <ArrowRight className="w-4 h-4 ml-1.5" />
+              </a>
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
