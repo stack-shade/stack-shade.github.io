@@ -1,14 +1,10 @@
 import React from "react";
 import { Metadata } from "next";
-import { 
-  ArrowRight, 
-  Calendar, 
-  Clock, 
-  User 
-} from "lucide-react";
+import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Article, sortedArticles } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "Engineering Blog — StackShade",
@@ -44,10 +40,68 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndex() {
+function ArticleCard({ article }: { article: Article }) {
   return (
-    <div className="selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
-      {/* Main Container */}
+    <Card className="bg-card/20 border-border hover:border-foreground/30 transition-all duration-300 overflow-hidden group">
+      <a href={`/blog/${article.slug}`} className="block relative aspect-video md:aspect-[21/9] overflow-hidden border-b border-border">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={article.banner}
+          alt={article.bannerAlt}
+          className="object-cover w-full h-full group-hover:scale-[1.01] transition-transform duration-500"
+        />
+      </a>
+
+      <CardHeader className="p-6 md:p-8 space-y-4">
+        <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
+          <Badge variant="outline" className="uppercase text-[9px] tracking-wider">
+            {article.category}
+          </Badge>
+          <span className="flex items-center gap-1.5">
+            <User className="w-3.5 h-3.5" />
+            {article.author}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5" />
+            {article.displayDate}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            {article.readTime}
+          </span>
+        </div>
+
+        <div>
+          <a href={`/blog/${article.slug}`} className="block group-hover:underline">
+            <CardTitle className="text-2xl font-bold tracking-tight mb-3">
+              {article.title}
+            </CardTitle>
+          </a>
+          <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+            {article.description}
+          </CardDescription>
+        </div>
+      </CardHeader>
+
+      <CardContent className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
+        <a
+          href={`/blog/${article.slug}`}
+          className={buttonVariants({ variant: "default", size: "sm", className: "cursor-pointer font-semibold" })}
+        >
+          Read Article
+          <ArrowRight className="w-4 h-4 ml-1.5" />
+        </a>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function BlogIndex() {
+  const articles = sortedArticles();
+  const [featured, ...rest] = articles;
+
+  return (
+    <div className="font-sans selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         {/* Header */}
         <div className="mb-16 border-b pb-10">
@@ -62,111 +116,26 @@ export default function BlogIndex() {
           </p>
         </div>
 
-        {/* Featured Article */}
         <div className="space-y-12">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6">Featured Deep Dive</h2>
-          
-          <Card className="bg-card/20 border-border hover:border-foreground/30 transition-all duration-300 overflow-hidden group">
-            {/* Banner image wrapper */}
-            <a href="/blog/system-design-internals" className="block relative aspect-video md:aspect-[21/9] overflow-hidden border-b border-border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/blog/system-design-banner.png" 
-                alt="Scaling Distributed Systems Banner" 
-                className="object-cover w-full h-full group-hover:scale-[1.01] transition-transform duration-500"
-              />
-            </a>
+          {featured && (
+            <>
+              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6">
+                Featured Deep Dive
+              </h2>
+              <ArticleCard article={featured} />
+            </>
+          )}
 
-            <CardHeader className="p-6 md:p-8 space-y-4">
-              <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
-                <span className="flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" />
-                  Shaswat Raj
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
-                  July 18, 2026
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" />
-                  12 min read
-                </span>
-              </div>
-
-              <div>
-                <a href="/blog/system-design-internals" className="block group-hover:underline">
-                  <CardTitle className="text-2xl font-bold tracking-tight mb-3">
-                    Scaling High-Throughput Distributed Systems: A Visual Deep Dive
-                  </CardTitle>
-                </a>
-                <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                  Understand the underlying mechanics of Layer 4 vs Layer 7 load balancers, cache consistency patterns, consistent hashing rings, event-driven streaming delivery guarantees, and distributed consensus. Complete with interactive system simulators.
-                </CardDescription>
-              </div>
-            </CardHeader>
-
-            <CardContent className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
-              <a 
-                href="/blog/system-design-internals"
-                className={buttonVariants({ variant: "default", size: "sm", className: "cursor-pointer font-semibold" })}
-              >
-                Read Article
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </a>
-            </CardContent>
-          </Card>
-
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 pt-4">More Deep Dives</h2>
-
-          <Card className="bg-card/20 border-border hover:border-foreground/30 transition-all duration-300 overflow-hidden group">
-            {/* Banner image wrapper */}
-            <a href="/blog/osi-model-explained" className="block relative aspect-video md:aspect-[21/9] overflow-hidden border-b border-border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/blog/osi-model-banner.svg" 
-                alt="OSI Model 7 Layers Banner" 
-                className="object-cover w-full h-full group-hover:scale-[1.01] transition-transform duration-500"
-              />
-            </a>
-
-            <CardHeader className="p-6 md:p-8 space-y-4">
-              <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
-                <span className="flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5" />
-                  Shaswat Raj
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
-                  July 25, 2026
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" />
-                  15 min read
-                </span>
-              </div>
-
-              <div>
-                <a href="/blog/osi-model-explained" className="block group-hover:underline">
-                  <CardTitle className="text-2xl font-bold tracking-tight mb-3">
-                    OSI Model Explained: 7 Layers of Networking for Beginners
-                  </CardTitle>
-                </a>
-                <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                  Master how data travels across the Internet with an interactive layer explorer, encapsulation simulator, animated TCP three-way handshake, OSI vs TCP/IP mapping, and a practice quiz built for CCNA, GATE, and interview prep.
-                </CardDescription>
-              </div>
-            </CardHeader>
-
-            <CardContent className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
-              <a 
-                href="/blog/osi-model-explained"
-                className={buttonVariants({ variant: "default", size: "sm", className: "cursor-pointer font-semibold" })}
-              >
-                Read Article
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </a>
-            </CardContent>
-          </Card>
+          {rest.length > 0 && (
+            <>
+              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 pt-4">
+                More Deep Dives
+              </h2>
+              {rest.map((a) => (
+                <ArticleCard key={a.slug} article={a} />
+              ))}
+            </>
+          )}
         </div>
       </main>
     </div>

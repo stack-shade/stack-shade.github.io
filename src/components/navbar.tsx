@@ -34,6 +34,7 @@ export function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <Link href="/courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
           <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
           <Link href="/algoforge" className="text-muted-foreground hover:text-foreground transition-colors">Algoforge</Link>
           <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>

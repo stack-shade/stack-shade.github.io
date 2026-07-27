@@ -29,8 +29,9 @@ export function BlogNavbar() {
 
         {/* Categories / Links */}
         <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-muted-foreground">
-          <Link href="/blog" className="hover:text-foreground transition-colors">All Articles</Link>
+          <Link href="/courses" className="hover:text-foreground transition-colors font-semibold text-foreground/80">Courses</Link>
           <span className="text-border">|</span>
+          <Link href="/blog" className="hover:text-foreground transition-colors">All Articles</Link>
           <span className="hover:text-foreground cursor-pointer transition-colors">System Design</span>
           <span className="hover:text-foreground cursor-pointer transition-colors">Algorithms</span>
           <span className="hover:text-foreground cursor-pointer transition-colors">Backend</span>
