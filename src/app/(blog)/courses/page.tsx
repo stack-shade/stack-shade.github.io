@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "StackShade Courses — Learn Faster, Remember Longer",
     description:
-      "Full topic-wise organized courses with interactive visual learning, active recall and spaced repetition: DSA, System Design, OS, Networks, Next.js, DevOps.",
+      "Full topic-wise organized courses with interactive visual learning, active recall and spaced repetition: DSA, System Design, OS, Networks, NLP, Next.js, DevOps.",
     url: "https://stack-shade.github.io/courses",
     siteName: "StackShade",
     images: [
@@ -65,7 +65,7 @@ export default function CoursesPage() {
         <div className="flex flex-wrap items-center gap-3">
           <span className="courses-meta flex items-center gap-1.5 text-muted-foreground">
             <GraduationCap className="w-4 h-4" />
-            7 courses · 60+ modules · 400+ lessons
+            8 courses · 70+ modules · 450+ lessons
           </span>
           <a
             href="https://www.youtube.com/@StackShade"
