@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { Metadata } from "next";
 import { buttonVariants } from "@/components/ui/button";
