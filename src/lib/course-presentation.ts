@@ -62,15 +62,14 @@ function genericArtifact(course: Course, module: CourseModule, lesson: Lesson) {
 }
 
 function buildSlides(course: Course, module: CourseModule, lesson: Lesson): PresentationSlide[] {
-  const cn = course.slug === "computer-networks" ? getComputerNetworkLesson(slugify(lesson.title)) : undefined;
-  const cnFallback = course.slug === "computer-networks"
-    ? getComputerNetworkLesson(
-        module.lessons.find((candidate) => candidate.title === lesson.title)
-          ? slugify(lesson.title)
-          : ""
-      )
-    : undefined;
-  const rich = cn ?? cnFallback;
+  const linkedLessonSlug =
+    course.slug === "computer-networks" && lesson.href
+      ? lesson.href.split("/").filter(Boolean).at(-1)
+      : undefined;
+  const rich =
+    course.slug === "computer-networks"
+      ? getComputerNetworkLesson(linkedLessonSlug ?? slugify(lesson.title))
+      : undefined;
 
   const neighboring = module.lessons
     .filter((candidate) => candidate.title !== lesson.title)
