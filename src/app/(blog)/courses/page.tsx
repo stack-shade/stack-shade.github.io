@@ -44,26 +44,26 @@ export const metadata: Metadata = {
 
 export default function CoursesPage() {
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <main className="stack-courses max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-24">
       {/* Header */}
-      <div className="mb-14 border-b border-border pb-10 max-w-3xl">
+      <div className="mb-16 border-b border-border/80 pb-12 max-w-4xl">
         <Badge
           variant="outline"
           className="mb-4 border-border text-muted-foreground uppercase text-[10px] tracking-wider"
         >
           StackShade Courses
         </Badge>
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4">
+        <h1 className="courses-display text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
           Learn faster. <span className="text-muted-foreground">Remember longer.</span>
         </h1>
-        <p className="text-muted-foreground text-base leading-relaxed mb-6">
+        <p className="courses-copy text-muted-foreground mb-7">
           Every course is organized topic-by-topic and engineered around how memory actually works:
           interactive visualizations instead of walls of text, active recall after every module,
           spaced repetition that resurfaces lessons right before you forget them, and Feynman
           prompts that force real understanding.
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+          <span className="courses-meta flex items-center gap-1.5 text-muted-foreground">
             <GraduationCap className="w-4 h-4" />
             7 courses · 60+ modules · 400+ lessons
           </span>
@@ -71,7 +71,7 @@ export default function CoursesPage() {
             href="https://www.youtube.com/@StackShade"
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonVariants({ variant: "outline", size: "sm", className: "text-xs cursor-pointer" })}
+            className={buttonVariants({ variant: "outline", size: "sm", className: "text-xs cursor-pointer font-medium" })}
           >
             <Youtube className="w-3.5 h-3.5 mr-1.5" />
             Companion videos on YouTube
