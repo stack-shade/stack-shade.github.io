@@ -11,7 +11,7 @@ function Flow({ items, vertical=false }: { items: string[]; vertical?: boolean }
   return (
     <div className={vertical ? "space-y-2" : "flex flex-wrap items-center gap-2"}>
       {items.map((item, i) => (
-        <div key={item} className="flex items-center gap-2">
+        <div key={`${item}-${i}`} className="flex items-center gap-2">
           <div className="rounded-lg border border-border bg-background/60 px-3 py-2 text-xs font-semibold text-foreground shadow-sm">
             {item}
           </div>
@@ -129,28 +129,60 @@ export function ComputerNetworkVisual({ kind }: { kind: VisualKind }) {
       </div>
     ),
     encapsulation: (
-      <div className="space-y-3">
-        {[
-          ["Data","Application payload"],
-          ["Segment","+ TCP/UDP header"],
-          ["Packet","+ IP header"],
-          ["Frame","+ MAC/FCS"],
-          ["Bits","Signal on the medium"],
-        ].map(([a,b],i) => (
-          <div key={a} className="flex items-center gap-3 border border-border rounded-lg p-3 bg-background/50">
-            <div className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-xs font-bold">{i+1}</div>
-            <div><div className="text-xs font-bold">{a}</div><div className="text-[11px] text-muted-foreground">{b}</div></div>
+      <div className="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+        <div className="rounded-xl border border-border p-4 bg-background/40">
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-3">Sender · encapsulation</div>
+          <div className="space-y-1.5">
+            {[
+              ["Data","Application payload"],
+              ["Segment","+ TCP/UDP header"],
+              ["Packet","+ IP header"],
+              ["Frame","+ MAC header + FCS"],
+              ["Bits","Physical signal"],
+            ].map(([name, detail], i) => (
+              <div key={name} className="rounded-lg border border-border bg-background/60 p-2.5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[11px] font-bold">{name}</span>
+                  <span className="text-[10px] text-muted-foreground">L{7 - i}</span>
+                </div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">{detail}</div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div className="flex lg:flex-col items-center justify-center gap-2 text-muted-foreground">
+          <ArrowRight className="h-5 w-5 lg:rotate-0" />
+          <span className="font-mono text-[9px] uppercase tracking-widest [writing-mode:vertical-rl] lg:block hidden">wire</span>
+        </div>
+        <div className="rounded-xl border border-border p-4 bg-background/40">
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-3">Receiver · decapsulation</div>
+          <div className="space-y-1.5">
+            {[
+              ["Bits","Signal detected"],
+              ["Frame","Verify link integrity"],
+              ["Packet","Process IP header"],
+              ["Segment","Process transport header"],
+              ["Data","Deliver payload"],
+            ].map(([name, detail], i) => (
+              <div key={name} className="rounded-lg border border-border bg-background/60 p-2.5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[11px] font-bold">{name}</span>
+                  <span className="text-[10px] text-muted-foreground">L{1 + i}</span>
+                </div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">{detail}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     ),
     "web-journey": <Flow items={["URL","DNS","Route","TLS / QUIC","HTTP","Render"]} />,
     signals: (
       <div className="grid sm:grid-cols-3 gap-3">
         {([
-          [Wifi, "Copper", "Electrical voltage changes"],
+          [Signal, "Copper", "Electrical voltage changes"],
           [Radio, "Fiber", "Light pulses"],
-          [Signal, "Radio", "Electromagnetic waves"],
+          [Wifi, "Radio", "Electromagnetic waves"],
         ] as [LucideIcon, string, string][]).map(([Icon, name, detail]) => (
           <div key={name} className="rounded-xl border border-border p-4 bg-background/50">
             <Icon className="h-5 w-5 mb-2" />
