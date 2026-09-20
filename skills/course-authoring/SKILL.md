@@ -155,6 +155,7 @@ Do not create one React page per slide and do not create PPTX files for normal c
 
 The presentation system consists of:
 - `src/lib/course-presentation.ts`: turns lesson/module/course data into a reusable slide deck.
+- `src/lib/presentation-design-system.ts`: centralized visual tokens, accents, shortcuts and timing.
 - `src/components/courses/course-presentation-player.tsx`: one shared visual/interaction system for every topic.
 - `src/app/(blog)/courses/[slug]/present/[lesson]/page.tsx`: static presentation route.
 
