@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useState } from "react";
-import { ArrowDown, ArrowRight, CheckCircle2, Globe2, LockKeyhole, Radio, Router, Server, Shield, Shuffle, Signal, TerminalSquare, Wifi, XCircle } from "lucide-react";
+import { useMemo, useState } from "react";\nimport type { ReactNode } from "react";
+import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -102,7 +102,7 @@ export function ComputerNetworkVisual({ kind }: { kind: VisualKind }) {
   if (kind === "subnet") return <SubnetVisual />;
   if (kind === "troubleshooting") return <TroubleVisual />;
 
-  const content: Record<string, React.ReactNode> = {
+  const content: Record<string, ReactNode> = {
     osi: (
       <div className="grid sm:grid-cols-2 gap-3">
         <div className="space-y-1.5">
