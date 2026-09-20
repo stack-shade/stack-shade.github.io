@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
-  Clock3,
   Expand,
   Grid2X2,
   Info,
@@ -12,7 +11,6 @@ import {
   Pause,
   Play,
   Presentation,
-  RotateCcw,
   TimerReset,
   X,
 } from "lucide-react";
