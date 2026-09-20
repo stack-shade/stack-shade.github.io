@@ -2,9 +2,9 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { 
-  Youtube, 
-  ArrowUpRight, 
+import {
+  Youtube,
+  ArrowUpRight,
   Menu
 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -26,23 +26,21 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="StackShade Logo" className="w-9 h-9 rounded-lg object-cover" />
-            <span className="font-bold text-xl tracking-tight text-foreground">
-              StackShade
-            </span>
+            <span className="font-bold text-xl tracking-tight text-foreground">StackShade</span>
           </Link>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium">
           <Link href="/courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
           <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
+          <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
           <Link href="/algoforge" className="text-muted-foreground hover:text-foreground transition-colors">Algoforge</Link>
           <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
           <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
-          <a 
-            href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
           >
             StackShade HQ
@@ -51,9 +49,9 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <a 
-            href="https://www.youtube.com/@StackShade" 
-            target="_blank" 
+          <a
+            href="https://www.youtube.com/@StackShade"
+            target="_blank"
             rel="noopener noreferrer"
             className={buttonVariants({ variant: "default", className: "font-semibold transition-all duration-300 hover:scale-[1.02] cursor-pointer" })}
           >
@@ -62,12 +60,9 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Menu Button using Sheet Component */}
         <Sheet>
           <SheetTrigger
-            render={
-              <Button variant="ghost" size="icon" aria-label="Toggle menu" className="md:hidden cursor-pointer" />
-            }
+            render={<Button variant="ghost" size="icon" aria-label="Toggle menu" className="md:hidden cursor-pointer" />}
           >
             <Menu className="w-6 h-6" />
           </SheetTrigger>
@@ -80,27 +75,15 @@ export function Navbar() {
               </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-6 mt-8">
-              <Link 
-                href="/blog" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Blog
-              </Link>
-              <Link 
-                href="/about" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Contact
-              </Link>
-              <a 
-                href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link" 
-                target="_blank" 
+              <Link href="/courses" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
+              <Link href="/blog" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
+              <Link href="/resources" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
+              <Link href="/algoforge" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Algoforge</Link>
+              <Link href="/about" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">About</Link>
+              <Link href="/contact" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+              <a
+                href="https://app.notion.com/p/StackShade-HQ-371cd0ed0c258079a542e0541158c51e?source=copy_link"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
               >
@@ -108,9 +91,9 @@ export function Navbar() {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
               <hr className="border-border" />
-              <a 
-                href="https://www.youtube.com/@StackShade" 
-                target="_blank" 
+              <a
+                href="https://www.youtube.com/@StackShade"
+                target="_blank"
                 rel="noopener noreferrer"
                 className={buttonVariants({ variant: "default", className: "w-full py-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center font-semibold" })}
               >
