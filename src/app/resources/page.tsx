@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Code2, Network, Server, Wrench } from "lucide-react";
+import { ArrowRight, BookOpen, Code2, Network, Wrench } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Resources — StackShade",
