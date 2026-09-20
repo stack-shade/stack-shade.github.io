@@ -65,7 +65,7 @@ export default function CoursesPage() {
         <div className="flex flex-wrap items-center gap-3">
           <span className="courses-meta flex items-center gap-1.5 text-muted-foreground">
             <GraduationCap className="w-4 h-4" />
-            8 courses · 78 modules · 434 lessons
+            8 courses · 78 modules · 440 lessons
           </span>
           <a
             href="https://www.youtube.com/@StackShade"
