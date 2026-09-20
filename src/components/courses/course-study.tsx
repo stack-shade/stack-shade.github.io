@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   AlarmClockCheck,
   ArrowUpRight,
@@ -18,6 +19,7 @@ import {
   MonitorPlay,
   PenLine,
   Puzzle,
+  Presentation,
   Repeat,
   RotateCcw,
   Wrench,
@@ -26,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Course, Lesson, courseStats } from "@/lib/courses-data";
+import { presentationLessonSlug } from "@/lib/course-presentation";
 import {
   CourseProgress,
   isDue,
@@ -318,17 +321,32 @@ export function CourseStudy({ course }: { course: Course }) {
                               </Badge>
                             )}
                             <span className="font-mono text-[10px] text-muted-foreground shrink-0">{l.duration}</span>
-                            {l.href && <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />}
+                            {l.href && (
+                              <a
+                                href={l.href}
+                                aria-label={`Open lesson: ${l.title}`}
+                                className="hidden items-center gap-1 rounded-md border border-border px-2 py-1 text-[9px] font-mono text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground sm:inline-flex"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                Open
+                                <ArrowUpRight className="h-3 w-3" />
+                              </a>
+                            )}
+                            <Link
+                              href={`/courses/${course.slug}/present/${presentationLessonSlug(mi, li, l.title)}`}
+                              aria-label={`Present: ${l.title}`}
+                              className="inline-flex shrink-0 items-center gap-1 rounded-md border border-border bg-background/50 px-2 py-1 text-[9px] font-bold text-foreground transition-all hover:border-foreground/50 hover:bg-muted"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Presentation className="h-3 w-3" />
+                              <span className="hidden sm:inline">Present</span>
+                            </Link>
                           </>
                         );
                         const cls = `w-full flex items-center gap-3 border rounded-lg px-3 py-2.5 transition-all duration-200 ${
                           p ? "border-border/50 bg-muted/10" : "border-border bg-background/30 hover:border-foreground/40"
                         }`;
-                        return l.href ? (
-                          <a key={id} href={l.href} className={cls}>
-                            {inner}
-                          </a>
-                        ) : (
+                        return (
                           <div key={id} className={cls}>
                             {inner}
                           </div>
