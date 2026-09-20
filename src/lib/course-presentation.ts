@@ -1,5 +1,6 @@
 import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
 import { getComputerNetworkLesson } from "@/lib/computer-networks-lessons";
+import { getNlpTopicGuide, nlpTopicSlug } from "@/lib/nlp-course-content";
 
 export type PresentationSlideKind =
   | "title"
@@ -69,7 +70,9 @@ function buildSlides(course: Course, module: CourseModule, lesson: Lesson): Pres
   const rich =
     course.slug === "computer-networks"
       ? getComputerNetworkLesson(linkedLessonSlug ?? slugify(lesson.title))
-      : undefined;
+      : course.slug === "natural-language-processing"
+        ? getNlpTopicGuide(nlpTopicSlug(lesson.title))
+        : undefined;
 
   const neighboring = module.lessons
     .filter((candidate) => candidate.title !== lesson.title)
