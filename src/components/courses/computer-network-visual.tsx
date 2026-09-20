@@ -5,8 +5,6 @@ import type { ReactNode } from "react";
 import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import type { VisualKind } from "@/lib/computer-networks-lessons";
 
 function Flow({ items, vertical=false }: { items: string[]; vertical?: boolean }) {
@@ -48,8 +46,20 @@ function SubnetVisual() {
       <CardHeader><CardTitle className="text-sm">Subnet playground</CardTitle></CardHeader>
       <CardContent className="space-y-4">
         <div className="grid sm:grid-cols-2 gap-3">
-          <Input value={ip} onChange={e => setIp(e.target.value)} aria-label="IPv4 address" />
-          <Input value={prefix} onChange={e => setPrefix(e.target.value)} aria-label="CIDR prefix" />
+          <input
+            value={ip}
+            onChange={e => setIp(e.target.value)}
+            aria-label="IPv4 address"
+            inputMode="decimal"
+            className="h-9 w-full rounded-lg border border-border bg-background px-3 text-sm font-mono outline-none transition-colors focus:border-foreground/50"
+          />
+          <input
+            value={prefix}
+            onChange={e => setPrefix(e.target.value)}
+            aria-label="CIDR prefix"
+            inputMode="numeric"
+            className="h-9 w-full rounded-lg border border-border bg-background px-3 text-sm font-mono outline-none transition-colors focus:border-foreground/50"
+          />
         </div>
         {calc ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
