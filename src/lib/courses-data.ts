@@ -1260,8 +1260,6 @@ export const COURSES: Course[] = [
       },
     ],
   },
-,
-
   {
     slug: "system-design-fundamentals",
     title: "System Design Fundamentals",
