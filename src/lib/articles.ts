@@ -16,6 +16,20 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "nlp-from-text-to-transformers",
+    title: "Natural Language Processing Explained: From Raw Text to Transformers and LLM Systems",
+    description: "A visual guide to tokenization, linguistic structure, statistical NLP, embeddings, RNNs, attention, Transformers, pretraining, RAG, evaluation and production NLP.",
+    category: "Artificial Intelligence",
+    date: "2026-09-21",
+    displayDate: "September 21, 2026",
+    readTime: "18 min read",
+    banner: "/og-image.png",
+    bannerAlt: "Natural Language Processing architecture from text to Transformers",
+    author: "Shaswat Raj",
+    featured: true,
+  },
+
+  {
     slug: "what-happens-when-you-type-url",
     title: "What Really Happens When You Type a URL?",
     description: "A step-by-step walkthrough of URL parsing, DNS, routing, TLS, HTTP, server-side processing, and browser rendering.",
