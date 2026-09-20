@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from "react";\nimport type { ReactNode } from "react";
-import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";
+import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";\nimport type { LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -135,11 +135,11 @@ export function ComputerNetworkVisual({ kind }: { kind: VisualKind }) {
     "web-journey": <Flow items={["URL","DNS","Route","TLS / QUIC","HTTP","Render"]} />,
     signals: (
       <div className="grid sm:grid-cols-3 gap-3">
-        {[
-          [Wifi,"Copper","Electrical voltage changes"],
-          [Radio,"Fiber","Light pulses"],
-          [Signal,"Radio","Electromagnetic waves"],
-        ].map(([Icon,name,detail]) => (
+        {([
+          [Wifi, "Copper", "Electrical voltage changes"],
+          [Radio, "Fiber", "Light pulses"],
+          [Signal, "Radio", "Electromagnetic waves"],
+        ] as [LucideIcon, string, string][]).map(([Icon, name, detail]) => (
           <div key={name} className="rounded-xl border border-border p-4 bg-background/50">
             <Icon className="h-5 w-5 mb-2" />
             <div className="text-sm font-bold">{name}</div>
@@ -218,9 +218,12 @@ export function ComputerNetworkVisual({ kind }: { kind: VisualKind }) {
     ),
     tls: (
       <div className="grid sm:grid-cols-4 gap-2">
-        {[
-          [LockKeyhole,"ClientHello"],[Shield,"Certificate"],[Shuffle,"Key schedule"],[CheckCircle2,"Encrypted app data"]
-        ].map(([Icon,label])=><div key={label} className="rounded-lg border border-border p-3 text-center"><Icon className="h-5 w-5 mx-auto mb-2" /><div className="text-[11px] font-bold">{label}</div></div>)}
+        {([
+          [LockKeyhole, "ClientHello"],
+          [Shield, "Certificate"],
+          [Shuffle, "Key schedule"],
+          [CheckCircle2, "Encrypted app data"],
+        ] as [LucideIcon, string][]).map(([Icon, label])=><div key={label} className="rounded-lg border border-border p-3 text-center"><Icon className="h-5 w-5 mx-auto mb-2" /><div className="text-[11px] font-bold">{label}</div></div>)}
       </div>
     ),
     applications: <Flow items={["WebSocket","SMTP","IMAP","DHCP DORA"]} />,
