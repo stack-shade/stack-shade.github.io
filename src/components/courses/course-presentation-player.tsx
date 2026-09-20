@@ -17,13 +17,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { CoursePresentation, PresentationSlide } from "@/lib/course-presentation";
-
-const ACCENTS = [
-  "from-cyan-500/20 via-transparent to-transparent",
-  "from-violet-500/20 via-transparent to-transparent",
-  "from-emerald-500/20 via-transparent to-transparent",
-  "from-amber-500/20 via-transparent to-transparent",
-];
+import {
+  PRESENTATION_ACCENTS,
+  PRESENTATION_AUTOPLAY_MS,
+  PRESENTATION_SHORTCUTS,
+  PRESENTATION_THEME,
+} from "@/lib/presentation-design-system";
 
 function formatTime(seconds: number) {
   const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
@@ -32,7 +31,7 @@ function formatTime(seconds: number) {
 }
 
 function SlideContent({ slide, index, total }: { slide: PresentationSlide; index: number; total: number }) {
-  const accent = ACCENTS[index % ACCENTS.length];
+  const accent = PRESENTATION_ACCENTS[index % PRESENTATION_ACCENTS.length];
 
   if (slide.kind === "title") {
     return (
@@ -115,6 +114,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
   const [autoplay, setAutoplay] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [pointer, setPointer] = useState(false);
+  const [pointerPosition, setPointerPosition] = useState({ x: 28, y: 28 });
   const stageRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<number | null>(null);
 
@@ -180,7 +180,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
         }
         return value + 1;
       });
-    }, 9000);
+    }, PRESENTATION_AUTOPLAY_MS);
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
@@ -189,11 +189,19 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
   const resetTimer = () => setElapsed(0);
 
   const deckClass = useMemo(() => (
-    "relative flex min-h-[72vh] flex-col bg-[#050608] text-white"
+    `relative flex min-h-[72vh] flex-col ${PRESENTATION_THEME.stage}`
   ), []);
 
   return (
-    <section ref={stageRef} className={deckClass}>
+    <section
+      ref={stageRef}
+      className={deckClass}
+      onPointerMove={(event) => {
+        if (!pointer || !stageRef.current) return;
+        const rect = stageRef.current.getBoundingClientRect();
+        setPointerPosition({ x: event.clientX - rect.left, y: event.clientY - rect.top });
+      }}
+    >
       <style jsx global>{`
         @keyframes stackshade-slide-in {
           0% { opacity: 0; transform: translateX(28px) scale(.985); }
@@ -226,7 +234,10 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
         </div>
 
         {pointer && (
-          <div className="pointer-events-none absolute left-6 top-6 z-30 h-4 w-4 rounded-full border-2 border-red-300 bg-red-500 shadow-[0_0_0_7px_rgba(239,68,68,.15)]" />
+          <div
+            className="pointer-events-none absolute z-30 h-4 w-4 rounded-full border-2 border-red-300 bg-red-500 shadow-[0_0_0_7px_rgba(239,68,68,.15)] transition-transform duration-75"
+            style={{ left: pointerPosition.x, top: pointerPosition.y, transform: "translate(-50%, -50%)" }}
+          />
         )}
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-1 bg-white/5">
@@ -301,7 +312,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
       )}
 
       <div className="hidden sm:flex items-center justify-center gap-3 border-t border-white/5 py-2 text-[9px] uppercase tracking-[0.17em] text-white/20">
-        ← / → Navigate • Space Next • F Fullscreen • O Overview • N Notes • P Pointer
+        {PRESENTATION_SHORTCUTS.map(([shortcut, label], i) => `${i ? " • " : ""}${shortcut} ${label}`).join("")}
       </div>
     </section>
   );
