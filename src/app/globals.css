@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.985 0.005 60); /* Soft Warm Cream */
-  --foreground: oklch(0.2 0.01 60); /* Warm Carbon/Charcoal */
-  --card: oklch(0.97 0.008 60); /* Soft Card Background */
+  --background: oklch(0.985 0.005 60);
+  --foreground: oklch(0.2 0.01 60);
+  --card: oklch(0.97 0.008 60);
   --card-foreground: oklch(0.2 0.01 60);
   --popover: oklch(0.985 0.005 60);
   --popover-foreground: oklch(0.2 0.01 60);
@@ -20,18 +20,25 @@
   --accent: oklch(0.94 0.01 60);
   --accent-foreground: oklch(0.2 0.01 60);
   --destructive: oklch(0.6 0.18 25);
-  --border: oklch(0.9 0.01 60); /* Subtle border */
+  --border: oklch(0.9 0.01 60);
   --input: oklch(0.9 0.01 60);
   --ring: oklch(0.4 0.01 60);
-  --radius: 0.75rem; /* Soft rounded corners */
+  --radius: 0.75rem;
+
+  --font-body: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, serif;
+  --font-mono-stack: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.025em;
+  --measure-copy: 68ch;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono-stack);
+  --font-heading: var(--font-body);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -73,26 +80,87 @@
 body {
   background-color: var(--background);
   overflow-x: hidden;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom scrollbar matching soft scheme */
-::-webkit-scrollbar {
-  width: 8px;
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+
+::selection {
+  background: color-mix(in oklch, var(--foreground) 18%, transparent);
 }
-::-webkit-scrollbar-track {
-  background: var(--background);
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ring); }
+
+/* StackShade Blog: editorial technical typography */
+.stack-blog { font-family: var(--font-body); }
+.stack-blog .blog-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: 0.98;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 9999px;
+.stack-blog .blog-heading { letter-spacing: var(--tracking-heading); line-height: 1.08; }
+.stack-blog .blog-copy {
+  max-width: var(--measure-copy);
+  font-size: 1.0625rem;
+  line-height: 1.72;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--ring);
+.stack-blog .blog-meta {
+  font-family: var(--font-mono-stack);
+  font-size: 0.6875rem;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.stack-blog .blog-card-title {
+  letter-spacing: -0.032em;
+  line-height: 1.12;
+}
+
+/* StackShade Courses: precise learning-product typography */
+.stack-courses { font-family: var(--font-body); }
+.stack-courses .courses-display {
+  letter-spacing: var(--tracking-display);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.stack-courses .courses-copy {
+  max-width: 67ch;
+  font-size: 1.0625rem;
+  line-height: 1.68;
+}
+.stack-courses .courses-meta {
+  font-family: var(--font-mono-stack);
+  font-size: 0.6875rem;
+  letter-spacing: 0.045em;
+}
+.stack-courses .course-title {
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.stack-blog code,
+.stack-courses code,
+.stack-blog .font-mono,
+.stack-courses .font-mono {
+  font-family: var(--font-mono-stack);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+  html { @apply font-sans; }
 }
 
 .dark {
-  --background: oklch(0.15 0.008 60); /* Soft Dark Charcoal */
-  --foreground: oklch(0.95 0.005 60); /* Warm White */
+  --background: oklch(0.15 0.008 60);
+  --foreground: oklch(0.95 0.005 60);
   --card: oklch(0.18 0.01 60);
   --card-foreground: oklch(0.95 0.005 60);
   --popover: oklch(0.15 0.008 60);
@@ -106,19 +174,7 @@ body {
   --accent: oklch(0.22 0.01 60);
   --accent-foreground: oklch(0.95 0.005 60);
   --destructive: oklch(0.55 0.18 25);
-  --border: oklch(0.26 0.01 60); /* Warm dark border */
+  --border: oklch(0.26 0.01 60);
   --input: oklch(0.26 0.01 60);
   --ring: oklch(0.75 0.008 60);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
 }
