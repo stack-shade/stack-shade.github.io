@@ -1,23 +1,13 @@
-const CACHE_NAME = 'stackshade-cache-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/logo.png',
-  '/manifest.json'
-];
+// StackShade no longer uses a service worker for application caching.
+// This file intentionally unregisters any older worker that may have cached
+// stale HTML/Next.js chunks and clears its caches.
+self.addEventListener("install", () => self.skipWaiting());
 
-self.addEventListener('install', (event) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
+    Promise.all([
+      caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key)))),
+      self.clients.claim(),
+    ]).then(() => self.registration.unregister())
   );
 });
