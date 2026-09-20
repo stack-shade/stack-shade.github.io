@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CourseLessonActions } from "@/components/courses/course-lesson-actions";
 import { ComputerNetworkVisual } from "@/components/courses/computer-network-visual";
-import { COURSES, getCourse } from "@/lib/courses-data";
+import { getCourse } from "@/lib/courses-data";
 import { getComputerNetworkLesson, COMPUTER_NETWORK_LESSON_ORDER } from "@/lib/computer-networks-lessons";
 
 interface PageProps {
