@@ -51,12 +51,12 @@ const SCIENCE = [
   {
     icon: BrainCircuit,
     name: "Active Recall",
-    how: "Answer the recall questions BEFORE revealing. Trying to remember — even failing — builds memory 3x stronger than rereading.",
+    how: "Answer the recall questions BEFORE revealing. Trying to retrieve an answer before rereading strengthens the memory trace and reveals what you do not yet know.",
   },
   {
     icon: Repeat,
     name: "Spaced Repetition",
-    how: "Completed lessons return for review after 1, 3, 7, 21 and 60 days. Review exactly when you're about to forget.",
+    how: "Completed lessons return for review after 1, 3, 7, 21 and 60 days. Review at expanding intervals so older knowledge is retrieved after increasing delays.",
   },
   {
     icon: Layers,
@@ -76,7 +76,7 @@ const SCIENCE = [
   {
     icon: Eye,
     name: "Dual Coding",
-    how: "Interactive simulators pair visuals with text. Two memory channels beat one — always do the interactives, not just the videos.",
+    how: "Interactive simulators pair visuals with text. Pair concise explanations with diagrams or simulations so the same idea is encoded in complementary forms.",
   },
 ];
 
