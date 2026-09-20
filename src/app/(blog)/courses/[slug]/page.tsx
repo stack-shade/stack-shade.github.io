@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Layers, Signal } from "luci
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CourseStudy } from "@/components/courses/course-study";
+import { CoursePoster } from "@/components/courses/course-poster";
 import { COURSES, getCourse, courseStats } from "@/lib/courses-data";
 
 interface PageProps {
@@ -60,7 +61,7 @@ export default async function CoursePage({ params }: PageProps) {
   const others = COURSES.filter((c) => c.slug !== course.slug).slice(0, 3);
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <main className="stack-courses max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       {/* Back link */}
       <div className="mb-10">
         <Link
@@ -72,8 +73,9 @@ export default async function CoursePage({ params }: PageProps) {
         </Link>
       </div>
 
-      {/* Course header */}
+      {/* Course poster + header */}
       <header className="space-y-6 mb-12">
+        <CoursePoster title={course.title} category={course.category} icon={course.icon} />
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline" className="border-border text-foreground uppercase text-[10px] tracking-wider font-semibold">
             {course.category}
@@ -82,12 +84,12 @@ export default async function CoursePage({ params }: PageProps) {
             <Badge className="uppercase text-[10px] tracking-wider font-semibold">Flagship</Badge>
           )}
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">{course.title}</h1>
-        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl">
+        <h1 className="courses-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">{course.title}</h1>
+        <p className="courses-copy text-muted-foreground max-w-3xl">
           {course.description}
         </p>
 
-        <div className="flex flex-wrap items-center gap-6 text-xs text-muted-foreground font-mono border-y border-border/60 py-4">
+        <div className="courses-meta flex flex-wrap items-center gap-6 text-muted-foreground border-y border-border/60 py-4">
           <span className="flex items-center gap-1.5">
             <Signal className="w-4 h-4" />
             {course.level}
@@ -105,7 +107,7 @@ export default async function CoursePage({ params }: PageProps) {
         {/* Outcomes */}
         <Card className="bg-card/30 border-border">
           <CardContent className="p-5">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">
+            <h2 className="courses-meta font-bold text-muted-foreground mb-3">
               What you&apos;ll walk away with
             </h2>
             <ul className="grid sm:grid-cols-2 gap-2.5">
@@ -125,7 +127,7 @@ export default async function CoursePage({ params }: PageProps) {
 
       {/* Related courses */}
       <div className="mt-16 pt-10 border-t border-border">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-5">
+        <h2 className="courses-meta font-bold text-muted-foreground mb-5">
           Keep going
         </h2>
         <div className="grid sm:grid-cols-3 gap-4">
