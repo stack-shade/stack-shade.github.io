@@ -196,7 +196,7 @@ export function ComputerNetworkVisual({ kind }: { kind: VisualKind }) {
     ),
     "tcp-handshake": (
       <div className="space-y-2">
-        {["C → S   SYN   Seq=100","S → C   SYN-ACK   Seq=900 Ack=101","C → S   ACK   Ack=901","C ↔ S   DATA","FIN / ACK teardown"].map((x,i)=><div key={x} className="rounded-lg border border-border p-3 font-mono text-[11px] animate-pulse">{x}</div>)}
+        {["C → S   SYN   Seq=100","S → C   SYN-ACK   Seq=900 Ack=101","C → S   ACK   Ack=901","C ↔ S   DATA","FIN / ACK teardown"].map((x)=><div key={x} className="rounded-lg border border-border p-3 font-mono text-[11px] animate-pulse">{x}</div>)}
       </div>
     ),
     "tcp-control": <Flow items={["rwnd","min(rwnd,cwnd)","in-flight bytes","ACK/loss feedback","new cwnd"]} />,
