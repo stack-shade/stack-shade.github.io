@@ -36,7 +36,7 @@ function ArticleCard({ article }: { article: Article }) {
         <img src={article.banner} alt={article.bannerAlt} className="object-cover w-full h-full group-hover:scale-[1.01] transition-transform duration-500" />
       </a>
       <CardHeader className="p-6 md:p-8 space-y-4">
-        <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
+        <div className="blog-meta flex flex-wrap items-center gap-4 text-muted-foreground">
           <Badge variant="outline" className="uppercase text-[9px] tracking-wider">{article.category}</Badge>
           <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" />{article.author}</span>
           <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{article.displayDate}</span>
@@ -44,9 +44,9 @@ function ArticleCard({ article }: { article: Article }) {
         </div>
         <div>
           <a href={`/blog/${article.slug}`} className="block group-hover:underline">
-            <CardTitle className="text-2xl font-bold tracking-tight mb-3">{article.title}</CardTitle>
+            <CardTitle className="blog-card-title text-2xl sm:text-3xl font-bold mb-3">{article.title}</CardTitle>
           </a>
-          <CardDescription className="text-muted-foreground text-sm sm:text-base leading-relaxed">{article.description}</CardDescription>
+          <CardDescription className="text-muted-foreground text-[15px] sm:text-base leading-relaxed">{article.description}</CardDescription>
         </div>
       </CardHeader>
       <CardContent className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
@@ -64,15 +64,15 @@ export default function BlogIndex() {
   const [featured, ...rest] = articles;
 
   return (
-    <div className="font-sans selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="mb-16 border-b pb-10">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
+    <div className="stack-blog selection:bg-foreground/20 selection:text-foreground relative overflow-hidden">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-24">
+        <div className="mb-16 border-b border-border/80 pb-12">
+          <div className="flex flex-wrap items-center gap-3 mb-6">
             <Badge variant="outline" className="border-border text-muted-foreground uppercase text-[10px] tracking-wider">StackShade Journal</Badge>
-            <span className="text-xs text-muted-foreground">{articles.length} original engineering guides</span>
+            <span className="blog-meta text-muted-foreground">{articles.length} original engineering guides</span>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight mb-4">Visual Engineering Chronicles</h1>
-          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
+          <h1 className="blog-display text-5xl sm:text-6xl md:text-7xl mb-6 max-w-4xl">Visual Engineering Chronicles</h1>
+          <p className="blog-copy text-muted-foreground max-w-3xl">
             Original, practical guides that break complex engineering into understandable steps.
             Go from browser networking and databases to distributed systems, DevOps, Git, and modern Next.js.
             Each article is written to teach a useful mental model and link to the next topic.
@@ -82,14 +82,14 @@ export default function BlogIndex() {
         <div className="space-y-12">
           {featured && (
             <>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6">Featured Deep Dive</h2>
+              <h2 className="blog-meta font-bold text-muted-foreground mb-6">Featured Deep Dive</h2>
               <ArticleCard article={featured} />
             </>
           )}
 
           {rest.length > 0 && (
             <>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 pt-4">More Engineering Guides</h2>
+              <h2 className="blog-meta font-bold text-muted-foreground mb-6 pt-4">More Engineering Guides</h2>
               {rest.map((a) => <ArticleCard key={a.slug} article={a} />)}
             </>
           )}
