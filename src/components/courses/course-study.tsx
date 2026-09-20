@@ -74,9 +74,24 @@ const SCIENCE = [
     how: "Mixed revision phases deliberately shuffle topics — discrimination between problem types is what exams test.",
   },
   {
+    icon: Lightbulb,
+    name: "Elaboration",
+    how: "Ask why a rule works, what it connects to, and when it would fail. Linking new ideas to prior knowledge makes the concept easier to reconstruct later.",
+  },
+  {
+    icon: PenLine,
+    name: "Generation",
+    how: "Attempt the solution, diagram, subnet calculation or explanation before seeing the worked version. The attempt becomes feedback rather than passive copying.",
+  },
+  {
+    icon: Brain,
+    name: "Self-Explanation",
+    how: "After each visual or example, explain why the next step follows from the previous one. Mechanistic explanations are more useful than repeating labels.",
+  },
+  {
     icon: Eye,
     name: "Dual Coding",
-    how: "Interactive simulators pair visuals with text. Pair concise explanations with diagrams or simulations so the same idea is encoded in complementary forms.",
+    how: "Pair concise explanations with diagrams or simulations so the same idea is encoded in complementary forms.",
   },
 ];
 
