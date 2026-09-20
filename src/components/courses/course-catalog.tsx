@@ -48,7 +48,9 @@ function CourseCard({ course, featured }: { course: Course; featured?: boolean }
           featured ? "border-foreground/60 ring-1 ring-foreground/20" : "border-border"
         }`}
       >
-        <CardContent className="p-0 flex flex-col h-full gap-0">\n          <CoursePoster title={course.title} category={course.category} icon={course.icon} compact />\n          <div className="p-6 sm:p-7 flex flex-col h-full gap-5">
+        <CardContent className="p-0 flex flex-col h-full gap-0">
+          <CoursePoster title={course.title} category={course.category} icon={course.icon} compact />
+          <div className="p-6 sm:p-7 flex flex-col h-full gap-5">
           <div className="flex items-start justify-between">
             <div className="w-11 h-11 rounded-xl border border-border bg-background/40 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
               <Icon className="w-5 h-5" />
@@ -89,6 +91,7 @@ function CourseCard({ course, featured }: { course: Course; featured?: boolean }
                 style={{ width: `${pct}%` }}
               />
             </div>
+          </div>
           </div>
         </CardContent>
       </Card>
