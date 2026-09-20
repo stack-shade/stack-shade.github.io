@@ -43,17 +43,17 @@ function CourseCard({ course, featured }: { course: Course; featured?: boolean }
   return (
     <Link href={`/courses/${course.slug}`} className="block group">
       <Card
-        className={`h-full border transition-all duration-300 hover:border-foreground/40 hover:shadow-lg hover:-translate-y-0.5 bg-card/30 ${
+        className={`h-full border transition-all duration-300 hover:border-foreground/40 hover:shadow-lg hover:-translate-y-0.5 bg-card/25 ${
           featured ? "border-foreground/60 ring-1 ring-foreground/20" : "border-border"
         }`}
       >
-        <CardContent className="p-6 flex flex-col h-full gap-4">
+        <CardContent className="p-6 sm:p-7 flex flex-col h-full gap-5">
           <div className="flex items-start justify-between">
             <div className="w-11 h-11 rounded-xl border border-border bg-background/40 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
               <Icon className="w-5 h-5" />
             </div>
             {featured && (
-              <Badge className="font-mono text-[9px] uppercase tracking-wider">
+              <Badge className="font-mono text-[9px] uppercase tracking-[0.08em]">
                 <Sparkles className="w-3 h-3 mr-1" />
                 Flagship
               </Badge>
@@ -61,10 +61,10 @@ function CourseCard({ course, featured }: { course: Course; featured?: boolean }
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="font-black text-lg text-foreground leading-tight group-hover:underline underline-offset-4">
+            <h3 className="course-title font-bold text-xl text-foreground group-hover:underline underline-offset-4">
               {course.title}
             </h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">{course.tagline}</p>
+            <p className="text-[13px] text-muted-foreground leading-relaxed">{course.tagline}</p>
           </div>
 
           <div className="flex flex-wrap gap-1.5 mt-auto">
