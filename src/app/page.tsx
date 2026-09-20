@@ -342,6 +342,44 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* Latest Guides Section */}
+      <section id="latest-guides" className="py-20 border-t bg-card/10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+            <div className="max-w-2xl">
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">Latest Engineering Guides</p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Learn the system, not just the syntax.</h2>
+              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                Deep, original guides connecting networking, databases, distributed systems,
+                DevOps, Git, and modern web architecture into one learning path.
+              </p>
+            </div>
+            <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
+              Read all guides
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              ["What Really Happens When You Type a URL?", "DNS, TLS, HTTP, routing, servers, and browser rendering.", "/blog/what-happens-when-you-type-url"],
+              ["DNS Resolution Explained", "Recursive resolvers, authoritative servers, records, and TTL.", "/blog/dns-resolution-explained"],
+              ["Database Indexes & B-Trees", "Query planners, composite indexes, and read/write tradeoffs.", "/blog/database-indexes-btree"],
+              ["Kafka & Event-Driven Systems", "Topics, partitions, consumers, offsets, replay, and idempotency.", "/blog/kafka-event-driven"],
+            ].map(([title, description, href]) => (
+              <Link key={href} href={href} className="group rounded-xl border border-border bg-card/20 p-5 hover:border-foreground/30 hover:bg-muted/10 transition-all">
+                <h3 className="font-bold leading-snug mb-2 group-hover:underline">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-4">
+                  Read guide <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Creator Section */}
       <section id="creator" className="py-20 border-t bg-card/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -417,9 +455,12 @@ export default function Home() {
           </a>
 
           <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm">
+            <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
             <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
             <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy</Link>
+            <Link href="/editorial-policy" className="text-muted-foreground hover:text-foreground transition-colors">Editorial Policy</Link>
+            <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">Terms</Link>
           </div>
 
           <p className="text-muted-foreground/60 text-xs sm:text-sm">
