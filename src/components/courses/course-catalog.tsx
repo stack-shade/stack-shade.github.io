@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   Binary,
+  Brain,
   Compass,
   Cpu,
   GitBranch,
@@ -22,6 +23,7 @@ import { CoursePoster } from "@/components/courses/course-poster";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   binary: Binary,
+  brain: Brain,
   globe: Globe,
   compass: Compass,
   server: Server,
