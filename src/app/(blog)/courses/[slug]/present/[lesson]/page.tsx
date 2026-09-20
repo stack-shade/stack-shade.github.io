@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Presentation } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { CoursePresentationPlayer } from "@/components/courses/course-presentation-player";
 import { COURSES, getCourse } from "@/lib/courses-data";
 import { getAllPresentationParams, getPresentationBySlug } from "@/lib/course-presentation";
