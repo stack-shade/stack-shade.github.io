@@ -1244,7 +1244,7 @@ export const COMPUTER_NETWORK_LESSONS: Record<string, CNLesson> = Object.fromEnt
     "Practical networking exams and interviews increasingly reward packet-level interpretation and tool fluency.",
     ["osi-model", "tcp-packet-analysis", "devtools"]
   ),
-]);
+].map((lesson) => [lesson.slug, lesson] as const));
 
 export function getComputerNetworkLesson(slug: string): CNLesson | undefined {
   return COMPUTER_NETWORK_LESSONS[slug];
