@@ -1,7 +1,9 @@
 'use client';
 
-import { useMemo, useState } from "react";\nimport type { ReactNode } from "react";
-import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";\nimport type { LucideIcon } from "lucide-react";
+import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
+import { ArrowDown, ArrowRight, CheckCircle2, LockKeyhole, Radio, Router, Shield, Shuffle, Signal, Wifi } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
