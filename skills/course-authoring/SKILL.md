@@ -144,3 +144,55 @@ Done means:
 - navigation to adjacent lessons works;
 - progress tracking still functions;
 - mobile layout remains readable.
+
+## 10. Presentation mode
+
+Every lesson automatically receives a browser-native teaching deck through the centralized presentation engine:
+
+`/courses/<course-slug>/present/<generated-lesson-slug>`
+
+Do not create one React page per slide and do not create PPTX files for normal course presentation mode.
+
+The presentation system consists of:
+- `src/lib/course-presentation.ts`: turns lesson/module/course data into a reusable slide deck.
+- `src/components/courses/course-presentation-player.tsx`: one shared visual/interaction system for every topic.
+- `src/app/(blog)/courses/[slug]/present/[lesson]/page.tsx`: static presentation route.
+
+Standard deck length is 12 slides, designed to stay in the requested 10–15 slide range while keeping recording sessions focused:
+1. title/context
+2. learning target
+3. mental model
+4. core concept
+5. causal flow
+6. visual reasoning
+7. concrete artifact
+8. worked example
+9. misconceptions
+10. active recall
+11. teach-back challenge
+12. compressed summary + next topic
+
+Presentation controls include:
+- previous/next buttons;
+- keyboard navigation with Arrow keys, Space, PageUp/PageDown;
+- fullscreen;
+- slide overview grid;
+- presenter notes;
+- elapsed timer and reset;
+- autoplay;
+- on-screen pointer;
+- visible progress indicator;
+- reduced-motion support.
+
+### Presentation content policy
+
+The presentation engine should prefer existing rich lesson data when available. For example, Computer Networks uses its detailed lesson content for flows, artifacts, pitfalls, recall and Feynman prompts.
+
+For courses that only have curriculum metadata, the engine should generate a useful teaching scaffold from the module hook, lesson type, neighboring lessons, recall questions and Feynman prompt. Later, topic-specific overrides can enrich a deck without changing the renderer.
+
+### Centralized design rule
+
+All presentation UI/UX belongs in the presentation player. A new course should almost never require new slide-component code.
+
+Add data, not duplicated UI.
+
