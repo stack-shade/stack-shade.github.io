@@ -2,11 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  Youtube,
-  ArrowUpRight,
-  Menu
-} from "lucide-react";
+import { Youtube, ArrowUpRight, Menu, Sparkles } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
@@ -24,6 +20,10 @@ export function Navbar() {
 
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium">
           <Link href="/courses" className="text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
+          <Link href="/explainers" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" />
+            Explainers
+          </Link>
           <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
           <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
           <Link href="/algoforge" className="text-muted-foreground hover:text-foreground transition-colors">Algoforge</Link>
@@ -68,6 +68,10 @@ export function Navbar() {
             </SheetHeader>
             <div className="flex flex-col gap-6 mt-8">
               <Link href="/courses" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Courses</Link>
+              <Link href="/explainers" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Explainers
+              </Link>
               <Link href="/blog" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
               <Link href="/resources" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Resources</Link>
               <Link href="/algoforge" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">Algoforge</Link>
