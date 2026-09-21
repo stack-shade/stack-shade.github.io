@@ -30,12 +30,25 @@ export function ArticleShell({ article, children }: ArticleShellProps) {
 
         <article className="space-y-12">
           <header className="space-y-6">
-            <Badge
-              variant="outline"
-              className="border-border text-foreground uppercase text-[10px] tracking-wider font-semibold"
-            >
-              {article.category}
-            </Badge>
+            <div className="flex flex-wrap gap-2">
+              <Badge
+                variant="outline"
+                className="border-border text-foreground uppercase text-[10px] tracking-wider font-semibold"
+              >
+                {article.category}
+              </Badge>
+              {article.playlist && (
+                <Link href={"/blog?playlist=" + encodeURIComponent(article.playlist)}>
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] hover:border-foreground/40 transition-colors"
+                  >
+                    Playlist · {article.playlist}
+                  </Badge>
+                </Link>
+              )}
+            </div>
+
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
               {article.title}
             </h1>
@@ -54,15 +67,25 @@ export function ArticleShell({ article, children }: ArticleShellProps) {
                 {article.readTime}
               </span>
             </div>
+
+            {article.tags && article.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {article.tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    href={"/blog?tag=" + encodeURIComponent(tag)}
+                    className="rounded-full border border-border px-3 py-1.5 text-[11px] text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+              </div>
+            )}
           </header>
 
           <div className="border border-border rounded-2xl overflow-hidden aspect-video relative bg-muted/10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={article.banner}
-              alt={article.bannerAlt}
-              className="object-cover w-full h-full"
-            />
+            <img src={article.banner} alt={article.bannerAlt} className="object-cover w-full h-full" />
           </div>
 
           <div className="space-y-10 text-muted-foreground text-sm sm:text-base leading-relaxed">
