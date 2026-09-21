@@ -10,7 +10,7 @@ export function BlogFooter() {
           <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
-            <span className="font-bold text-sm text-foreground tracking-tight">StackShade Journal</span>
+            <span className="font-bold text-sm text-foreground tracking-tight">StackShade Library</span>
           </div>
 
           <p className="text-muted-foreground/60 text-xs">
@@ -36,6 +36,7 @@ export function BlogFooter() {
         </div>
 
         <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+          <Link href="/explainers" className="hover:text-foreground hover:underline">Explainers</Link>
           <Link href="/resources" className="hover:text-foreground hover:underline">Resources</Link>
           <Link href="/about" className="hover:text-foreground hover:underline">About</Link>
           <Link href="/contact" className="hover:text-foreground hover:underline">Contact</Link>
