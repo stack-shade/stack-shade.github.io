@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Code2, Network, Wrench } from "lucide-react";
+import { ArrowRight, BookOpen, Code2, Layers3, Network, Wrench } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Resources — StackShade",
-  description: "A curated starting point for StackShade engineering guides, courses, simulators, and learning paths.",
+  description: "A curated starting point for StackShade engineering guides, courses, explainers, simulators, and learning paths.",
   alternates: { canonical: "https://stack-shade.github.io/resources" },
   robots: { index: true, follow: true },
 };
@@ -26,26 +26,35 @@ export default function ResourcesPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="max-w-3xl mb-14">
           <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4">StackShade Resources</p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5">Start learning from the foundations.</h1>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5">Learn in the mode that fits the topic.</h1>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            A single place to move from fundamentals to systems thinking. Use the guides for focused reading,
-            the courses for structured study, and the interactive pages when you want to experiment.
+            Courses are structured. The journal is durable. Explainers are intentionally loose: short videos,
+            experiments, visualizations, decks, artifacts, and one-off engineering rabbit holes.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid lg:grid-cols-4 gap-4 mb-16">
           <Link href="/blog" className="group rounded-2xl border border-border bg-card/20 p-7 hover:border-foreground/30 transition-all">
             <BookOpen className="w-7 h-7 mb-6" />
             <h2 className="text-xl font-bold mb-2">Engineering Blog</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">Deep technical articles with examples, architecture diagrams, and practical debugging notes.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">Deep, durable articles with mental models, examples, and practical architecture notes.</p>
             <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold">Read guides <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
           </Link>
+
+          <Link href="/explainers" className="group rounded-2xl border border-border bg-card/20 p-7 hover:border-foreground/30 transition-all">
+            <Layers3 className="w-7 h-7 mb-6" />
+            <h2 className="text-xl font-bold mb-2">Explainers</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">A searchable shelf for quick videos, mini-articles, animations, decks, experiments, and topic ideas.</p>
+            <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold">Explore shelf <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+          </Link>
+
           <Link href="/courses" className="group rounded-2xl border border-border bg-card/20 p-7 hover:border-foreground/30 transition-all">
             <Code2 className="w-7 h-7 mb-6" />
             <h2 className="text-xl font-bold mb-2">Structured Courses</h2>
             <p className="text-sm text-muted-foreground leading-relaxed">Topic-by-topic learning paths for DSA, networks, operating systems, system design, Next.js, and DevOps.</p>
             <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold">Browse courses <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
           </Link>
+
           <Link href="/algoforge" className="group rounded-2xl border border-border bg-card/20 p-7 hover:border-foreground/30 transition-all">
             <Wrench className="w-7 h-7 mb-6" />
             <h2 className="text-xl font-bold mb-2">Interactive Tools</h2>
@@ -75,6 +84,8 @@ export default function ResourcesPage() {
 
         <section className="border-t border-border mt-14 pt-10">
           <div className="flex flex-wrap gap-4">
+            <Link href="/explainers" className="text-sm underline underline-offset-4">Explainers</Link>
+            <Link href="/courses" className="text-sm underline underline-offset-4">Courses</Link>
             <Link href="/editorial-policy" className="text-sm underline underline-offset-4">Editorial policy</Link>
             <Link href="/about" className="text-sm underline underline-offset-4">About StackShade</Link>
             <Link href="/privacy" className="text-sm underline underline-offset-4">Privacy policy</Link>
