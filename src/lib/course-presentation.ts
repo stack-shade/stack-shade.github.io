@@ -249,18 +249,18 @@ export function buildCoursePresentation(
   moduleIndex: number,
   lessonIndex: number
 ): CoursePresentation | null {
-  const module = course.modules[moduleIndex];
-  const lesson = module?.lessons[lessonIndex];
-  if (!module || !lesson) return null;
+  const courseModule = course.modules[moduleIndex];
+  const lesson = courseModule?.lessons[lessonIndex];
+  if (!courseModule || !lesson) return null;
 
   return {
     course,
-    module,
+    module: courseModule,
     lesson,
     moduleIndex,
     lessonIndex,
     lessonSlug: presentationLessonSlug(moduleIndex, lessonIndex, lesson.title),
-    slides: buildSlides(course, module, lesson),
+    slides: buildSlides(course, courseModule, lesson),
   };
 }
 
