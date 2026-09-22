@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ArrowRight, BrainCircuit, Database, Gauge, Languages, Network, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, BrainCircuit, Gauge, Languages, Network, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ArticleShell } from "@/components/article-shell";
 import { NlpLearningVisuals } from "@/components/nlp-learning-visuals";
 import { buildArticleMetadata, getArticle } from "@/lib/articles";
@@ -171,7 +171,7 @@ export default function NlpArticlePage() {
         <p>
           Modern language models learn from large corpora using self-supervised objectives. Autoregressive language
           models predict the next token; masked-language models reconstruct hidden tokens. The data mixture, tokenizer,
-          objective and optimization setup are part of the model's effective learning environment.
+          objective and optimization setup are part of the model&apos;s effective learning environment.
         </p>
       </section>
 
@@ -180,7 +180,7 @@ export default function NlpArticlePage() {
           <Search className="h-6 w-6" /> 8. RAG changes the application architecture
         </h2>
         <p>
-          A production LLM system often needs information outside the model's parameters. Retrieval-Augmented
+          A production LLM system often needs information outside the model&apos;s parameters. Retrieval-Augmented
           Generation adds an external retrieval stage so responses can be grounded in selected documents. That creates
           two separate quality questions: <strong>did we retrieve the right evidence?</strong> and
           <strong> did the model use it correctly?</strong>
