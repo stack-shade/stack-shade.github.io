@@ -1,9 +1,8 @@
 'use client';
 
-import { useMemo, useState } from "react";
-import { ArrowRight, BrainCircuit, Database, FileText, GitBranch, Layers, Search, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, BrainCircuit, Database, FileText, GitBranch, Search, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const STAGES = [
   ["Raw text", "Messy language"],
