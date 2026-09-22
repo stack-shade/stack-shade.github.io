@@ -82,7 +82,12 @@ function buildSlides(course: Course, module: CourseModule, lesson: Lesson): Pres
   const recall = rich?.recall ?? module.recall;
   const recallA = recall[0];
   const recallB = recall[1] ?? recall[0];
-  const artifact = rich?.artifact ?? genericArtifact(course, module, lesson);
+  const artifact = rich?.artifact
+    ? {
+        language: rich.artifact.language,
+        value: rich.artifact.value,
+      }
+    : genericArtifact(course, module, lesson);
 
   const slides: PresentationSlide[] = [
     {
