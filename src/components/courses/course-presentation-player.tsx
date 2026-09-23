@@ -41,7 +41,7 @@ function SlideContent({
   total: number;
 }) {
   return (
-    <article className="relative flex aspect-video w-full min-w-0 flex-col overflow-hidden rounded-[1.25rem] border border-white/[0.1] bg-[#0a0c10] shadow-[0_2rem_7rem_rgba(0,0,0,.3)] sm:rounded-[1.5rem]">
+    <article className="presentation-slide relative flex aspect-video w-full min-w-0 max-h-full flex-col overflow-hidden rounded-[1.25rem] border border-white/[0.1] bg-[#0a0c10] shadow-[0_2rem_7rem_rgba(0,0,0,.3)] sm:rounded-[1.5rem]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_15%,rgba(139,92,246,.1),transparent_28%),radial-gradient(circle_at_8%_90%,rgba(59,130,246,.06),transparent_25%)]" />
       <div className="relative flex min-h-0 flex-1 flex-col p-5 sm:p-8 lg:p-12">
         <div className="flex items-center justify-between gap-4">
@@ -378,7 +378,7 @@ export function CoursePresentationPlayer({
         </div>
       </header>
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[8rem_minmax(0,1fr)]">
+      <div className="presentation-stage-body grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[10rem_minmax(0,1fr)]">
         <aside data-presentation-scroll className="order-2 min-h-0 border-t border-white/[0.08] lg:order-1 lg:border-r lg:border-t-0">
           <div className="h-full overflow-x-auto overflow-y-hidden px-2 py-2 lg:overflow-y-auto lg:px-2 lg:py-3">
             <div className="flex gap-2 lg:block">
@@ -414,7 +414,7 @@ export function CoursePresentationPlayer({
           </div>
         </aside>
 
-        <div className="order-1 flex min-h-0 min-w-0 items-center justify-center overflow-hidden p-2 sm:p-4 lg:order-2 lg:p-6">
+        <div className="presentation-stage-main order-1 flex min-h-0 min-w-0 items-center justify-center overflow-hidden p-2 sm:p-4 lg:order-2 lg:p-6">
           <div className="w-full max-w-[1500px]">
             <div key={index} className="stackshade-slide-in">
               <SlideContent slide={slide} index={index} total={presentation.slides.length} />
