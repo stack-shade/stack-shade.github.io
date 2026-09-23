@@ -1079,3 +1079,23 @@ a {
     transition: none;
   }
 }
+
+.stackshade-slide-in {
+  animation: stackshade-slide-in .34s cubic-bezier(.22,.9,.28,1) both;
+}
+
+@keyframes stackshade-slide-in {
+  0% { opacity: 0; transform: translateX(18px) scale(.992); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.presentation-stage:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stackshade-slide-in { animation: none !important; }
+}
