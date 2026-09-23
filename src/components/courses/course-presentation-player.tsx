@@ -221,10 +221,6 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
   }, []);
 
   useEffect(() => {
-    setIndex(initialIndex);
-  }, [initialIndex]);
-
-  useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       if (target && ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(target.tagName)) return;
