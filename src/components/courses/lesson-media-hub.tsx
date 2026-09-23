@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   BookOpen,
   FileText,
@@ -126,7 +126,6 @@ function DocumentPanel({ href, type }: { href: string; type: "notes" | "pdf" }) 
 
 export function LessonMediaHub({ media, presentationHref, children }: Props) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const tabs = useMemo(() => {
@@ -140,8 +139,12 @@ export function LessonMediaHub({ media, presentationHref, children }: Props) {
     return out;
   }, [media, presentationHref]);
 
-  const raw = searchParams.get("tab") as Tab | null;
-  const active: Tab = tabs.some((tab) => tab.id === raw) ? (raw as Tab) : "article";
+  const [active, setActive] = useState<Tab>("article");
+
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("tab") as Tab | null;
+    if (raw && tabs.some((tab) => tab.id === raw)) setActive(raw);
+  }, [tabs]);
 
   const setTab = (tab: Tab) => {
     if (tab === "presentation") {
@@ -149,8 +152,9 @@ export function LessonMediaHub({ media, presentationHref, children }: Props) {
       return;
     }
 
-    const next = new URLSearchParams(searchParams.toString());
+    const next = new URLSearchParams(window.location.search);
     next.set("tab", tab);
+    setActive(tab);
     router.replace(pathname + "?" + next.toString(), { scroll: false });
   };
 
