@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Article, articleJsonLd } from "@/lib/articles";
+import { Article, ARTICLES, articleJsonLd } from "@/lib/articles";
 
 interface ArticleShellProps {
   article: Article;
@@ -88,8 +88,54 @@ export function ArticleShell({ article, children }: ArticleShellProps) {
             <img src={article.banner} alt={article.bannerAlt} className="object-cover w-full h-full" />
           </div>
 
-          <div className="space-y-10 text-muted-foreground text-sm sm:text-base leading-relaxed">
-            {children}
+          <div className="blog-reading-layout">
+            <div className="blog-article-body space-y-10 text-muted-foreground">
+              {children}
+            </div>
+
+            <aside className="blog-reading-sidebar">
+              <div className="blog-reading-sidebar-card space-y-4">
+                <div>
+                  <span className="lesson-kicker">READING GUIDE</span>
+                  <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                    Read for the mental model first. Then inspect the visual or artifact before moving on.
+                  </p>
+                </div>
+
+                <div className="border-t border-border/70 pt-3">
+                  <span className="lesson-kicker">ARTICLE META</span>
+                  <div className="mt-2 space-y-1.5 text-[11px] text-muted-foreground">
+                    <div>{article.readTime}</div>
+                    <div>{article.category}</div>
+                    {article.playlist && <div>{article.playlist}</div>}
+                  </div>
+                </div>
+
+                {article.tags && article.tags.length > 0 && (
+                  <div className="border-t border-border/70 pt-3">
+                    <span className="lesson-kicker">TOPICS</span>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {article.tags.map((tag) => (
+                        <Link key={tag} href={"/blog?tag=" + encodeURIComponent(tag)} className="rounded-full border border-border px-2 py-1 text-[9px] text-muted-foreground hover:text-foreground">
+                          #{tag}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="border-t border-border/70 pt-3">
+                  <span className="lesson-kicker">KEEP READING</span>
+                  <div className="mt-2">
+                    {ARTICLES.filter((item) => item.slug !== article.slug && (item.tags ?? []).some((tag) => (article.tags ?? []).includes(tag))).slice(0, 3).map((item) => (
+                      <Link key={item.slug} href={"/blog/" + item.slug} className="block border-b border-border/60 py-2.5 last:border-b-0">
+                        <span className="text-xs font-semibold leading-5 text-foreground">{item.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
         </article>
       </main>

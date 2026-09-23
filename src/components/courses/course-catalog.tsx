@@ -1,4 +1,5 @@
-'use client';
+
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -15,7 +16,6 @@ import {
   Sparkles,
   Triangle,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { COURSES, Course, courseStats } from "@/lib/courses-data";
 import { loadProgress, progressPercent } from "@/lib/course-progress";
@@ -38,85 +38,86 @@ function CourseCard({ course, featured }: { course: Course; featured?: boolean }
   const Icon = ICONS[course.icon] ?? Layers;
 
   useEffect(() => {
-    const progress = loadProgress(course.slug);
-    const done = Object.keys(progress).length;
-    setPct(progressPercent(stats.lessons, done));
+    const current = loadProgress(course.slug);
+    setPct(progressPercent(stats.lessons, Object.keys(current).length));
   }, [course.slug, stats.lessons]);
 
   return (
-    <Link href={`/courses/${course.slug}`} className="block group">
-      <Card
-        className={`h-full border transition-all duration-300 hover:border-foreground/40 hover:shadow-lg hover:-translate-y-0.5 bg-card/25 ${
-          featured ? "border-foreground/60 ring-1 ring-foreground/20" : "border-border"
-        }`}
-      >
-        <CardContent className="p-0 flex flex-col h-full gap-0">
-          <CoursePoster title={course.title} category={course.category} icon={course.icon} compact />
-          <div className="p-6 sm:p-7 flex flex-col h-full gap-5">
-          <div className="flex items-start justify-between">
-            <div className="w-11 h-11 rounded-xl border border-border bg-background/40 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-colors duration-300">
-              <Icon className="w-5 h-5" />
-            </div>
+    <Link href={"/courses/" + course.slug} className="group block">
+      <article className={"course-card overflow-hidden " + (featured ? "ring-1 ring-foreground/20" : "")}>
+        <CoursePoster title={course.title} category={course.category} icon={course.icon} compact />
+
+        <div className="course-card-body">
+          <div className="flex items-start justify-between gap-3">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-border bg-background/50 transition-colors group-hover:bg-foreground group-hover:text-background">
+              <Icon className="h-4 w-4" />
+            </span>
+
             {featured && (
-              <Badge className="font-mono text-[9px] uppercase tracking-[0.08em]">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Flagship
+              <Badge className="font-mono text-[8px] uppercase tracking-[0.08em]">
+                <Sparkles className="mr-1 h-3 w-3" /> Flagship
               </Badge>
             )}
           </div>
 
-          <div className="space-y-1.5">
-            <h3 className="course-title font-bold text-xl text-foreground group-hover:underline underline-offset-4">
-              {course.title}
-            </h3>
-            <p className="text-[13px] text-muted-foreground leading-relaxed">{course.tagline}</p>
+          <div className="mt-4">
+            <h3 className="course-card-title font-black">{course.title}</h3>
+            <p className="course-card-desc">{course.tagline}</p>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 mt-auto">
-            <Badge variant="outline" className="font-mono text-[9px]">{course.level}</Badge>
-            <Badge variant="outline" className="font-mono text-[9px]">{course.duration}</Badge>
-            <Badge variant="secondary" className="font-mono text-[9px]">
-              {stats.modules} modules · {stats.lessons} lessons
-            </Badge>
+          <div className="course-card-meta">
+            <span>{course.level}</span>
+            <span>{course.duration}</span>
+            <span>{stats.modules} modules · {stats.lessons} lessons</span>
           </div>
 
-          <div className="space-y-1.5 pt-1">
-            <div className="flex justify-between text-[10px] font-mono text-muted-foreground">
-              <span>{pct > 0 ? `${pct}% complete` : "Not started"}</span>
-              <span className="flex items-center gap-1 text-foreground font-semibold group-hover:gap-2 transition-all">
-                Start <ArrowRight className="w-3 h-3" />
+          <div className="mt-5">
+            <div className="mb-1.5 flex items-center justify-between gap-2 font-mono text-[9px] text-muted-foreground">
+              <span>{pct > 0 ? pct + "% complete" : "Ready when you are"}</span>
+              <span className="inline-flex items-center gap-1 font-bold text-foreground transition-all group-hover:gap-2">
+                Open <ArrowRight className="h-3 w-3" />
               </span>
             </div>
-            <div className="h-1.5 rounded-full bg-border overflow-hidden">
-              <div
-                className="h-full bg-foreground rounded-full transition-all duration-700"
-                style={{ width: `${pct}%` }}
-              />
+            <div className="h-1.5 overflow-hidden rounded-full bg-border">
+              <div className="h-full rounded-full bg-foreground transition-all duration-700" style={{ width: pct + "%" }} />
             </div>
           </div>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </article>
     </Link>
   );
 }
 
 export function CourseCatalog() {
-  const featured = COURSES.filter((c) => c.featured);
-  const rest = COURSES.filter((c) => !c.featured);
+  const featured = COURSES.filter((course) => course.featured);
+  const rest = COURSES.filter((course) => !course.featured);
 
   return (
-    <div className="space-y-10">
-      <div className="grid sm:grid-cols-2 gap-5">
-        {featured.map((c) => (
-          <CourseCard key={c.slug} course={c} featured />
-        ))}
-      </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {rest.map((c) => (
-          <CourseCard key={c.slug} course={c} />
-        ))}
-      </div>
+    <div className="space-y-12">
+      {featured.length > 0 && (
+        <section>
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <span className="lesson-kicker">START HERE</span>
+              <h2 className="mt-1 text-xl font-black tracking-tight">Flagship paths</h2>
+            </div>
+            <span className="hidden font-mono text-[9px] text-muted-foreground sm:block">{featured.length} featured</span>
+          </div>
+          <div className="course-catalog-grid lg:grid-cols-2">
+            {featured.map((course) => <CourseCard key={course.slug} course={course} featured />)}
+          </div>
+        </section>
+      )}
+
+      <section>
+        <div className="mb-4">
+          <span className="lesson-kicker">EXPLORE</span>
+          <h2 className="mt-1 text-xl font-black tracking-tight">All courses</h2>
+        </div>
+        <div className="course-catalog-grid">
+          {rest.map((course) => <CourseCard key={course.slug} course={course} />)}
+        </div>
+      </section>
     </div>
   );
 }

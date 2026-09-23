@@ -1,7 +1,7 @@
-import React from "react";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+
+import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Layers, Signal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,37 +14,31 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return COURSES.map((c) => ({ slug: c.slug }));
+  return COURSES.map((course) => ({ slug: course.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const course = getCourse(slug);
   if (!course) return {};
-  const url = `https://stack-shade.github.io/courses/${course.slug}`;
+
+  const url = "https://stack-shade.github.io/courses/" + course.slug;
   return {
-    title: `${course.title} — StackShade Courses`,
+    title: course.title + " — StackShade Courses",
     description: course.description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${course.title} — StackShade Courses`,
+      title: course.title + " — StackShade Courses",
       description: course.description,
       url,
       siteName: "StackShade",
-      images: [
-        {
-          url: "https://stack-shade.github.io/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: `${course.title} course`,
-        },
-      ],
+      images: [{ url: "https://stack-shade.github.io/og-image.png", width: 1200, height: 630, alt: course.title + " course" }],
       locale: "en_US",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${course.title} — StackShade Courses`,
+      title: course.title,
       description: course.description,
       images: ["https://stack-shade.github.io/og-image.png"],
     },
@@ -58,94 +52,110 @@ export default async function CoursePage({ params }: PageProps) {
   if (!course) notFound();
 
   const stats = courseStats(course);
-  const others = COURSES.filter((c) => c.slug !== course.slug).slice(0, 3);
+  const others = COURSES.filter((item) => item.slug !== course.slug).slice(0, 3);
 
   return (
-    <main className="stack-courses max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-      {/* Back link */}
-      <div className="mb-10">
-        <Link
-          href="/courses"
-          className="inline-flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
-        >
-          <ArrowLeft className="w-4 h-4 mr-1.5 group-hover:-translate-x-0.5 transition-transform" />
-          All Courses
-        </Link>
-      </div>
+    <main className="stack-courses ss-shell py-6 sm:py-10 lg:py-14">
+      <Link
+        href="/courses"
+        className="group inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+        All courses
+      </Link>
 
-      {/* Course poster + header */}
-      <header className="space-y-6 mb-12">
-        <CoursePoster title={course.title} category={course.category} icon={course.icon} />
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="outline" className="border-border text-foreground uppercase text-[10px] tracking-wider font-semibold">
-            {course.category}
-          </Badge>
-          {course.featured && (
-            <Badge className="uppercase text-[10px] tracking-wider font-semibold">Flagship</Badge>
-          )}
-        </div>
-        <h1 className="courses-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">{course.title}</h1>
-        <p className="courses-copy text-muted-foreground max-w-3xl">
-          {course.description}
-        </p>
+      <header className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,.65fr)] lg:items-end">
+        <div>
+          <div className="mb-3 flex flex-wrap gap-2">
+            <Badge variant="outline" className="font-mono text-[9px]">{course.category}</Badge>
+            {course.featured && <Badge className="font-mono text-[9px]">Featured path</Badge>}
+          </div>
+          <h1 className="courses-display text-4xl font-black tracking-[-0.045em] sm:text-6xl lg:text-7xl">
+            {course.title}
+          </h1>
+          <p className="courses-copy mt-4 max-w-3xl text-muted-foreground sm:text-lg">
+            {course.description}
+          </p>
 
-        <div className="courses-meta flex flex-wrap items-center gap-6 text-muted-foreground border-y border-border/60 py-4">
-          <span className="flex items-center gap-1.5">
-            <Signal className="w-4 h-4" />
-            {course.level}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4" />
-            {course.duration}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Layers className="w-4 h-4" />
-            {stats.modules} modules · {stats.lessons} lessons
-          </span>
+          <div className="mt-5 grid max-w-2xl grid-cols-3 overflow-hidden rounded-2xl border border-border bg-card/25">
+            <div className="border-r border-border p-3 sm:p-4">
+              <Signal className="h-4 w-4" />
+              <div className="mt-2 font-bold text-xs">{course.level}</div>
+            </div>
+            <div className="border-r border-border p-3 sm:p-4">
+              <Clock className="h-4 w-4" />
+              <div className="mt-2 font-bold text-xs">{course.duration}</div>
+            </div>
+            <div className="p-3 sm:p-4">
+              <Layers className="h-4 w-4" />
+              <div className="mt-2 font-bold text-xs">{stats.modules} modules · {stats.lessons} lessons</div>
+            </div>
+          </div>
         </div>
 
-        {/* Outcomes */}
-        <Card className="bg-card/30 border-border">
-          <CardContent className="p-5">
-            <h2 className="courses-meta font-bold text-muted-foreground mb-3">
-              What you&apos;ll walk away with
-            </h2>
-            <ul className="grid sm:grid-cols-2 gap-2.5">
-              {course.outcomes.map((o) => (
-                <li key={o} className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
-                  {o}
+        <div className="overflow-hidden rounded-[1.35rem] border border-border bg-card/20">
+          <CoursePoster title={course.title} category={course.category} icon={course.icon} />
+        </div>
+      </header>
+
+      <section className="mt-6 grid gap-3 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <Card className="border-border bg-card/25">
+          <CardContent className="p-4 sm:p-5">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <span className="lesson-kicker">LEARNER OUTCOMES</span>
+                <h2 className="mt-1 text-lg font-black">What you should be able to do</h2>
+              </div>
+              <span className="hidden font-mono text-[9px] text-muted-foreground sm:block">{course.outcomes.length} outcomes</span>
+            </div>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {course.outcomes.map((outcome) => (
+                <li key={outcome} className="flex items-start gap-2.5 rounded-xl border border-border/70 bg-background/25 p-3 text-xs leading-5 text-muted-foreground">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
+                  {outcome}
                 </li>
               ))}
             </ul>
           </CardContent>
         </Card>
-      </header>
 
-      {/* Interactive study experience */}
-      <CourseStudy course={course} />
+        <Card className="border-border bg-card/25">
+          <CardContent className="p-4 sm:p-5">
+            <span className="lesson-kicker">TOPIC FORMAT</span>
+            <h2 className="mt-1 text-lg font-black">Every topic has two modes</h2>
+            <div className="mt-4 space-y-2.5 text-xs leading-5 text-muted-foreground">
+              <p><strong className="text-foreground">Read</strong> — deep article with diagrams, artifacts and retrieval.</p>
+              <p><strong className="text-foreground">Present</strong> — focused deck with notes, pointer, timer and fullscreen.</p>
+              <p><strong className="text-foreground">Review</strong> — completion plus spaced review on this device.</p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
-      {/* Related courses */}
-      <div className="mt-16 pt-10 border-t border-border">
-        <h2 className="courses-meta font-bold text-muted-foreground mb-5">
-          Keep going
-        </h2>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {others.map((c) => (
-            <Link key={c.slug} href={`/courses/${c.slug}`} className="group">
-              <div className="border border-border rounded-xl p-4 h-full bg-card/20 hover:border-foreground/40 transition-all duration-300">
-                <h3 className="font-bold text-sm text-foreground group-hover:underline underline-offset-4 mb-1">
-                  {c.title}
-                </h3>
-                <p className="text-[11px] text-muted-foreground line-clamp-2">{c.tagline}</p>
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono text-foreground mt-3 group-hover:gap-2 transition-all">
-                  Open course <ArrowRight className="w-3 h-3" />
-                </span>
-              </div>
+      <div className="mt-8">
+        <CourseStudy course={course} />
+      </div>
+
+      <section className="mt-12 border-t border-border pt-8">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <span className="lesson-kicker">KEEP GOING</span>
+            <h2 className="mt-1 text-xl font-black">Another path next</h2>
+          </div>
+          <Link href="/courses" className="font-mono text-[9px] text-muted-foreground hover:text-foreground">View all</Link>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {others.map((item) => (
+            <Link key={item.slug} href={"/courses/" + item.slug} className="group rounded-xl border border-border bg-card/20 p-4 transition-colors hover:border-foreground/25">
+              <h3 className="text-sm font-bold">{item.title}</h3>
+              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">{item.tagline}</p>
+              <span className="mt-3 inline-flex items-center gap-1 font-mono text-[9px] group-hover:gap-2">
+                Open <ArrowRight className="h-3 w-3" />
+              </span>
             </Link>
           ))}
         </div>
-      </div>
+      </section>
     </main>
   );
 }

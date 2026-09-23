@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist_Mono, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -13,11 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-});
 
 export const metadata: Metadata = {
   title: "StackShade — Learn Faster, Remember Longer",
@@ -38,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased bg-background text-foreground`}
+        className={`${poppins.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Script

@@ -1,25 +1,22 @@
-'use client';
+
+"use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   AlarmClockCheck,
-  ArrowUpRight,
+  ArrowRight,
   BookOpen,
-  Brain,
   BrainCircuit,
   CheckCircle2,
   ChevronDown,
   Circle,
-  Eye,
   FlaskConical,
   GraduationCap,
-  Layers,
-  Lightbulb,
   MonitorPlay,
   PenLine,
-  Puzzle,
   Presentation,
+  Puzzle,
   Repeat,
   RotateCcw,
   Wrench,
@@ -41,7 +38,10 @@ import {
   toggleLesson,
 } from "@/lib/course-progress";
 
-const TYPE_META: Record<Lesson["type"], { label: string; icon: React.ComponentType<{ className?: string }> }> = {
+const TYPE_META: Record<
+  Lesson["type"],
+  { label: string; icon: React.ComponentType<{ className?: string }> }
+> = {
   video: { label: "Video", icon: MonitorPlay },
   article: { label: "Read", icon: BookOpen },
   interactive: { label: "Interactive", icon: Puzzle },
@@ -51,59 +51,81 @@ const TYPE_META: Record<Lesson["type"], { label: string; icon: React.ComponentTy
 };
 
 const SCIENCE = [
-  {
-    icon: BrainCircuit,
-    name: "Active Recall",
-    how: "Answer the recall questions BEFORE revealing. Trying to retrieve an answer before rereading strengthens the memory trace and reveals what you do not yet know.",
-  },
-  {
-    icon: Repeat,
-    name: "Spaced Repetition",
-    how: "Completed lessons return for review after 1, 3, 7, 21 and 60 days. Review at expanding intervals so older knowledge is retrieved after increasing delays.",
-  },
-  {
-    icon: Layers,
-    name: "Chunking",
-    how: "Each module is one small digestible chunk with a one-line memory hook. Finish a chunk fully before starting the next.",
-  },
-  {
-    icon: GraduationCap,
-    name: "Feynman Technique",
-    how: "Every module ends with a teach-it-back prompt. If you can't explain it simply, you haven't learned it yet.",
-  },
-  {
-    icon: FlaskConical,
-    name: "Interleaving",
-    how: "Mixed revision phases deliberately shuffle topics — discrimination between problem types is what exams test.",
-  },
-  {
-    icon: Lightbulb,
-    name: "Elaboration",
-    how: "Ask why a rule works, what it connects to, and when it would fail. Linking new ideas to prior knowledge makes the concept easier to reconstruct later.",
-  },
-  {
-    icon: PenLine,
-    name: "Generation",
-    how: "Attempt the solution, diagram, subnet calculation or explanation before seeing the worked version. The attempt becomes feedback rather than passive copying.",
-  },
-  {
-    icon: Brain,
-    name: "Self-Explanation",
-    how: "After each visual or example, explain why the next step follows from the previous one. Mechanistic explanations are more useful than repeating labels.",
-  },
-  {
-    icon: Eye,
-    name: "Dual Coding",
-    how: "Pair concise explanations with diagrams or simulations so the same idea is encoded in complementary forms.",
-  },
+  ["Retrieval", "Recall before revealing. The attempt is part of the learning action."],
+  ["Spacing", "Return at increasing intervals instead of rereading everything immediately."],
+  ["Generation", "Predict the next state or answer before seeing the worked version."],
+  ["Dual coding", "Pair compact prose with diagrams, traces, tables and motion."],
+  ["Feynman", "Teach the idea back in plain language to expose missing links."],
+  ["Interleaving", "Contrast nearby problem types so recognition becomes more useful."],
 ];
+
+function LessonRow({
+  course,
+  lesson,
+  moduleIndex,
+  lessonIndex,
+  progress,
+  update,
+}: {
+  course: Course;
+  lesson: Lesson;
+  moduleIndex: number;
+  lessonIndex: number;
+  progress: CourseProgress;
+  update: (next: CourseProgress) => void;
+}) {
+  const id = lessonId(moduleIndex, lessonIndex);
+  const itemProgress = progress[id];
+  const meta = TYPE_META[lesson.type];
+  const TypeIcon = meta.icon;
+  const slug = presentationLessonSlug(moduleIndex, lessonIndex, lesson.title);
+  const articleHref = "/courses/" + course.slug + "/" + slug;
+  const deckHref = "/courses/" + course.slug + "/present/" + slug;
+
+  return (
+    <div className={"lesson-row rounded-xl border p-3 transition-colors " + (itemProgress ? "border-border/60 bg-muted/10" : "border-border bg-background/30 hover:border-foreground/25")}>
+      <button
+        onClick={() => update(toggleLesson(progress, id))}
+        aria-label={itemProgress ? "Mark lesson incomplete" : "Mark lesson complete"}
+        className="shrink-0 cursor-pointer text-muted-foreground hover:text-foreground"
+      >
+        {itemProgress ? <CheckCircle2 className="h-5 w-5" /> : <Circle className="h-5 w-5" />}
+      </button>
+
+      <TypeIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
+
+      <div className="lesson-row-main">
+        <div className={"lesson-row-title text-xs font-semibold sm:text-sm " + (itemProgress ? "text-muted-foreground line-through decoration-border" : "text-foreground")}>
+          {lesson.title}
+        </div>
+        <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground">
+          <span>{meta.label}</span>
+          <span aria-hidden="true">·</span>
+          <span className="lesson-duration">{lesson.duration}</span>
+          {itemProgress && <span className="lesson-review font-mono">{nextReviewLabel(itemProgress)}</span>}
+        </div>
+      </div>
+
+      <div className="lesson-actions">
+        <Link href={articleHref} className="lesson-action primary">
+          <BookOpen className="h-3.5 w-3.5" />
+          <span>Read</span>
+        </Link>
+        <Link href={deckHref} className="lesson-action">
+          <Presentation className="h-3.5 w-3.5" />
+          <span>Deck</span>
+        </Link>
+      </div>
+
+      <ArrowRight className="hidden h-4 w-4 text-muted-foreground sm:block" />
+    </div>
+  );
+}
 
 export function CourseStudy({ course }: { course: Course }) {
   const [progress, setProgress] = useState<CourseProgress>({});
   const [loaded, setLoaded] = useState(false);
   const [openModules, setOpenModules] = useState<Set<number>>(new Set([0]));
-  const [revealed, setRevealed] = useState<Set<string>>(new Set());
-
   const stats = courseStats(course);
 
   useEffect(() => {
@@ -121,287 +143,194 @@ export function CourseStudy({ course }: { course: Course }) {
 
   const dueLessons = useMemo(() => {
     const out: { id: string; title: string; module: string }[] = [];
-    course.modules.forEach((m, mi) => {
-      m.lessons.forEach((l, li) => {
-        const id = lessonId(mi, li);
-        const p = progress[id];
-        if (p && isDue(p)) out.push({ id, title: l.title, module: m.title });
+    course.modules.forEach((module, moduleIndex) => {
+      module.lessons.forEach((lesson, lessonIndex) => {
+        const id = lessonId(moduleIndex, lessonIndex);
+        const item = progress[id];
+        if (item && isDue(item)) out.push({ id, title: lesson.title, module: module.title });
       });
     });
     return out;
   }, [course, progress]);
 
-  const toggleModule = (i: number) => {
-    setOpenModules((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
-  };
-
-  const toggleReveal = (key: string) => {
-    setRevealed((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
-
   return (
-    <div className="space-y-8">
-      {/* Progress header */}
-      <Card className="bg-card/40 border-border">
-        <CardContent className="p-5 space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Brain className="w-5 h-5 text-foreground" />
-              <span className="font-bold text-foreground text-sm">
-                {loaded ? `${done} of ${stats.lessons} lessons complete` : "Loading your progress…"}
-              </span>
+    <div className="course-study-shell">
+      <Card className="course-study-progress">
+        <CardContent className="p-4 sm:p-5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <BrainCircuit className="h-4 w-4 shrink-0" />
+                <span className="text-sm font-bold">
+                  {loaded ? done + " of " + stats.lessons + " complete" : "Loading progress…"}
+                </span>
+              </div>
+              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
+                Read → predict → inspect → retrieve. Your progress stays on this device.
+              </p>
             </div>
-            <div className="flex items-center gap-3">
-              <Badge variant="outline" className="font-mono text-[10px]">{pct}%</Badge>
+            <div className="flex shrink-0 items-center gap-2">
+              <Badge variant="outline" className="font-mono text-[9px]">{pct}%</Badge>
               {done > 0 && (
                 <button
                   onClick={() => update({})}
-                  className="text-[10px] font-mono text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer transition-colors"
+                  className="hidden items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground sm:inline-flex"
                 >
-                  <RotateCcw className="w-3 h-3" /> Reset
+                  <RotateCcw className="h-3 w-3" /> Reset
                 </button>
               )}
             </div>
           </div>
-          <div className="h-2 rounded-full bg-border overflow-hidden">
-            <div className="h-full bg-foreground rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />
+          <div className="mt-3 h-2 overflow-hidden rounded-full bg-border">
+            <div className="h-full rounded-full bg-foreground transition-all duration-700" style={{ width: pct + "%" }} />
           </div>
-          <p className="text-[11px] text-muted-foreground">
-            Progress saves on this device automatically. Reviews follow the 1 · 3 · 7 · 21 · 60 day spaced schedule.
-          </p>
         </CardContent>
       </Card>
 
-      {/* Spaced repetition — review due */}
       {loaded && dueLessons.length > 0 && (
-        <Card className="border-foreground/60 bg-muted/20 ring-1 ring-foreground/15">
-          <CardContent className="p-5 space-y-3">
+        <Card className="border-foreground/25 bg-muted/10">
+          <CardContent className="p-4 sm:p-5">
             <div className="flex items-center gap-2">
-              <AlarmClockCheck className="w-5 h-5 text-foreground animate-pulse" />
-              <h3 className="font-bold text-foreground text-sm">
-                {dueLessons.length} lesson{dueLessons.length > 1 ? "s" : ""} due for spaced review
-              </h3>
+              <AlarmClockCheck className="h-4 w-4" />
+              <h3 className="text-sm font-bold">{dueLessons.length} lesson{dueLessons.length > 1 ? "s" : ""} due for review</h3>
             </div>
-            <p className="text-[11px] text-muted-foreground">
-              Your brain is about to forget these — a 2-minute recall now resets the forgetting curve.
-            </p>
-            <div className="space-y-2">
-              {dueLessons.slice(0, 5).map((d) => (
-                <div
-                  key={d.id}
-                  className="flex items-center justify-between gap-3 border border-border rounded-lg p-2.5 bg-background/40"
-                >
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dueLessons.slice(0, 4).map((item) => (
+                <div key={item.id} className="flex items-center justify-between gap-3 rounded-lg border border-border bg-background/40 p-2.5">
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-foreground truncate">{d.title}</p>
-                    <p className="text-[10px] text-muted-foreground font-mono truncate">{d.module}</p>
+                    <p className="truncate text-xs font-semibold">{item.title}</p>
+                    <p className="truncate font-mono text-[9px] text-muted-foreground">{item.module}</p>
                   </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => update(markReviewed(progress, d.id))}
-                    className="cursor-pointer shrink-0 text-[10px] h-7"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-                    Mark reviewed
+                  <Button size="sm" variant="outline" onClick={() => update(markReviewed(progress, item.id))} className="h-7 shrink-0 text-[10px]">
+                    Review
                   </Button>
                 </div>
               ))}
-              {dueLessons.length > 5 && (
-                <p className="text-[10px] text-muted-foreground font-mono text-center pt-1">
-                  + {dueLessons.length - 5} more — review oldest first
-                </p>
-              )}
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* How to study — neuroscience panel */}
-      <Card className="bg-card/40 border-border">
-        <CardContent className="p-5 space-y-4">
-          <h3 className="font-bold text-foreground text-sm flex items-center gap-2">
-            <FlaskConical className="w-4 h-4" />
-            How to study this course (the neuroscience built in)
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {SCIENCE.map((s) => (
-              <div key={s.name} className="border border-border/70 rounded-lg p-3 bg-background/30 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-foreground">
-                  <s.icon className="w-4 h-4" />
-                  <span className="font-bold text-xs">{s.name}</span>
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{s.how}</p>
-              </div>
-            ))}
+      <section className="rounded-2xl border border-border bg-card/25 p-4 sm:p-5">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <FlaskConical className="h-4 w-4" />
+              <span className="lesson-kicker">STUDY LOOP</span>
+            </div>
+            <h2 className="mt-1 text-xl font-black tracking-tight">Designed around learning, not scrolling</h2>
           </div>
-        </CardContent>
-      </Card>
+          <p className="max-w-xl text-xs leading-6 text-muted-foreground">
+            Each topic now has the full loop: article, visual explanation, artifact, retrieval and a recordable presentation.
+          </p>
+        </div>
 
-      {/* Curriculum */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-black text-foreground">Curriculum</h2>
-        {course.modules.map((m, mi) => {
-          const moduleDone = m.lessons.filter((_, li) => progress[lessonId(mi, li)]).length;
-          const modulePct = progressPercent(m.lessons.length, moduleDone);
-          const open = openModules.has(mi);
-          return (
-            <Card key={m.title} className={`border transition-colors ${open ? "border-foreground/40 bg-card/40" : "border-border bg-card/20"}`}>
-              <CardContent className="p-0">
-                {/* Module header */}
-                <button
-                  onClick={() => toggleModule(mi)}
-                  className="w-full p-5 flex items-center gap-4 text-left cursor-pointer group"
-                >
-                  <span className="font-mono text-[10px] text-muted-foreground border border-border rounded-md px-2 py-1 shrink-0">
-                    {String(mi + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-bold text-foreground text-sm sm:text-base">{m.title}</h3>
-                      <Badge variant="outline" className="font-mono text-[9px]">{m.phase}</Badge>
-                    </div>
-                    <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{m.hook}</p>
-                  </div>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <div className="hidden sm:block w-20">
-                      <div className="h-1.5 rounded-full bg-border overflow-hidden">
-                        <div className="h-full bg-foreground transition-all duration-500" style={{ width: `${modulePct}%` }} />
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {SCIENCE.map(([name, how]) => (
+            <div key={name} className="rounded-xl border border-border bg-background/25 p-3">
+              <div className="text-xs font-bold">{name}</div>
+              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">{how}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-end justify-between gap-3">
+          <div>
+            <span className="lesson-kicker">CURRICULUM</span>
+            <h2 className="mt-1 text-xl font-black tracking-tight sm:text-2xl">Pick a topic</h2>
+          </div>
+          <span className="hidden font-mono text-[10px] text-muted-foreground sm:block">
+            {stats.modules} modules · {stats.lessons} lessons
+          </span>
+        </div>
+
+        <div className="space-y-3">
+          {course.modules.map((module, moduleIndex) => {
+            const moduleDone = module.lessons.filter((_, lessonIndex) => progress[lessonId(moduleIndex, lessonIndex)]).length;
+            const modulePct = progressPercent(module.lessons.length, moduleDone);
+            const open = openModules.has(moduleIndex);
+
+            return (
+              <Card key={module.title} className={"border transition-all " + (open ? "border-foreground/25 bg-card/35" : "border-border bg-card/20")}>
+                <CardContent className="p-0">
+                  <button
+                    className="flex w-full cursor-pointer items-center gap-3 p-4 text-left sm:p-5"
+                    onClick={() => setOpenModules((current) => {
+                      const next = new Set(current);
+                      if (next.has(moduleIndex)) next.delete(moduleIndex);
+                      else next.add(moduleIndex);
+                      return next;
+                    })}
+                    aria-expanded={open}
+                  >
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-border font-mono text-[10px]">
+                      {String(moduleIndex + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <span className="text-sm font-bold sm:text-base">{module.title}</span>
+                        <Badge variant="outline" className="font-mono text-[8px]">{module.phase}</Badge>
+                      </span>
+                      <span className="mt-1 block truncate text-[11px] text-muted-foreground">{module.hook}</span>
+                    </span>
+                    <span className="hidden w-20 shrink-0 sm:block">
+                      <span className="block h-1.5 overflow-hidden rounded-full bg-border">
+                        <span className="block h-full bg-foreground transition-all" style={{ width: modulePct + "%" }} />
+                      </span>
+                      <span className="mt-1 block text-right font-mono text-[9px] text-muted-foreground">{moduleDone}/{module.lessons.length}</span>
+                    </span>
+                    <ChevronDown className={"h-4 w-4 shrink-0 text-muted-foreground transition-transform " + (open ? "rotate-180" : "")} />
+                  </button>
+
+                  {open && (
+                    <div className="border-t border-border/70 p-3 sm:p-4">
+                      <div className="space-y-2">
+                        {module.lessons.map((lesson, lessonIndex) => (
+                          <LessonRow
+                            key={lessonId(moduleIndex, lessonIndex)}
+                            course={course}
+                            lesson={lesson}
+                            moduleIndex={moduleIndex}
+                            lessonIndex={lessonIndex}
+                            progress={progress}
+                            update={update}
+                          />
+                        ))}
                       </div>
-                      <p className="text-[9px] font-mono text-muted-foreground text-right mt-1">
-                        {moduleDone}/{m.lessons.length}
-                      </p>
-                    </div>
-                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
-                  </div>
-                </button>
 
-                {open && (
-                  <div className="border-t border-border/60 p-5 space-y-4">
-                    {/* Lessons */}
-                    <div className="space-y-1.5">
-                      {m.lessons.map((l, li) => {
-                        const id = lessonId(mi, li);
-                        const p = progress[id];
-                        const meta = TYPE_META[l.type];
-                        const TypeIcon = meta.icon;
-                        const inner = (
-                          <>
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                update(toggleLesson(progress, id));
-                              }}
-                              aria-label={p ? "Mark incomplete" : "Mark complete"}
-                              className="shrink-0 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              {p ? (
-                                <CheckCircle2 className="w-5 h-5 text-foreground" />
-                              ) : (
-                                <Circle className="w-5 h-5" />
-                              )}
-                            </button>
-                            <TypeIcon className="w-4 h-4 shrink-0 text-muted-foreground" />
-                            <span className={`flex-1 min-w-0 text-xs sm:text-sm font-medium truncate ${p ? "text-muted-foreground line-through decoration-border" : "text-foreground"}`}>
-                              {l.title}
-                            </span>
-                            {p && (
-                              <Badge variant="outline" className="hidden sm:inline-flex font-mono text-[9px] shrink-0">
-                                {nextReviewLabel(p)}
-                              </Badge>
-                            )}
-                            <span className="font-mono text-[10px] text-muted-foreground shrink-0">{l.duration}</span>
-                            {l.href && (
-                              <a
-                                href={l.href}
-                                aria-label={`Open lesson: ${l.title}`}
-                                className="hidden items-center gap-1 rounded-md border border-border px-2 py-1 text-[9px] font-mono text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground sm:inline-flex"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                Open
-                                <ArrowUpRight className="h-3 w-3" />
-                              </a>
-                            )}
-                            <Link
-                              href={`/courses/${course.slug}/present/${presentationLessonSlug(mi, li, l.title)}`}
-                              aria-label={`Present: ${l.title}`}
-                              className="inline-flex shrink-0 items-center gap-1 rounded-md border border-border bg-background/50 px-2 py-1 text-[9px] font-bold text-foreground transition-all hover:border-foreground/50 hover:bg-muted"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Presentation className="h-3 w-3" />
-                              <span className="hidden sm:inline">Present</span>
-                            </Link>
-                          </>
-                        );
-                        const cls = `w-full flex items-center gap-3 border rounded-lg px-3 py-2.5 transition-all duration-200 ${
-                          p ? "border-border/50 bg-muted/10" : "border-border bg-background/30 hover:border-foreground/40"
-                        }`;
-                        return (
-                          <div key={id} className={cls}>
-                            {inner}
+                      <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                        <div className="rounded-xl border border-border bg-muted/10 p-3">
+                          <div className="flex items-center gap-2">
+                            <GraduationCap className="h-4 w-4" />
+                            <span className="lesson-kicker">FEYNMAN PROMPT</span>
                           </div>
-                        );
-                      })}
-                    </div>
-
-                    {/* Feynman prompt */}
-                    <div className="border border-border/70 rounded-lg p-3.5 bg-muted/10 flex gap-2.5">
-                      <GraduationCap className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">
-                          Feynman Prompt — teach it back
-                        </p>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{m.feynman}</p>
+                          <p className="mt-2 text-xs leading-6 text-muted-foreground">{module.feynman}</p>
+                        </div>
+                        <div className="rounded-xl border border-border bg-muted/10 p-3">
+                          <div className="flex items-center gap-2">
+                            <Repeat className="h-4 w-4" />
+                            <span className="lesson-kicker">ACTIVE RECALL</span>
+                          </div>
+                          <div className="mt-2 space-y-2">
+                            {module.recall.slice(0, 2).map((item) => (
+                              <details key={item.q} className="rounded-lg border border-border bg-background/30 p-2.5">
+                                <summary className="cursor-pointer list-none text-[11px] font-semibold">{item.q}</summary>
+                                <p className="mt-2 border-t border-border/60 pt-2 text-[11px] leading-5 text-muted-foreground">{item.a}</p>
+                              </details>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Active recall */}
-                    <div className="space-y-2">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-                        <BrainCircuit className="w-3.5 h-3.5" />
-                        Active Recall — answer before revealing
-                      </p>
-                      {m.recall.map((r, ri) => {
-                        const key = `${mi}-${ri}`;
-                        const shown = revealed.has(key);
-                        return (
-                          <div key={key} className="border border-border rounded-lg bg-background/30">
-                            <button
-                              onClick={() => toggleReveal(key)}
-                              className="w-full p-3 flex items-center justify-between gap-3 text-left cursor-pointer"
-                            >
-                              <span className="text-xs sm:text-sm font-semibold text-foreground">{r.q}</span>
-                              <Badge variant={shown ? "secondary" : "default"} className="shrink-0 text-[9px] font-mono">
-                                {shown ? "Hide" : "Reveal"}
-                              </Badge>
-                            </button>
-                            {shown && (
-                              <p className="px-3 pb-3 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/60 pt-2.5">
-                                <Lightbulb className="w-3.5 h-3.5 inline mr-1.5 text-foreground" />
-                                {r.a}
-                              </p>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }
