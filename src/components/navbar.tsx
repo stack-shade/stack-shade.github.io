@@ -79,7 +79,7 @@ export function Navbar() {
           >
             <SheetHeader className="border-b border-border px-5 py-4">
               <SheetTitle className="flex items-center gap-2 text-left text-base">
-                <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg object-cover" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}\n                <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg object-cover" />
                 StackShade
               </SheetTitle>
             </SheetHeader>
