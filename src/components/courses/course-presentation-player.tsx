@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  BookOpen,
   ChevronLeft,
   ChevronRight,
   Expand,
@@ -23,7 +22,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { CoursePresentation, PresentationSlide } from "@/lib/course-presentation";
-import { PRESENTATION_AUTOPLAY_MS, PRESENTATION_SHORTCUTS } from "@/lib/presentation-design-system";
+import { PRESENTATION_AUTOPLAY_MS } from "@/lib/presentation-design-system";
 
 function formatTime(seconds: number) {
   const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
@@ -135,17 +134,6 @@ function SlideContent({
   );
 }
 
-function updateParam(
-  searchParams: ReadonlyURLSearchParams,
-  key: string,
-  value: string | null,
-) {
-  const next = new URLSearchParams(searchParams.toString());
-  if (value === null) next.delete(key);
-  else next.set(key, value);
-  return next.toString();
-}
-
 export function CoursePresentationPlayer({ presentation }: { presentation: CoursePresentation }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -228,6 +216,10 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
     document.addEventListener("fullscreenchange", handleFullscreen);
     return () => document.removeEventListener("fullscreenchange", handleFullscreen);
   }, []);
+
+  useEffect(() => {
+    setIndex(initialIndex);
+  }, [initialIndex]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -398,7 +390,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
 
       {pointer && (
         <div
-          className="pointer-events-none fixed z-[70] h-4 w-4 rounded-full border-2 border-red-300 bg-red-500 shadow-[0_0_0_7px_rgba(239,68,68,.14)]"
+          className="pointer-events-none absolute z-[70] h-4 w-4 rounded-full border-2 border-red-300 bg-red-500 shadow-[0_0_0_7px_rgba(239,68,68,.14)]"
           style={{ left: pointerPosition.x, top: pointerPosition.y, transform: "translate(-50%, -50%)" }}
         />
       )}
