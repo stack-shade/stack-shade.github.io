@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Metadata } from "next";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowLeft, Globe, Github, Youtube } from "lucide-react";
@@ -55,11 +56,12 @@ export default function AboutPage() {
             <h2 className="text-xl font-bold text-foreground">Meet the Creator</h2>
             <div className="flex items-start gap-6">
               <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border bg-card/30 p-1 shadow-sm">
-                <img
+                <Image
                   src="https://avatars.githubusercontent.com/u/66713844"
                   alt="Shaswat Raj"
+                  width={512}
+                  height={512}
                   className="h-full w-full rounded-full object-cover"
-                  loading="lazy"
                 />
               </div>
               <div>

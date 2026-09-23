@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Menu, Sparkles, Youtube, BookOpen, Library, Boxes, Info, Mail } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const links = [
@@ -50,6 +51,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <a
             href="https://www.youtube.com/@StackShade"
             target="_blank"
@@ -103,6 +105,11 @@ export function Navbar() {
                     </Link>
                   );
                 })}
+              </div>
+
+              <div className="mt-1 flex items-center justify-between rounded-xl border border-border px-3 py-3">
+                <span className="text-sm font-semibold">Appearance</span>
+                <ThemeToggle />
               </div>
 
               <a

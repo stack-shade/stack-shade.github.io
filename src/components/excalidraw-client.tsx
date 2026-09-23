@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Maximize2, Minimize2, RotateCcw, Sparkles } from "lucide-react";
+import type { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import "@excalidraw/excalidraw/index.css";
 
@@ -18,6 +19,8 @@ export interface ExcalidrawSketchProps {
   height?: number;
 }
 
+const marker = "stackshade-generated-sketch";
+
 export default function ExcalidrawClient({
   title,
   subtitle,
@@ -28,18 +31,7 @@ export default function ExcalidrawClient({
   const [fullscreen, setFullscreen] = useState(false);
   const [api, setApi] = useState<ExcalidrawImperativeAPI | null>(null);
   const shellRef = useRef<HTMLDivElement>(null);
-
-  const initialData = useMemo(
-    () => ({
-      elements: [],
-      appState: {
-        viewBackgroundColor: dark ? "#090a0c" : "#fcfbf8",
-        theme: dark ? "dark" as const : "light" as const,
-      },
-      scrollToContent: true,
-    }),
-    [dark],
-  );
+  const seededKey = useRef("");
 
   useEffect(() => {
     const sync = () => setDark(document.documentElement.classList.contains("dark"));
@@ -50,19 +42,31 @@ export default function ExcalidrawClient({
   }, []);
 
   useEffect(() => {
-    if (!api || labels.length === 0) return;
-    let cancelled = false;
+    const syncFullscreen = () => setFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", syncFullscreen);
+    return () => document.removeEventListener("fullscreenchange", syncFullscreen);
+  }, []);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const key = labels.join("||");
+    if (!labels.length || seededKey.current === key) return;
+    seededKey.current = key;
 
     void (async () => {
       await document.fonts.ready;
-      if (cancelled) return;
-
       const { convertToExcalidrawElements } = await import("@excalidraw/excalidraw");
+
       const gap = 68;
       const startX = 90;
       const y = 150;
       const width = 240;
       const boxHeight = 110;
+      const strokeColor = dark ? "#d7d0c7" : "#474039";
+      const backgroundColor = dark ? "#15181d" : "#f1ede7";
+      const textColor = dark ? "#f5f2ed" : "#29251f";
+      const arrowColor = dark ? "#a78bfa" : "#6d4db1";
       const skeletons: Parameters<typeof convertToExcalidrawElements>[0] = [];
 
       labels.forEach((label, index) => {
@@ -74,9 +78,10 @@ export default function ExcalidrawClient({
             y,
             width,
             height: boxHeight,
-            strokeColor: dark ? "#d7d0c7" : "#474039",
-            backgroundColor: dark ? "#15181d" : "#f1ede7",
+            strokeColor,
+            backgroundColor,
             roughness: 1,
+            customData: { sketchMarker: marker },
           } as never,
           {
             type: "text",
@@ -84,8 +89,9 @@ export default function ExcalidrawClient({
             y: y + 38,
             text: label,
             fontSize: 21,
-            strokeColor: dark ? "#f5f2ed" : "#29251f",
+            strokeColor: textColor,
             roughness: 0,
+            customData: { sketchMarker: marker },
           } as never,
         );
 
@@ -98,30 +104,53 @@ export default function ExcalidrawClient({
               points: [[0, 0], [gap, 0]],
               startArrowhead: null,
               endArrowhead: "arrow",
-              strokeColor: dark ? "#a78bfa" : "#6d4db1",
+              strokeColor: arrowColor,
               roughness: 1,
+              customData: { sketchMarker: marker },
             } as never,
           );
         }
       });
 
-      api.updateScene({ elements: convertToExcalidrawElements(skeletons) });
-      api.scrollToContent(api.getSceneElements(), { fitToContent: true, animate: false });
+      const elements = convertToExcalidrawElements(skeletons);
+      api.updateScene({ elements });
+      api.scrollToContent(elements, { fitToContent: true, animate: false });
     })();
+  }, [api, labels, dark]);
 
-    return () => {
-      cancelled = true;
-    };
-  }, [api, dark, labels]);
+  useEffect(() => {
+    if (!api || !seededKey.current) return;
+
+    const strokeColor = dark ? "#d7d0c7" : "#474039";
+    const backgroundColor = dark ? "#15181d" : "#f1ede7";
+    const textColor = dark ? "#f5f2ed" : "#29251f";
+    const arrowColor = dark ? "#a78bfa" : "#6d4db1";
+
+    const nextElements = api.getSceneElements().map((element) => {
+      const customData = (element as ExcalidrawElement & { customData?: { sketchMarker?: string } }).customData;
+      if (customData?.sketchMarker !== marker) return element;
+
+      if (element.type === "rectangle") {
+        return { ...element, strokeColor, backgroundColor };
+      }
+      if (element.type === "arrow") {
+        return { ...element, strokeColor: arrowColor };
+      }
+      if (element.type === "text") {
+        return { ...element, strokeColor: textColor };
+      }
+      return element;
+    });
+
+    api.updateScene({ elements: nextElements });
+  }, [api, dark]);
 
   const toggleFullscreen = async () => {
     if (!shellRef.current) return;
     if (!document.fullscreenElement) {
       await shellRef.current.requestFullscreen();
-      setFullscreen(true);
     } else {
       await document.exitFullscreen();
-      setFullscreen(false);
     }
   };
 
@@ -136,24 +165,35 @@ export default function ExcalidrawClient({
           {subtitle && <p className="mt-1 max-w-2xl text-xs leading-5 text-muted-foreground">{subtitle}</p>}
         </div>
         <div className="flex shrink-0 gap-1">
-          <button onClick={() => api?.resetScene()} className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background/40 text-muted-foreground hover:text-foreground" aria-label="Reset sketch">
+          <button type="button" onClick={() => api?.resetScene()} className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background/40 text-muted-foreground hover:text-foreground" aria-label="Reset sketch">
             <RotateCcw className="h-4 w-4" />
           </button>
-          <button onClick={() => void toggleFullscreen()} className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background/40 text-muted-foreground hover:text-foreground" aria-label={fullscreen ? "Exit fullscreen" : "Open sketch fullscreen"}>
+          <button type="button" onClick={() => void toggleFullscreen()} className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background/40 text-muted-foreground hover:text-foreground" aria-label={fullscreen ? "Exit fullscreen" : "Open sketch fullscreen"}>
             {fullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
           </button>
         </div>
       </div>
-      <div ref={shellRef} className="overflow-hidden rounded-xl border border-border bg-background" style={{ height }}>
+
+      <div
+        ref={shellRef}
+        className="overflow-hidden rounded-xl border border-border bg-background"
+        style={{ height: fullscreen ? "100vh" : height, width: fullscreen ? "100vw" : "100%" }}
+      >
         <Excalidraw
           theme={dark ? "dark" : "light"}
-          initialData={initialData}
+          initialData={{
+            elements: [],
+            appState: {
+              viewBackgroundColor: dark ? "#090a0c" : "#fcfbf8",
+              theme: dark ? "dark" : "light",
+            },
+          }}
           excalidrawAPI={setApi}
           UIOptions={{
             canvasActions: {
               saveToActiveFile: false,
               loadScene: false,
-              export: false,
+              export: true,
               clearCanvas: false,
             },
           }}

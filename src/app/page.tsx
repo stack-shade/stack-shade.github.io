@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Metadata } from "next";
 import { 
   ArrowUpRight, 
@@ -389,13 +390,14 @@ export default function Home() {
           </div>
 
           <Card className="bg-card/20 border-border p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-center">
-            {/* Creator Avatar with initials */}
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-border flex items-center justify-center p-1 shrink-0 select-none">
-              <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-black tracking-widest text-foreground">
-                  SR
-                </span>
-              </div>
+            <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border bg-background p-1 sm:h-32 sm:w-32">
+              <Image
+                src="https://avatars.githubusercontent.com/u/66713844"
+                alt="Shaswat Raj"
+                width={512}
+                height={512}
+                className="h-full w-full rounded-full object-cover"
+              />
             </div>
 
             {/* Bio & Details */}
