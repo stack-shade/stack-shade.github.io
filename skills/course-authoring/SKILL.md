@@ -1,199 +1,436 @@
+
 ---
 name: course-authoring
-description: Maintainable authoring standard for StackShade course pages, lesson slugs, learning content, interactive visuals, study-science loops, SEO metadata, and course navigation.
+description: End-to-end standard for creating StackShade courses, topics, articles, visuals, presentations, retrieval loops, metadata, navigation and responsive learning experiences.
 ---
 
 # StackShade Course Authoring Skill
 
-Use this skill whenever creating or expanding a course under `/courses`.
+Use this skill whenever creating, expanding, redesigning or repairing a course under /courses.
+
+## Product rule
+
+Every course topic is a complete learning unit, not just a curriculum row.
+
+Every topic must have:
+1. a stable article URL;
+2. a presentation/deck route;
+3. a visual explanation;
+4. a concrete artifact;
+5. active recall;
+6. a teach-back challenge;
+7. previous/next navigation;
+8. responsive mobile and desktop rendering.
+
+The article is the durable learning surface. Presentation mode is the screen-recordable teaching surface.
 
 ## 1. Course architecture
 
-Every course is represented in `src/lib/courses-data.ts`.
+Course source of truth:
 
-A course has:
-- `slug`: stable URL-safe identifier.
-- `title`, `tagline`, `description`.
-- `level`, `duration`, `category`, `icon`.
-- `outcomes`: concrete learner outcomes.
-- `modules`: ordered learning chunks.
-- each module has `title`, `phase`, `hook`, `feynman`, `lessons`, and `recall`.
+' src/lib/courses-data.ts '
 
-Lesson content types are:
-- `video`: narrated explanation or lecture.
-- `article`: reading/deep-dive lesson.
-- `interactive`: simulator, visualizer, calculator, or explorable.
-- `practice`: a deliberately scoped problem or diagnostic exercise.
-- `project`: a larger build or end-to-end lab.
-- `quiz`: retrieval/testing lesson.
+A course contains:
+- slug
+- title
+- tagline
+- description
+- level
+- duration
+- category
+- icon
+- outcomes
+- modules
+- optional featured
 
-Do not use a blog URL for a course lesson. A course lesson that has a dedicated page must use:
-`/courses/<course-slug>/<lesson-slug>`
+A module contains:
+- title
+- phase
+- hook
+- feynman
+- lessons
+- recall
 
-## 2. Lesson URL rules
+A lesson contains:
+- title
+- type
+- duration
+- optional href
 
-Lesson slugs are stable public URLs. Prefer:
-- lowercase
-- hyphen-separated words
-- no dates
-- no unnecessary adjectives
-- a clear concept name
+Lesson types:
+- video
+- article
+- interactive
+- practice
+- project
+- quiz
+
+The type describes the primary teaching activity, not whether the lesson has an article. Every topic gets an article companion.
+
+## 2. URL model
+
+Course:
+'/courses/<course-slug>'
+
+Topic article:
+'/courses/<course-slug>/<generated-lesson-slug>'
+
+Presentation:
+'/courses/<course-slug>/present/<generated-lesson-slug>'
+
+Generated lesson slugs must be stable:
+
+'m<module-number>-l<lesson-number>-<slugified-title>'
+
+Do not silently change an existing public topic slug.
+
+## 3. Course creation stages
+
+Create a course in these stages and do not skip the first three.
+
+### Stage A — Define the learner transformation
+
+Write 3–6 outcomes using verbs:
+- recognize
+- explain
+- reconstruct
+- implement
+- debug
+- compare
+- design
+
+Avoid vague outcomes such as “understand everything about X”.
+
+### Stage B — Map the prerequisite graph
+
+For each module identify:
+- prerequisites;
+- the new concept;
+- what misconception it corrects;
+- what later concept depends on it.
+
+Order modules so each one creates the mental prerequisite for the next.
+
+### Stage C — Give each module a memory hook
+
+A module hook is one sentence that compresses the idea.
 
 Examples:
-- `/courses/computer-networks/osi-model`
-- `/courses/computer-networks/subnetting`
-- `/courses/computer-networks/tcp-handshake`
+- “Grow right until invalid, shrink left until valid.”
+- “Hashing trades memory for lookup time.”
+- “A router chooses the next hop, not the final application.”
 
-Never rename an existing lesson slug casually because search engines and learners may already link to it.
+The hook is not a substitute for the lesson. It is the retrieval cue.
 
-## 3. Dedicated lesson content
+### Stage D — Build topic units
 
-For a rich course, add topic content to a course-specific content file such as:
-`src/lib/computer-networks-lessons.ts`
+Each topic should answer:
+1. What problem exists?
+2. What mental model makes it memorable?
+3. What mechanism solves it?
+4. What does the learner observe?
+5. When should it be used?
+6. What commonly goes wrong?
+7. Can the learner reconstruct it without notes?
 
-Every rich lesson should contain:
-- `overview`: what the learner will understand.
-- `mentalModel`: a memorable analogy that does not distort the technical model.
-- `deepDive`: multiple technically rigorous sections.
-- `flow`: the process or causal sequence.
-- `artifact`: a concrete representation such as packet layout, command sequence, table, formula, or configuration.
-- `mistakes`: misconceptions and traps.
-- `recall`: questions with hidden/revealed answers.
-- `feynman`: a teach-back challenge.
-- `examAngle`: likely university/interview reasoning.
-- `visual`: an interactive or animated visual kind.
+### Stage E — Author the article
 
-A lesson should teach a concept, show it, make the learner reconstruct it, and then test it.
+Use the topic article standard in 'skills/article-authoring/SKILL.md'.
 
-## 4. Visual and interaction standard
+### Stage F — Author the presentation
 
-Prefer:
-1. animated flow or state transition;
-2. labeled diagram;
-3. interactive calculator/simulator;
-4. packet/frame/table artifact;
-5. practical command or lab artifact.
+Use the centralized presentation engine:
+- 'src/lib/course-presentation.ts'
+- 'src/lib/presentation-design-system.ts'
+- 'src/components/courses/course-presentation-player.tsx'
 
-Visuals must clarify a technical relationship rather than decorate the page.
+Add data rather than duplicating slide UI.
 
-Animations should be subtle and explain state movement. Do not use motion as a substitute for labels.
+### Stage G — Add interactions
 
-## 5. Learning-science loop
+Prefer the smallest interaction that teaches the concept:
+- stepper
+- simulator
+- calculator
+- drag/drop
+- state machine
+- timeline
+- comparison view
 
-Use a sequence such as:
-1. Predict.
-2. Visualize.
-3. Explain.
-4. Retrieve.
-5. Apply.
-6. Revisit later.
+Do not ship interaction just because it is technically possible.
 
-Useful techniques include retrieval practice, spaced repetition, chunking, dual coding, elaboration, generation, self-explanation, interleaving, worked examples followed by fading, signaling, and deliberate practice.
+### Stage H — Connect retrieval and transfer
 
-Do not make unsupported quantitative claims such as fixed memory multipliers. Prefer descriptions of the learning mechanism.
+Every module gets recall questions.
 
-## 6. Technical accuracy rules
+Every rich topic gets topic-level recall questions and a Feynman prompt.
 
-For networking content:
-- distinguish MAC, IP, port and application identifiers;
-- distinguish hop-by-hop frame behavior from end-to-end packet/transport behavior;
+Every topic ends with a transfer connection.
+
+## 4. Topic article stages
+
+Author every topic in this order:
+
+### 01 — Orient
+
+Short lede:
+- what the topic is;
+- why it exists;
+- where it sits in the system.
+
+### 02 — Mental model
+
+One memorable analogy or structural model.
+
+Also state where the analogy stops being exact when needed.
+
+### 03 — Mechanism
+
+Use 2–5 focused sections.
+
+Write causal explanations:
+
+'input → transformation → constraint/decision → output'
+
+Avoid definition walls.
+
+### 04 — Visual reasoning
+
+At least one meaningful diagram.
+
+Preferred forms:
+- inline SVG
+- architecture map
+- state machine
+- timeline
+- packet/frame diagram
+- table
+- plot
+- animated flow
+- interactive simulator
+
+A visual must communicate a relationship, not decorate the page.
+
+### 05 — Artifact
+
+Show one inspectable object:
+- code
+- command
+- packet
+- formula
+- configuration
+- query
+- trace
+- worked example
+
+Explain exactly what the learner should notice.
+
+### 06 — Misconceptions
+
+Show the incorrect mental model and the correction.
+
+Keep this specific to the topic.
+
+### 07 — Retrieval
+
+At least two prompts.
+
+Sequence:
+1. question;
+2. pause;
+3. learner answers;
+4. reveal;
+5. compare;
+6. reconstruct.
+
+### 08 — Transfer
+
+Finish with:
+- Feynman teach-back;
+- exam/interview angle;
+- adjacent concept;
+- next action.
+
+## 5. Learning-science patterns
+
+Use these deliberately:
+- retrieval practice;
+- spaced review;
+- chunking;
+- elaboration;
+- generation before explanation;
+- self-explanation;
+- dual coding;
+- worked example followed by independent reconstruction;
+- interleaving when contrast between problem types matters;
+- signaling and progressive disclosure.
+
+Do not make unsupported claims such as fixed memory gains or guaranteed percentages.
+
+## 6. Visual rules
+
+A good learning sequence is:
+
+'read → predict → see → explain → inspect → retrieve → apply'
+
+Avoid:
+
+'paragraph → paragraph → paragraph → quiz'
+
+Reveal complexity gradually.
+
+Animation should show:
+- flow;
+- state;
+- time;
+- comparison;
+- cause/effect.
+
+Always support reduced motion.
+
+## 7. Presentation rules
+
+Default deck:
+1. context/title;
+2. learning target;
+3. mental model;
+4. core concept;
+5. causal flow;
+6. visual reasoning;
+7. artifact;
+8. worked example;
+9. misconceptions;
+10. active recall;
+11. teach-back;
+12. compression + next move.
+
+Slides should be visually sparse compared with articles.
+
+Never copy the entire article into slides.
+
+## 8. Responsive product rules
+
+### Mobile
+
+Design for one-handed use and narrow screens:
+- compact top bar;
+- no giant menu typography;
+- no viewport-height article cards;
+- readable 16–20px side padding;
+- controls remain tappable;
+- lesson action buttons visible without horizontal scrolling;
+- code blocks scroll internally;
+- diagrams scale or scroll internally;
+- no fixed element may cover the reading path.
+
+### Desktop
+
+Use:
+- readable article measure;
+- sticky mini outline where helpful;
+- wider visual stages;
+- hover/focus affordances;
+- keyboard shortcuts in presentation mode.
+
+## 9. Navigation
+
+The curriculum row must provide:
+- Read;
+- Present;
+- completion control.
+
+The course topic page must provide:
+- Course overview;
+- Article;
+- Presentation;
+- Previous;
+- Next;
+- mark complete/review state where applicable.
+
+Never make the presentation the only route to a topic.
+
+## 10. SEO and indexing
+
+Every topic article should have:
+- title metadata;
+- description metadata;
+- canonical URL;
+- LearningResource JSON-LD;
+- static params;
+- sitemap entry when indexable.
+
+Presentation pages should normally be noindex.
+
+## 11. Accessibility
+
+- every diagram has a meaningful label/caption;
+- color is not the only signal;
+- buttons have accessible names;
+- focus states are visible;
+- keyboard navigation works in presentation mode;
+- reduced motion is respected;
+- code does not force viewport width;
+- disclosure answers remain accessible to keyboard and screen readers.
+
+## 12. Technical accuracy
+
+For engineering topics:
+- distinguish abstractions from implementations;
+- label beginner simplifications;
+- include important boundary cases;
+- prefer current standards terminology;
+- never turn an analogy into an implementation claim.
+
+For networking specifically:
+- distinguish MAC, IP and ports;
+- distinguish hop-by-hop framing from end-to-end transport;
+- distinguish recursive DNS resolution from authoritative data;
 - distinguish TCP flow control from congestion control;
-- distinguish DNS recursive resolution from authoritative data;
-- distinguish a proxy from a firewall and a VPN;
-- distinguish HTTP semantics from the transport below HTTP;
-- state exceptions where a simplified classroom rule has important real-world edge cases.
+- distinguish application semantics from transport behavior.
 
-When a simplification is used for beginners, label the simplification rather than teaching it as a universal law.
+## 13. Definition of done
 
-## 7. Navigation and SEO
+A course is done only when:
+- course metadata renders;
+- every module is navigable;
+- every topic has an article route;
+- every topic has a presentation route;
+- every topic has at least one meaningful visual;
+- every topic has a concrete artifact;
+- every topic has retrieval;
+- previous/next navigation works;
+- progress still persists;
+- mobile has no overflow;
+- presentation fullscreen works;
+- reduced motion works;
+- metadata and static generation succeed;
+- representative course/article/deck routes build successfully.
 
-Every dedicated lesson must:
-- have a canonical URL;
-- have useful title/description metadata;
-- be included in `generateStaticParams`;
-- be linked from the course curriculum;
-- include previous/next navigation;
-- be added to `public/sitemap.xml` when it is indexable.
+## 14. File map
 
-The course overview should remain the parent hub.
+Core data:
+' src/lib/courses-data.ts '
 
-## 8. New course checklist
+Universal lesson content:
+' src/lib/course-lesson-content.ts '
 
-When adding a new course:
-1. Add the course object to `COURSES`.
-2. Add modules in pedagogical order.
-3. Pick one stable lesson slug per dedicated lesson.
-4. Add lesson content data.
-5. Add or reuse an appropriate visual component.
-6. Link each lesson from the course curriculum.
-7. Add metadata and static params.
-8. Add indexable lesson URLs to the sitemap.
-9. Run lint/build and verify representative lesson URLs.
-10. Confirm no lesson points to a blog article unless the lesson is intentionally a cross-reference rather than dedicated course content.
+Article renderer:
+' src/components/courses/lesson-article.tsx '
 
-## 9. Definition of done
+Course study/curriculum:
+' src/components/courses/course-study.tsx '
 
-A course lesson is not done merely because its page renders.
+Presentation data:
+' src/lib/course-presentation.ts '
 
-Done means:
-- the page is technically correct;
-- the learner can see the concept before reading the prose;
-- a real artifact anchors the concept;
-- at least one recall task requires reconstruction from memory;
-- the learner can apply the concept to a small scenario;
-- navigation to adjacent lessons works;
-- progress tracking still functions;
-- mobile layout remains readable.
+Presentation renderer:
+' src/components/courses/course-presentation-player.tsx '
 
-## 10. Presentation mode
+Presentation design tokens:
+' src/lib/presentation-design-system.ts '
 
-Every lesson automatically receives a browser-native teaching deck through the centralized presentation engine:
+Rich Computer Networks lessons:
+' src/lib/computer-networks-lessons.ts '
 
-`/courses/<course-slug>/present/<generated-lesson-slug>`
-
-Do not create one React page per slide and do not create PPTX files for normal course presentation mode.
-
-The presentation system consists of:
-- `src/lib/course-presentation.ts`: turns lesson/module/course data into a reusable slide deck.
-- `src/lib/presentation-design-system.ts`: centralized visual tokens, accents, shortcuts and timing.
-- `src/components/courses/course-presentation-player.tsx`: one shared visual/interaction system for every topic.
-- `src/app/(blog)/courses/[slug]/present/[lesson]/page.tsx`: static presentation route.
-
-Standard deck length is 12 slides, designed to stay in the requested 10–15 slide range while keeping recording sessions focused:
-1. title/context
-2. learning target
-3. mental model
-4. core concept
-5. causal flow
-6. visual reasoning
-7. concrete artifact
-8. worked example
-9. misconceptions
-10. active recall
-11. teach-back challenge
-12. compressed summary + next topic
-
-Presentation controls include:
-- previous/next buttons;
-- keyboard navigation with Arrow keys, Space, PageUp/PageDown;
-- fullscreen;
-- slide overview grid;
-- presenter notes;
-- elapsed timer and reset;
-- autoplay;
-- on-screen pointer;
-- visible progress indicator;
-- reduced-motion support.
-
-### Presentation content policy
-
-The presentation engine should prefer existing rich lesson data when available. For example, Computer Networks uses its detailed lesson content for flows, artifacts, pitfalls, recall and Feynman prompts.
-
-For courses that only have curriculum metadata, the engine should generate a useful teaching scaffold from the module hook, lesson type, neighboring lessons, recall questions and Feynman prompt. Later, topic-specific overrides can enrich a deck without changing the renderer.
-
-### Centralized design rule
-
-All presentation UI/UX belongs in the presentation player. A new course should almost never require new slide-component code.
-
-Add data, not duplicated UI.
-
+Article authoring guidance:
+' skills/article-authoring/SKILL.md '
