@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
@@ -39,6 +40,8 @@ type Template = {
   description: string;
   labels: string[];
 };
+
+type SceneElements = ReturnType<ExcalidrawImperativeAPI["getSceneElements"]>;
 
 const TEMPLATES: Template[] = [
   {
@@ -86,7 +89,7 @@ function formatTime(totalSeconds: number) {
   return mins + ":" + secs;
 }
 
-function templateSkeletons(template: Template, dark: boolean) {
+function templateSkeletons(template: Template, dark: boolean): unknown[] {
   const stroke = dark ? "#d7d0c7" : "#474039";
   const fill = dark ? "#15181d" : "#f1ede7";
   const text = dark ? "#f5f2ed" : "#29251f";
@@ -100,7 +103,7 @@ function templateSkeletons(template: Template, dark: boolean) {
 
   if (!blocks.length) return [];
 
-  const result: any[] = [];
+  const result: unknown[] = [];
   blocks.forEach((label, index) => {
     const x = startX + index * (width + gap);
     result.push(
@@ -170,7 +173,7 @@ export default function SketchFlowStudio({
   const saveTimerRef = useRef<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const seededRef = useRef(false);
-  const lastElementsRef = useRef<readonly any[]>([]);
+  const lastElementsRef = useRef<SceneElements>([]);
   const activeTopicRef = useRef(topic);
 
   activeTopicRef.current = topic;
@@ -180,7 +183,7 @@ export default function SketchFlowStudio({
     [templateId],
   );
 
-  const persist = useCallback((elements: readonly any[]) => {
+  const persist = useCallback((elements: SceneElements) => {
     if (typeof window === "undefined") return;
     try {
       window.localStorage.setItem(
@@ -203,7 +206,7 @@ export default function SketchFlowStudio({
       if (!api) return;
       const { convertToExcalidrawElements } = await import("@excalidraw/excalidraw");
       const skeletons = templateSkeletons(selected, dark);
-      const elements = convertToExcalidrawElements(skeletons as any);
+      const elements = convertToExcalidrawElements(skeletons as Parameters<typeof convertToExcalidrawElements>[0]);
       if (replace) {
         api.updateScene({ elements });
       } else {
@@ -215,7 +218,7 @@ export default function SketchFlowStudio({
         api.scrollToContent(elements, { fitToContent: true, animate: false });
       }
       lastElementsRef.current = elements;
-      persist(elements as any[]);
+      persist(elements);
     },
     [api, dark, persist, template],
   );
@@ -237,14 +240,14 @@ export default function SketchFlowStudio({
     seededRef.current = true;
 
     void (async () => {
-      let restored: any[] | null = null;
+      let restored: SceneElements | null = null;
       try {
         const raw = window.localStorage.getItem(storageKey(topic));
         if (raw) {
           const parsed = JSON.parse(raw);
           if (Array.isArray(parsed?.elements)) {
-            restored = parsed.elements;
-            setSavedAt(parsed.updatedAt ?? null);
+            restored = parsed.elements as SceneElements;
+            setSavedAt(typeof parsed.updatedAt === "number" ? parsed.updatedAt : null);
           }
         }
       } catch {
@@ -309,7 +312,7 @@ export default function SketchFlowStudio({
   }, [api]);
 
   const onChange = useCallback(
-    (elements: readonly any[]) => {
+    (elements: SceneElements) => {
       lastElementsRef.current = elements;
       setDirty(true);
 
@@ -344,8 +347,8 @@ export default function SketchFlowStudio({
         return;
       }
       api.updateScene({ elements: parsed.elements });
-      lastElementsRef.current = parsed.elements;
-      setSavedAt(parsed.updatedAt ?? null);
+      lastElementsRef.current = parsed.elements as SceneElements;
+      setSavedAt(typeof parsed.updatedAt === "number" ? parsed.updatedAt : null);
       setDirty(false);
     } catch {
       window.alert("The saved drawing could not be restored.");
@@ -461,9 +464,9 @@ export default function SketchFlowStudio({
           <header className="sketchflow-studio-header">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <a href="/courses" className="sketchflow-back-link">
+                <Link href="/courses" className="sketchflow-back-link">
                   ← Courses
-                </a>
+                </Link>
                 <span className="sketchflow-header-divider">/</span>
                 <span className="lesson-kicker">SKETCHFLOW</span>
               </div>
@@ -634,9 +637,9 @@ export default function SketchFlowStudio({
                   <span>{template.label}</span>
                   <span className="text-muted-foreground">· {template.description}</span>
                 </div>
-                <div className="sketchflow-canvas-topline-actions">
-                <span>Canvas tools</span>
-              </div>
+                  <div className="sketchflow-canvas-topline-actions">
+                  <span>Canvas tools</span>
+                </div>
               </div>
               <div className="sketchflow-canvas">
                 <Excalidraw
