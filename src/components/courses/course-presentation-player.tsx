@@ -17,7 +17,7 @@ import {
   TimerReset,
   X,
 } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { CoursePresentation, PresentationSlide } from "@/lib/course-presentation";
@@ -136,31 +136,36 @@ function SlideContent({
 export function CoursePresentationPlayer({ presentation }: { presentation: CoursePresentation }) {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const stageRef = useRef<HTMLDivElement>(null);
 
-  const initialIndex = useMemo(() => {
-    const raw = Number(searchParams.get("slide") ?? "1");
-    if (!Number.isFinite(raw)) return 0;
-    return Math.max(0, Math.min(presentation.slides.length - 1, raw - 1));
-  }, [presentation.slides.length, searchParams]);
-
-  const [index, setIndex] = useState(initialIndex);
-  const [overview, setOverview] = useState(searchParams.get("overview") === "1");
-  const [notes, setNotes] = useState(searchParams.get("notes") === "1");
-  const [pointer, setPointer] = useState(searchParams.get("pointer") === "1");
-  const [autoplay, setAutoplay] = useState(searchParams.get("autoplay") === "1");
+  const [index, setIndex] = useState(0);
+  const [overview, setOverview] = useState(false);
+  const [notes, setNotes] = useState(false);
+  const [pointer, setPointer] = useState(false);
+  const [autoplay, setAutoplay] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [pointerPosition, setPointerPosition] = useState({ x: 60, y: 60 });
   const intervalRef = useRef<number | null>(null);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const rawSlide = Number(params.get("slide") ?? "1");
+    if (Number.isFinite(rawSlide)) {
+      setIndex(Math.max(0, Math.min(presentation.slides.length - 1, rawSlide - 1)));
+    }
+    setOverview(params.get("overview") === "1");
+    setNotes(params.get("notes") === "1");
+    setPointer(params.get("pointer") === "1");
+    setAutoplay(params.get("autoplay") === "1");
+  }, [presentation.slides.length]);
+
   const slide = presentation.slides[index];
 
   const sync = useCallback(
     (nextIndex: number, extras?: Record<string, string | null>) => {
-      const next = new URLSearchParams(searchParams.toString());
+      const next = new URLSearchParams(window.location.search);
       next.set("slide", String(nextIndex + 1));
       next.set("mode", "present");
       Object.entries(extras ?? {}).forEach(([key, value]) => {
@@ -169,7 +174,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
       });
       router.replace(pathname + "?" + next.toString(), { scroll: false });
     },
-    [pathname, router, searchParams],
+    [pathname, router],
   );
 
   const go = useCallback(
@@ -183,7 +188,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
 
   const setUiState = useCallback(
     (key: string, value: boolean) => {
-      const next = new URLSearchParams(searchParams.toString());
+      const next = new URLSearchParams(window.location.search);
       if (value) next.set(key, "1");
       else next.delete(key);
       next.set("slide", String(index + 1));
@@ -195,7 +200,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
       if (key === "pointer") setPointer(value);
       if (key === "autoplay") setAutoplay(value);
     },
-    [index, pathname, router, searchParams],
+    [index, pathname, router],
   );
 
   const toggleFullscreen = async () => {
