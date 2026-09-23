@@ -25,13 +25,13 @@ function findLesson(
   if (!course) return null;
 
   for (let moduleIndex = 0; moduleIndex < course.modules.length; moduleIndex += 1) {
-    const module = course.modules[moduleIndex];
-    for (let lessonIndex = 0; lessonIndex < module.lessons.length; lessonIndex += 1) {
-      const lesson = module.lessons[lessonIndex];
+    const courseModule = course.modules[moduleIndex];
+    for (let lessonIndex = 0; lessonIndex < courseModule.lessons.length; lessonIndex += 1) {
+      const lesson = courseModule.lessons[lessonIndex];
       const generatedSlug = presentationLessonSlug(moduleIndex, lessonIndex, lesson.title);
       const legacySlug = lesson.href?.split("/").filter(Boolean).at(-1);
       if (generatedSlug === lessonSlug || legacySlug === lessonSlug) {
-        return { course, module, lesson, moduleIndex, lessonIndex, generatedSlug, legacySlug };
+        return { course, module: courseModule, lesson, moduleIndex, lessonIndex, generatedSlug, legacySlug };
       }
     }
   }
