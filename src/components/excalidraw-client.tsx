@@ -192,7 +192,7 @@ export default function ExcalidrawClient({
             canvasActions: {
               saveToActiveFile: false,
               loadScene: false,
-              export: true,
+              export: false,
               clearCanvas: false,
             },
           }}
