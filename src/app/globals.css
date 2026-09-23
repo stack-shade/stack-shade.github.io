@@ -1273,3 +1273,248 @@ h6 {
     line-height: 1.78;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* StackShade learning surface v2: media hub, curriculum rail, PPT player     */
+/* -------------------------------------------------------------------------- */
+
+.lesson-learning-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20rem;
+  grid-template-areas: "content sidebar";
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: start;
+}
+
+.lesson-learning-content { grid-area: content; }
+
+.lesson-learning-layout > .course-curriculum-rail {
+  grid-area: sidebar;
+}
+
+.course-curriculum-rail {
+  min-width: 0;
+}
+
+.course-curriculum-module > summary::-webkit-details-marker,
+.course-curriculum-rail details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.course-curriculum-module > summary {
+  user-select: none;
+}
+
+.lesson-media-hub {
+  min-width: 0;
+}
+
+.lesson-media-tabs {
+  position: sticky;
+  top: 4.35rem;
+  z-index: 20;
+  display: flex;
+  gap: .35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: .35rem;
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1rem;
+  background: color-mix(in oklch, var(--background) 92%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.lesson-media-tabs::-webkit-scrollbar { display: none; }
+
+.lesson-media-tab {
+  display: inline-flex;
+  min-height: 2.55rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  padding-inline: .8rem;
+  border: 1px solid transparent;
+  border-radius: .72rem;
+  color: var(--ss-ink-soft);
+  font-size: .71rem;
+  font-weight: 750;
+  white-space: nowrap;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+
+.lesson-media-tab:hover {
+  border-color: var(--ss-hairline);
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+.lesson-media-tab.is-active {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.lesson-media-body {
+  padding-top: 1rem;
+}
+
+.lesson-media-player,
+.lesson-media-document {
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(180deg, color-mix(in oklch, var(--foreground) 3%, transparent), transparent 34%),
+    color-mix(in oklch, var(--background) 92%, transparent);
+  padding: .9rem;
+}
+
+.lesson-media-player-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.presentation-page {
+  min-height: 100svh;
+}
+
+.presentation-page-grid {
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.presentation-page-rail {
+  display: none;
+  border-left: 1px solid rgb(255 255 255 / .08);
+  background: #08090c;
+  padding: 1rem;
+}
+
+.presentation-page-rail .course-curriculum-rail {
+  position: sticky;
+  top: 1rem;
+}
+
+.presentation-page-rail .course-learning-sidebar {
+  position: static;
+  max-height: calc(100svh - 2rem);
+}
+
+.presentation-stage {
+  position: relative;
+}
+
+.presentation-stage:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  border-radius: 0;
+}
+
+.presentation-stage button:focus-visible,
+.presentation-stage a:focus-visible {
+  outline: 2px solid rgb(167 139 250 / .9);
+  outline-offset: 2px;
+}
+
+.stackshade-slide-in {
+  animation: stackshade-slide-in .24s ease-out both;
+}
+
+@keyframes stackshade-slide-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.blog-reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: clamp(1.25rem, 3vw, 3.5rem);
+  align-items: start;
+}
+
+.blog-reading-sidebar {
+  position: sticky;
+  top: 4.75rem;
+}
+
+.blog-reading-sidebar-card {
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1rem;
+  background: color-mix(in oklch, var(--background) 90%, transparent);
+  padding: .9rem;
+}
+
+.blog-article-body {
+  width: 100%;
+  max-width: 78ch;
+}
+
+@media (min-width: 1180px) {
+  .presentation-page-grid {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+
+  .presentation-page-rail {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lesson-learning-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "content";
+  }
+
+  .course-curriculum-rail .course-learning-sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .lesson-media-tabs {
+    top: 3.95rem;
+  }
+
+  .blog-reading-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-reading-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .lesson-media-tabs {
+    margin-inline: -.1rem;
+  }
+
+  .lesson-media-tab {
+    min-height: 2.45rem;
+    padding-inline: .72rem;
+    font-size: .68rem;
+  }
+
+  .lesson-media-player,
+  .lesson-media-document {
+    border-radius: 1rem;
+    padding: .7rem;
+  }
+
+  .lesson-learning-layout {
+    gap: .9rem;
+  }
+
+  .blog-article-body {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stackshade-slide-in { animation: none !important; }
+}

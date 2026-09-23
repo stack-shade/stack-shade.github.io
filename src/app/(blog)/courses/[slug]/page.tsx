@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: course.description,
       url,
       siteName: "StackShade",
-      images: [{ url: "https://stack-shade.github.io/og-image.png", width: 1200, height: 630, alt: course.title + " course" }],
+      images: [{ url: "https://stack-shade.github.io/og-image.svg", width: 1200, height: 630, alt: course.title + " course" }],
       locale: "en_US",
       type: "website",
     },
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: course.title,
       description: course.description,
-      images: ["https://stack-shade.github.io/og-image.png"],
+      images: ["https://stack-shade.github.io/og-image.svg"],
     },
     robots: { index: true, follow: true },
   };
@@ -56,6 +56,29 @@ export default async function CoursePage({ params }: PageProps) {
 
   return (
     <main className="stack-courses ss-shell py-6 sm:py-10 lg:py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            name: course.title,
+            description: course.description,
+            provider: {
+              "@type": "Organization",
+              name: "StackShade",
+              sameAs: "https://stack-shade.github.io/",
+            },
+            educationalLevel: course.level,
+            hasCourseInstance: {
+              "@type": "CourseInstance",
+              courseMode: "online",
+              courseWorkload: course.duration,
+            },
+            url: "https://stack-shade.github.io/courses/" + course.slug,
+          }),
+        }}
+      />
       <Link
         href="/courses"
         className="group inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"

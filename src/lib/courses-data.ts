@@ -1,10 +1,20 @@
 export type LessonType = "video" | "article" | "interactive" | "practice" | "project" | "quiz";
 
+export interface LessonMedia {
+  /** Optional published YouTube/Vimeo URL or direct .mp4/.webm asset. */
+  video?: string;
+  /** Optional compact study notes URL. Hidden until provided. */
+  notes?: string;
+  /** Optional PDF URL for printable/offline study. Hidden until provided. */
+  pdf?: string;
+}
+
 export interface Lesson {
   title: string;
   type: LessonType;
   duration: string;
   href?: string;
+  media?: LessonMedia;
 }
 
 export interface RecallQA {

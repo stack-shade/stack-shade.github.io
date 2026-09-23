@@ -1,13 +1,22 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, BookOpen, BrainCircuit, Clock3, Layers, Presentation, Sparkles } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BrainCircuit,
+  BookOpen,
+  Clock3,
+  Layers,
+  Sparkles,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { CourseLessonActions } from "@/components/courses/course-lesson-actions";
+import { CourseCurriculumRail } from "@/components/courses/course-curriculum-rail";
 import { ComputerNetworkVisual } from "@/components/courses/computer-network-visual";
 import { LessonArticle } from "@/components/courses/lesson-article";
+import { LessonMediaHub } from "@/components/courses/lesson-media-hub";
 import { getCourse, COURSES } from "@/lib/courses-data";
 import { presentationLessonSlug } from "@/lib/course-presentation";
 import { getComputerNetworkLesson } from "@/lib/computer-networks-lessons";
@@ -17,10 +26,7 @@ interface PageProps {
   params: Promise<{ slug: string; lesson: string }>;
 }
 
-function findLesson(
-  slug: string,
-  lessonSlug: string,
-) {
+function findLesson(slug: string, lessonSlug: string) {
   const course = getCourse(slug);
   if (!course) return null;
 
@@ -31,7 +37,15 @@ function findLesson(
       const generatedSlug = presentationLessonSlug(moduleIndex, lessonIndex, lesson.title);
       const legacySlug = lesson.href?.split("/").filter(Boolean).at(-1);
       if (generatedSlug === lessonSlug || legacySlug === lessonSlug) {
-        return { course, module: courseModule, lesson, moduleIndex, lessonIndex, generatedSlug, legacySlug };
+        return {
+          course,
+          module: courseModule,
+          lesson,
+          moduleIndex,
+          lessonIndex,
+          generatedSlug,
+          legacySlug,
+        };
       }
     }
   }
@@ -86,7 +100,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "StackShade",
       images: [
         {
-          url: "https://stack-shade.github.io/og-image.png",
+          url: "https://stack-shade.github.io/og-image.svg",
           width: 1200,
           height: 630,
           alt: content.title,
@@ -99,7 +113,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: content.title,
       description: content.overview,
-      images: ["https://stack-shade.github.io/og-image.png"],
+      images: ["https://stack-shade.github.io/og-image.svg"],
     },
     robots: { index: true, follow: true },
   };
@@ -140,7 +154,7 @@ export default async function CourseLessonPage({ params }: PageProps) {
   const deckHref = "/courses/" + slug + "/present/" + found.generatedSlug;
 
   if (found.legacySlug && found.legacySlug === lessonSlug) {
-    const canonicalPath = "/courses/" + slug + "/" + found.generatedSlug;
+    const canonicalPath = "/courses/" + found.course.slug + "/" + found.generatedSlug;
     return (
       <main className="stack-courses ss-shell py-16">
         <p className="text-sm text-muted-foreground">This lesson has moved to its new learning page.</p>
@@ -162,7 +176,7 @@ export default async function CourseLessonPage({ params }: PageProps) {
             name: content.title,
             description: content.overview,
             educationalLevel: found.course.level,
-            learningResourceType: "Course lesson article",
+            learningResourceType: "Course lesson",
             isPartOf: {
               "@type": "Course",
               name: found.course.title,
@@ -189,7 +203,9 @@ export default async function CourseLessonPage({ params }: PageProps) {
       <header className="lesson-topic-header">
         <div className="min-w-0">
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <Badge variant="outline" className="font-mono text-[9px]">{content.eyebrow}</Badge>
+            <Badge variant="outline" className="font-mono text-[9px]">
+              {content.eyebrow}
+            </Badge>
             <Badge variant="secondary" className="font-mono text-[9px]">
               <Clock3 className="mr-1 h-3 w-3" /> {found.lesson.duration}
             </Badge>
@@ -197,7 +213,7 @@ export default async function CourseLessonPage({ params }: PageProps) {
               <Layers className="mr-1 h-3 w-3" /> {found.module.title}
             </Badge>
           </div>
-          <h1 className="max-w-4xl text-4xl font-black tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-5xl text-4xl font-black tracking-[-0.045em] sm:text-6xl lg:text-7xl">
             {content.title}
           </h1>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
@@ -206,19 +222,21 @@ export default async function CourseLessonPage({ params }: PageProps) {
         </div>
 
         <div className="lesson-topic-actions">
-          <a href="#article" className="lesson-topic-action primary">
-            <BookOpen className="h-4 w-4" /> Article
+          <a href="#lesson-media" className="lesson-topic-action primary">
+            <BookOpen className="h-4 w-4" /> Learn
           </a>
           <Link href={deckHref} className="lesson-topic-action">
-            <Presentation className="h-4 w-4" /> Presentation
+            <Sparkles className="h-4 w-4" /> Presentation
           </Link>
         </div>
       </header>
 
       <div className="mt-5 flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card/20 p-3">
         <Sparkles className="h-4 w-4" />
-        <span className="text-xs font-bold">Complete the loop:</span>
-        <span className="text-xs text-muted-foreground">read the article, inspect the visual, retrieve from memory, then teach it back.</span>
+        <span className="text-xs font-bold">Study loop</span>
+        <span className="text-xs text-muted-foreground">
+          Watch when a video exists → read → inspect → retrieve → teach back.
+        </span>
       </div>
 
       <div className="mt-5">
@@ -229,75 +247,71 @@ export default async function CourseLessonPage({ params }: PageProps) {
         />
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_17rem]">
-        <div id="article" className="min-w-0">
-          {rich && <ComputerNetworkVisual kind={rich.visual} />}
-          <LessonArticle
-            course={found.course}
-            module={found.module}
-            lesson={found.lesson}
-            content={content}
-          />
-        </div>
-
-        <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-3">
-            <div className="rounded-2xl border border-border bg-card/20 p-4">
-              <div className="flex items-center gap-2">
-                <BrainCircuit className="h-4 w-4" />
-                <span className="lesson-kicker">RECALL MODE</span>
+      <div className="lesson-learning-layout mt-7">
+        <div className="lesson-learning-content min-w-0">
+          <div id="lesson-media">
+            <LessonMediaHub
+              presentationHref={deckHref}
+              media={found.lesson.media}
+            >
+              <div className="min-w-0">
+                {rich && <ComputerNetworkVisual kind={rich.visual} />}
+                <LessonArticle
+                  course={found.course}
+                  module={found.module}
+                  lesson={found.lesson}
+                  content={content}
+                />
               </div>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                Do not reread a section when a one-sentence reconstruction would reveal what you know.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card/20 p-4">
-              <div className="flex items-center gap-2">
-                <Presentation className="h-4 w-4" />
-                <span className="lesson-kicker">TEACHING DECK</span>
-              </div>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                The same topic is available as a focused teaching deck with presenter notes, pointer, timer and fullscreen mode.
-              </p>
-              <Link href={deckHref} className={buttonVariants({ variant: "outline", size: "sm", className: "mt-3 w-full font-mono text-[9px]" })}>
-                Open presentation <ArrowRight className="ml-1.5 h-3 w-3" />
-              </Link>
-            </div>
+            </LessonMediaHub>
           </div>
-        </aside>
-      </div>
 
-      <nav className="mt-12 grid gap-3 border-t border-border pt-6 sm:grid-cols-2">
-        <div>
-          {previous ? (
-            <Link href={"/courses/" + slug + "/" + previous.slug} className="group block rounded-xl border border-border bg-card/20 p-4 transition-colors hover:border-foreground/25">
-              <span className="lesson-kicker">PREVIOUS</span>
-              <span className="mt-1 flex items-center gap-2 text-sm font-bold">
-                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                {previous.title}
-              </span>
-            </Link>
-          ) : (
-            <Link href={"/courses/" + slug} className="group block rounded-xl border border-border bg-card/20 p-4">
-              <span className="lesson-kicker">COURSE</span>
-              <span className="mt-1 flex items-center gap-2 text-sm font-bold">
-                <ArrowLeft className="h-4 w-4" /> Back to course
-              </span>
-            </Link>
-          )}
+          <nav className="mt-10 grid gap-3 border-t border-border pt-6 sm:grid-cols-2">
+            <div>
+              {previous ? (
+                <Link
+                  href={"/courses/" + slug + "/" + previous.slug}
+                  className="group block rounded-xl border border-border bg-card/20 p-4 transition-colors hover:border-foreground/25"
+                >
+                  <span className="lesson-kicker">PREVIOUS</span>
+                  <span className="mt-1 flex items-center gap-2 text-sm font-bold">
+                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                    {previous.title}
+                  </span>
+                </Link>
+              ) : (
+                <Link href={"/courses/" + slug} className="group block rounded-xl border border-border bg-card/20 p-4">
+                  <span className="lesson-kicker">COURSE</span>
+                  <span className="mt-1 flex items-center gap-2 text-sm font-bold">
+                    <ArrowLeft className="h-4 w-4" /> Back to course
+                  </span>
+                </Link>
+              )}
+            </div>
+            <div>
+              {next && (
+                <Link
+                  href={"/courses/" + slug + "/" + next.slug}
+                  className="group block rounded-xl border border-border bg-card/20 p-4 text-right transition-colors hover:border-foreground/25"
+                >
+                  <span className="lesson-kicker">NEXT</span>
+                  <span className="mt-1 flex items-center justify-end gap-2 text-sm font-bold">
+                    {next.title}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              )}
+            </div>
+          </nav>
         </div>
-        <div>
-          {next && (
-            <Link href={"/courses/" + slug + "/" + next.slug} className="group block rounded-xl border border-border bg-card/20 p-4 text-right transition-colors hover:border-foreground/25">
-              <span className="lesson-kicker">NEXT</span>
-              <span className="mt-1 flex items-center justify-end gap-2 text-sm font-bold">
-                {next.title}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Link>
-          )}
-        </div>
-      </nav>
+
+        <CourseCurriculumRail
+          course={found.course}
+          currentModuleIndex={found.moduleIndex}
+          currentLessonIndex={found.lessonIndex}
+          mode="article"
+        />
+      </div>
     </main>
   );
 }

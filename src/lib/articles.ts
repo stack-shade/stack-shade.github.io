@@ -269,7 +269,7 @@ export function articleJsonLd(article: Article) {
       name: "StackShade",
       logo: {
         "@type": "ImageObject",
-        url: "https://stack-shade.github.io/logo.png",
+        url: "https://stack-shade.github.io/logo.svg",
       },
     },
     mainEntityOfPage: {

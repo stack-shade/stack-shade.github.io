@@ -1,42 +1,34 @@
-import React from "react";
-import { Youtube, Github } from "lucide-react";
 import Link from "next/link";
+import { Github, Youtube } from "lucide-react";
 
 export function BlogFooter() {
   return (
-    <footer className="py-12 border-t bg-background text-center">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+    <footer className="mt-14 border-t bg-background py-10">
+      <div className="ss-shell">
+        <div className="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
-            <span className="font-bold text-sm text-foreground tracking-tight">StackShade Library</span>
+            <img src="/logo.svg" alt="StackShade" className="h-6 w-6 rounded-md" />
+            <span className="text-sm font-bold tracking-tight">StackShade Library</span>
           </div>
 
-          <p className="text-muted-foreground/60 text-xs">
-            © {new Date().getFullYear()} StackShade. Deconstructing complex systems. Created by{" "}
-            <a
-              href="https://github.com/sh20raj"
-              className="text-muted-foreground hover:underline transition-all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              sh20raj
-            </a>.
+          <p className="text-center text-xs text-muted-foreground sm:text-left">
+            © {new Date().getFullYear()} StackShade · Learn deeply. Build practically. Explain visually.
           </p>
 
-          <div className="flex gap-4">
-            <a href="https://www.youtube.com/@StackShade" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Youtube className="w-4 h-4 fill-current" />
+          <div className="flex items-center justify-center gap-3">
+            <a href="https://www.youtube.com/@StackShade" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground">
+              <Youtube className="h-4 w-4 fill-current" />
             </a>
-            <a href="https://github.com/sh20raj" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Github className="w-4 h-4" />
+            <a href="https://github.com/sh20raj" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground">
+              <Github className="h-4 w-4" />
             </a>
           </div>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+        <nav aria-label="Footer" className="mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+          <Link href="/courses" className="hover:text-foreground hover:underline">Courses</Link>
           <Link href="/explainers" className="hover:text-foreground hover:underline">Explainers</Link>
+          <Link href="/blog" className="hover:text-foreground hover:underline">Blog</Link>
           <Link href="/resources" className="hover:text-foreground hover:underline">Resources</Link>
           <Link href="/about" className="hover:text-foreground hover:underline">About</Link>
           <Link href="/contact" className="hover:text-foreground hover:underline">Contact</Link>
