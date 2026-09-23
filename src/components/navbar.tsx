@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Menu, Sparkles, Youtube, BookOpen, Library, Boxes, Info, Mail } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
