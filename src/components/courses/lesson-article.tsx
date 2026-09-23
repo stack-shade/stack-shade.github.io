@@ -6,72 +6,38 @@ import { Card, CardContent } from "@/components/ui/card";
 
 function ArticleDiagram({ title, flow }: { title: string; flow: CourseLessonContent["flow"] }) {
   const nodes = flow.slice(0, 4);
-  const width = 960;
-  const height = 250;
-  const nodeW = 180;
-  const gap = 45;
-  const startX = 35;
 
   return (
     <figure className="lesson-figure">
       <div className="lesson-figure-head">
-        <div>
+        <div className="min-w-0">
           <span className="lesson-kicker">VISUAL RECONSTRUCTION</span>
           <h3>{title}</h3>
         </div>
         <span className="lesson-figure-index">{nodes.length} stages</span>
       </div>
-      <div className="lesson-svg-wrap">
-        <svg viewBox={"0 0 " + width + " " + height} role="img" aria-label={title} className="lesson-svg">
-          <defs>
-            <linearGradient id="flowLine" x1="0" x2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity=".15" />
-              <stop offset="50%" stopColor="currentColor" stopOpacity=".7" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity=".15" />
-            </linearGradient>
-          </defs>
-          {nodes.map((node, i) => {
-            const x = startX + i * (nodeW + gap);
-            return (
-              <g key={node.label} className="lesson-svg-node">
-                {i < nodes.length - 1 && (
-                  <path
-                    d={
-                      "M " +
-                      (x + nodeW) +
-                      " 125 C " +
-                      (x + nodeW + 18) +
-                      " 125, " +
-                      (x + nodeW + gap - 18) +
-                      " 125, " +
-                      (x + nodeW + gap) +
-                      " 125"
-                    }
-                    stroke="url(#flowLine)"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeDasharray="7 7"
-                  >
-                    <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.8s" repeatCount="indefinite" />
-                  </path>
-                )}
-                <rect x={x} y="58" width={nodeW} height="134" rx="24" fill="currentColor" fillOpacity=".035" stroke="currentColor" strokeOpacity=".14" />
-                <circle cx={x + 24} cy="84" r="7" fill="currentColor" fillOpacity=".7" />
-                <text x={x + 42} y="89" className="lesson-svg-step">{String(i + 1).padStart(2, "0")}</text>
-                <text x={x + 20} y="122" className="lesson-svg-label">{node.label}</text>
-                <text x={x + 20} y="148" className="lesson-svg-detail">
-                  <tspan x={x + 20} dy="0">{node.detail.length > 28 ? node.detail.slice(0, 28) + "…" : node.detail}</tspan>
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+
+      <div className="lesson-visual-flow" role="list" aria-label={title}>
+        {nodes.map((node, i) => (
+          <div key={node.label} className="lesson-visual-flow-item" role="listitem">
+            <div className="lesson-visual-flow-top">
+              <span className="lesson-visual-flow-number">{String(i + 1).padStart(2, "0")}</span>
+              {i < nodes.length - 1 && (
+                <ArrowRight className="lesson-visual-flow-arrow" aria-hidden="true" />
+              )}
+            </div>
+            <h4>{node.label}</h4>
+            <p>{node.detail}</p>
+          </div>
+        ))}
       </div>
-      <figcaption>Trace the mechanism from left to right. Try drawing the same flow without looking.</figcaption>
+
+      <figcaption>
+        Trace the mechanism from left to right. On smaller screens, follow the numbered sequence. Then redraw the same flow without looking.
+      </figcaption>
     </figure>
   );
 }
-
 function MarkdownSection({ title, body, index }: { title: string; body: string; index: number }) {
   return (
     <section className="lesson-prose-block" id={"section-" + (index + 1)}>

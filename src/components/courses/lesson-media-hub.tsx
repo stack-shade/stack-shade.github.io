@@ -22,6 +22,8 @@ type Props = {
   media?: Media;
   presentationHref: string;
   children: React.ReactNode;
+  lessonTitle?: string;
+  lessonMeta?: string;
   sketch?: {
     title: string;
     labels: string[];
@@ -130,7 +132,14 @@ function DocumentPanel({ href, type }: { href: string; type: "notes" | "pdf" }) 
   );
 }
 
-export function LessonMediaHub({ media, presentationHref, children, sketch }: Props) {
+export function LessonMediaHub({
+  media,
+  presentationHref,
+  children,
+  lessonTitle,
+  lessonMeta,
+  sketch,
+}: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -139,8 +148,8 @@ export function LessonMediaHub({ media, presentationHref, children, sketch }: Pr
       { id: "article", label: "Article", icon: BookOpen },
     ];
     if (media?.video) out.push({ id: "video", label: "Video", icon: PlayCircle });
-    out.push({ id: "presentation", label: "PPT / Slides", icon: Presentation, href: presentationHref });
-    if (sketch) out.push({ id: "sketch", label: "Sketch", icon: PencilLine });
+    out.push({ id: "presentation", label: "Slides", icon: Presentation, href: presentationHref });
+    if (sketch) out.push({ id: "sketch", label: "Practice", icon: PencilLine });
     if (media?.notes) out.push({ id: "notes", label: "Notes", icon: StickyNote });
     if (media?.pdf) out.push({ id: "pdf", label: "PDF", icon: FileText });
     return out;
@@ -167,8 +176,15 @@ export function LessonMediaHub({ media, presentationHref, children, sketch }: Pr
 
   return (
     <div className="lesson-media-hub">
-      <div className="lesson-media-tabs" role="tablist" aria-label="Lesson media">
-        {tabs.map((tab) => {
+      <div className="lesson-media-tabs-shell">
+        {(lessonTitle || lessonMeta) && (
+          <div className="lesson-media-context">
+            <div className="lesson-media-context-title">{lessonTitle}</div>
+            {lessonMeta && <div className="lesson-media-context-meta">{lessonMeta}</div>}
+          </div>
+        )}
+        <div className="lesson-media-tabs" role="tablist" aria-label="Lesson media">
+          {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
             <button
@@ -181,9 +197,10 @@ export function LessonMediaHub({ media, presentationHref, children, sketch }: Pr
             >
               <Icon className="h-4 w-4" />
               <span>{tab.label}</span>
-            </button>
-          );
-        })}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="lesson-media-body">

@@ -229,12 +229,9 @@ export default async function CourseLessonPage({ params }: PageProps) {
         </div>
       </header>
 
-      <div className="mt-5 flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card/20 p-3">
-        <Sparkles className="h-4 w-4" />
-        <span className="text-xs font-bold">Study loop</span>
-        <span className="text-xs text-muted-foreground">
-          Watch when a video exists → read → inspect → retrieve → teach back.
-        </span>
+      <div className="lesson-study-loop">
+        <span className="lesson-study-loop-label">LEARNING LOOP</span>
+        <span>Watch</span><span>→</span><span>Read</span><span>→</span><span>Inspect</span><span>→</span><span>Retrieve</span><span>→</span><span>Teach back</span>
       </div>
 
       <div className="mt-5">
@@ -249,6 +246,8 @@ export default async function CourseLessonPage({ params }: PageProps) {
         <div className="lesson-learning-content min-w-0">
           <div id="lesson-media">
             <LessonMediaHub
+              lessonTitle={content.title}
+              lessonMeta={found.module.phase + " · Topic " + (currentIndex + 1) + " / " + flat.length}
               presentationHref={deckHref}
               media={found.lesson.media}
               sketch={{
