@@ -144,7 +144,7 @@ export function LessonMediaHub({ media, presentationHref, children, sketch }: Pr
     if (media?.notes) out.push({ id: "notes", label: "Notes", icon: StickyNote });
     if (media?.pdf) out.push({ id: "pdf", label: "PDF", icon: FileText });
     return out;
-  }, [media, presentationHref]);
+  }, [media, presentationHref, sketch]);
 
   const [active, setActive] = useState<Tab>("article");
 
