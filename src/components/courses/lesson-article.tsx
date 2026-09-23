@@ -59,9 +59,9 @@ function ArticleDiagram({ title, flow }: { title: string; flow: CourseLessonCont
                 <circle cx={x + 24} cy="84" r="7" fill="currentColor" fillOpacity=".7" />
                 <text x={x + 42} y="89" className="lesson-svg-step">{String(i + 1).padStart(2, "0")}</text>
                 <text x={x + 20} y="122" className="lesson-svg-label">{node.label}</text>
-                <foreignObject x={x + 20} y="136" width={nodeW - 40} height="42">
-                  <div xmlns="http://www.w3.org/1999/xhtml" className="lesson-svg-detail">{node.detail}</div>
-                </foreignObject>
+                <text x={x + 20} y="148" className="lesson-svg-detail">
+                  <tspan x={x + 20} dy="0">{node.detail.length > 28 ? node.detail.slice(0, 28) + "…" : node.detail}</tspan>
+                </text>
               </g>
             );
           })}
