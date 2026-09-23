@@ -21,7 +21,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/82 backdrop-blur-xl">
       <div className="ss-shell flex h-14 items-center justify-between gap-3">
         <Link href="/" className="flex min-w-0 items-center gap-2.5">
-          <img src="/logo.png" alt="StackShade" className="h-8 w-8 rounded-lg object-cover" />
+          <Image src="/logo.png" alt="StackShade" width={32} height={32} className="h-8 w-8 rounded-lg object-cover" />
           <span className="truncate text-base font-black tracking-tight sm:text-lg">StackShade</span>
         </Link>
 
@@ -80,7 +80,7 @@ export function Navbar() {
           >
             <SheetHeader className="border-b border-border px-5 py-4">
               <SheetTitle className="flex items-center gap-2 text-left text-base">
-                {/* eslint-disable-next-line @next/next/no-img-element */}\n                <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg object-cover" />
+                <Image src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 rounded-lg object-cover" />
                 StackShade
               </SheetTitle>
             </SheetHeader>
