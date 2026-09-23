@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock3, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { ContentBrowser, type BrowseItem } from "@/components/content-browser";
 import { ARTICLES } from "@/lib/articles";
 
