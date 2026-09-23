@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, BookOpen, Library, Menu, Sparkles, Youtube } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -24,8 +25,7 @@ export function BlogNavbar() {
           </Link>
 
           <Link href="/blog" className="flex min-w-0 items-center gap-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="StackShade" className="h-7 w-7 shrink-0 rounded-md object-cover" />
+            <Image src="/logo.png" alt="StackShade" width={28} height={28} className="h-7 w-7 shrink-0 rounded-md object-cover" />
             <span className="truncate text-sm font-black tracking-tight sm:text-base">
               StackShade <span className="font-medium text-muted-foreground">Library</span>
             </span>
@@ -69,8 +69,7 @@ export function BlogNavbar() {
           <SheetContent side="right" className="w-[min(88vw,380px)] border-l border-border bg-background/96 p-0 backdrop-blur-2xl">
             <SheetHeader className="border-b border-border px-5 py-4">
               <SheetTitle className="flex items-center gap-2 text-left text-base">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.png" alt="" className="h-8 w-8 rounded-lg object-cover" />
+                <Image src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 rounded-lg object-cover" />
                 StackShade Library
               </SheetTitle>
             </SheetHeader>
