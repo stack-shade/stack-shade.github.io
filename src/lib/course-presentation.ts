@@ -79,13 +79,13 @@ function buildSlides(course: Course, module: CourseModule, lesson: Lesson): Pres
     .slice(0, 4)
     .map((candidate) => candidate.title);
 
-  const recall = rich?.recall ?? module.recall;
+  const recall = rich?.recall?.map(({ question, answer }) => ({ q: question, a: answer })) ?? module.recall;
   const recallA = recall[0];
   const recallB = recall[1] ?? recall[0];
   const artifact = rich?.artifact
     ? {
         language: rich.artifact.language,
-        value: rich.artifact.value,
+        value: "value" in rich.artifact ? rich.artifact.value : rich.artifact.code,
       }
     : genericArtifact(course, module, lesson);
 
