@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "StackShade",
     images: [
       {
-        url: "https://stack-shade.github.io/og-image.png",
+        url: "https://stack-shade.github.io/og-image.svg",
         width: 1200,
         height: 630,
         alt: "StackShade — Visual Engineering Social Banner",
@@ -47,12 +47,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "StackShade — Learn Faster, Remember Longer",
     description: "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
-    images: ["https://stack-shade.github.io/og-image.png"],
+    images: ["https://stack-shade.github.io/og-image.svg"],
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
   },
   alternates: {
     canonical: "https://stack-shade.github.io",
@@ -81,7 +81,7 @@ export default function Home() {
               "name": "StackShade",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://stack-shade.github.io/logo.png"
+                "url": "https://stack-shade.github.io/logo.svg"
               }
             }
           })
@@ -441,7 +441,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
+            <img src="/logo.svg" alt="StackShade Logo" className="w-5 h-5 rounded-md object-cover" />
             <span className="font-bold text-foreground tracking-tight">StackShade</span>
           </div>
 
