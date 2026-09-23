@@ -1,0 +1,64 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">What Really Happens When You Type a URL?</title>
+  <desc id="desc">Browser address bar connected through DNS, TCP, TLS, HTTP, edge infrastructure and browser rendering.</desc>
+  <defs>
+    <linearGradient id="bg" x1="70" y1="34" x2="1118" y2="604" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08090B"/>
+      <stop offset="0.56" stop-color="#111318"/>
+      <stop offset="1" stop-color="#1A1D23"/>
+    </linearGradient>
+    <linearGradient id="journey" x1="112" y1="484" x2="1090" y2="484" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".18"/>
+      <stop offset=".5" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".18"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity=".34"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" rx="34" fill="url(#bg)"/>
+  <circle cx="1030" cy="102" r="180" fill="#FFFFFF" fill-opacity=".035"/>
+  <circle cx="1110" cy="536" r="240" fill="#FFFFFF" fill-opacity=".022"/>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="62" width="1060" height="250" rx="24" fill="#0F1115" stroke="#FFFFFF" stroke-opacity=".12"/>
+    <rect x="70" y="62" width="1060" height="48" rx="24" fill="#171A20"/>
+    <circle cx="100" cy="86" r="6" fill="#FFFFFF" fill-opacity=".18"/>
+    <circle cx="120" cy="86" r="6" fill="#FFFFFF" fill-opacity=".12"/>
+    <circle cx="140" cy="86" r="6" fill="#FFFFFF" fill-opacity=".08"/>
+    <rect x="102" y="132" width="996" height="62" rx="16" fill="#0A0C10" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <circle cx="132" cy="163" r="11" fill="#FFFFFF" fill-opacity=".08"/>
+    <path d="M128 166.5L136 158.5" stroke="#FFFFFF" stroke-opacity=".58" stroke-width="2"/>
+    <text x="158" y="170" fill="#FFFFFF" fill-opacity=".94" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="21">https://example.com/products?id=42#reviews</text>
+    <text x="102" y="238" fill="#FFFFFF" fill-opacity=".42" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14">One Enter keypress. A distributed systems journey.</text>
+  </g>
+
+  <text x="76" y="373" fill="#FFFFFF" fill-opacity=".96" font-family="ui-sans-serif, system-ui, sans-serif" font-size="40" font-weight="800" letter-spacing="-1.6">FROM URL → DNS → TLS → HTTP → PIXELS</text>
+  <text x="78" y="409" fill="#FFFFFF" fill-opacity=".42" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">WHERE?  HOW CONNECT?  HOW TRUST?  WHO ANSWERS?  HOW VISIBLE?</text>
+
+  <path d="M94 484H1106" stroke="url(#journey)" stroke-width="2"/>
+  <g fill="#0B0D10" stroke="#FFFFFF" stroke-opacity=".2" stroke-width="2">
+    <circle cx="122" cy="484" r="27"/>
+    <circle cx="252" cy="484" r="27"/>
+    <circle cx="382" cy="484" r="27"/>
+    <circle cx="512" cy="484" r="27"/>
+    <circle cx="642" cy="484" r="27"/>
+    <circle cx="772" cy="484" r="27"/>
+    <circle cx="902" cy="484" r="27"/>
+    <circle cx="1032" cy="484" r="27"/>
+  </g>
+  <g fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" text-anchor="middle">
+    <text x="122" y="488">URL</text>
+    <text x="252" y="488">DNS</text>
+    <text x="382" y="488">TCP</text>
+    <text x="512" y="488">TLS</text>
+    <text x="642" y="488">HTTP</text>
+    <text x="772" y="488">EDGE</text>
+    <text x="902" y="488">DOM</text>
+    <text x="1032" y="488">PIXELS</text>
+  </g>
+
+  <text x="78" y="566" fill="#FFFFFF" fill-opacity=".72" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700">StackShade</text>
+  <text x="78" y="588" fill="#FFFFFF" fill-opacity=".34" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Visual Engineering · Web Mechanics</text>
+</svg>
