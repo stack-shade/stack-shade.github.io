@@ -25,8 +25,8 @@
   --ring: oklch(0.4 0.01 60);
   --radius: 0.75rem;
 
-  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-body: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-mono-stack: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --tracking-display: -0.045em;
   --tracking-heading: -0.025em;
@@ -101,8 +101,8 @@ p, li, dd { text-wrap: pretty; }
 /* StackShade Blog: editorial technical typography */
 .stack-blog { font-family: var(--font-body); }
 .stack-blog .blog-display {
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--font-poppins);
+  font-weight: 700;
   letter-spacing: var(--tracking-display);
   line-height: 0.98;
 }
@@ -126,6 +126,8 @@ p, li, dd { text-wrap: pretty; }
 /* StackShade Courses: precise learning-product typography */
 .stack-courses { font-family: var(--font-body); }
 .stack-courses .courses-display {
+  font-family: var(--font-poppins);
+  font-weight: 700;
   letter-spacing: var(--tracking-display);
   line-height: 0.98;
   text-wrap: balance;
@@ -1098,4 +1100,176 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .stackshade-slide-in { animation: none !important; }
+}
+
+
+/* Typography system: Poppins everywhere, mono only for technical metadata. */
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-poppins);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
+
+.stack-blog .blog-display,
+.stack-courses .courses-display {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
+
+.stack-blog .blog-copy,
+.stack-blog article,
+.stack-courses .courses-copy,
+.stack-courses article {
+  letter-spacing: -0.008em;
+}
+
+/* Udemy-like learning hierarchy */
+.course-learning-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 21rem;
+  gap: 1rem;
+  align-items: start;
+}
+
+.course-learning-sidebar {
+  position: sticky;
+  top: 4.5rem;
+  max-height: calc(100svh - 5rem);
+  overflow: auto;
+}
+
+.course-learning-card {
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1rem;
+  background: color-mix(in oklch, var(--background) 92%, transparent);
+}
+
+.course-curriculum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .85rem 1rem;
+  border-bottom: 1px solid var(--ss-hairline);
+}
+
+.course-curriculum-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .65rem;
+  align-items: start;
+  padding: .7rem .8rem;
+  border-bottom: 1px solid var(--ss-hairline);
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+.course-curriculum-item:last-child {
+  border-bottom: 0;
+}
+
+.course-curriculum-item a {
+  color: var(--ss-ink-soft);
+}
+
+.course-curriculum-item a:hover {
+  color: var(--foreground);
+}
+
+.blog-reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: 2rem;
+  align-items: start;
+}
+
+.blog-reading-sidebar {
+  position: sticky;
+  top: 5rem;
+}
+
+.blog-reading-sidebar-card {
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1rem;
+  background: color-mix(in oklch, var(--background) 90%, transparent);
+  padding: .9rem;
+}
+
+.blog-reading-sidebar-card a {
+  display: block;
+  padding: .45rem .35rem;
+  color: var(--ss-ink-soft);
+  font-size: .72rem;
+}
+
+.blog-reading-sidebar-card a:hover {
+  color: var(--foreground);
+}
+
+.blog-article-body {
+  max-width: 72ch;
+}
+
+.blog-article-body p,
+.blog-article-body li {
+  font-size: clamp(.96rem, 1.2vw, 1.04rem);
+  line-height: 1.82;
+}
+
+.blog-article-body h2 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+  letter-spacing: -.025em;
+}
+
+.blog-article-body h3 {
+  margin-top: 1.8rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .course-learning-layout,
+  .blog-reading-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .course-learning-sidebar,
+  .blog-reading-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .course-index-hero h1,
+  .courses-display,
+  .blog-display {
+    letter-spacing: -.035em;
+  }
+
+  .course-catalog-grid {
+    gap: .75rem;
+  }
+
+  .course-card {
+    border-radius: 1rem;
+  }
+
+  .blog-article-body p,
+  .blog-article-body li {
+    font-size: .96rem;
+    line-height: 1.78;
+  }
 }
