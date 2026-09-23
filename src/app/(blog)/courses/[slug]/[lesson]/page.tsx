@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen, BrainCircuit, Clock3, Layers, Presentation, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants, Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { CourseLessonActions } from "@/components/courses/course-lesson-actions";
 import { ComputerNetworkVisual } from "@/components/courses/computer-network-visual";
 import { LessonArticle } from "@/components/courses/lesson-article";
