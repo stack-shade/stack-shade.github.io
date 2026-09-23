@@ -251,6 +251,10 @@ export default async function CourseLessonPage({ params }: PageProps) {
             <LessonMediaHub
               presentationHref={deckHref}
               media={found.lesson.media}
+              sketch={{
+                title: content.title + " — sketch",
+                labels: [found.module.phase, found.module.title, "Core mechanism", "Apply"],
+              }}
             >
               <div className="min-w-0">
                 {rich && <ComputerNetworkVisual kind={rich.visual} />}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Article, ARTICLES, articleJsonLd } from "@/lib/articles";
+import ExcalidrawSketch from "@/components/excalidraw-sketch";
 
 interface ArticleShellProps {
   article: Article;
@@ -89,6 +90,19 @@ export function ArticleShell({ article, children }: ArticleShellProps) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={article.banner} alt={article.bannerAlt} className="h-full w-full object-cover" />
             </div>
+          </div>
+
+          <div className="mt-7">
+            <ExcalidrawSketch
+              title="Sketch the mental model"
+              subtitle="Rebuild the system from memory. The canvas is editable and opens fullscreen when you need more room."
+              labels={[
+                article.category,
+                ...(article.tags ?? []).slice(0, 2),
+                "Apply",
+              ]}
+              height={360}
+            />
           </div>
 
           <div className="blog-reading-layout">

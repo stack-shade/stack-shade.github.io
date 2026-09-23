@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { href: "/courses", label: "Courses", icon: BookOpen },
@@ -61,6 +62,7 @@ export function BlogNavbar() {
         </nav>
 
         <div className="hidden items-center gap-2 sm:flex">
+          <ThemeToggle />
           <a
             href="https://www.youtube.com/@StackShade"
             target="_blank"
@@ -105,7 +107,11 @@ export function BlogNavbar() {
                   </Link>
                 );
               })}
-              <Link href="/" className="mt-1 flex items-center justify-between rounded-xl border border-border px-3 py-3 text-sm font-semibold">
+              <div className="mt-1 flex items-center justify-between rounded-xl border border-border px-3 py-3">
+                <span className="text-sm font-semibold">Appearance</span>
+                <ThemeToggle />
+              </div>
+              <Link href="/" className="flex items-center justify-between rounded-xl border border-border px-3 py-3 text-sm font-semibold">
                 Back to StackShade <ArrowUpRight className="h-4 w-4" />
               </Link>
               <a

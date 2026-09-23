@@ -54,10 +54,13 @@ export default function AboutPage() {
           <section className="space-y-4">
             <h2 className="text-xl font-bold text-foreground">Meet the Creator</h2>
             <div className="flex items-start gap-6">
-              <div className="w-24 h-24 rounded-full border border-border flex items-center justify-center p-1 shrink-0 select-none bg-card/30">
-                <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                  <span className="text-2xl font-black tracking-widest text-foreground">SR</span>
-                </div>
+              <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border bg-card/30 p-1 shadow-sm">
+                <img
+                  src="https://avatars.githubusercontent.com/u/66713844"
+                  alt="Shaswat Raj"
+                  className="h-full w-full rounded-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-foreground">Shaswat Raj</h3>

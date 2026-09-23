@@ -8,7 +8,9 @@ import {
   PlayCircle,
   Presentation,
   StickyNote,
+  PencilLine,
 } from "lucide-react";
+import ExcalidrawSketch from "@/components/excalidraw-sketch";
 
 type Media = {
   video?: string;
@@ -20,9 +22,13 @@ type Props = {
   media?: Media;
   presentationHref: string;
   children: React.ReactNode;
+  sketch?: {
+    title: string;
+    labels: string[];
+  };
 };
 
-type Tab = "article" | "video" | "presentation" | "notes" | "pdf";
+type Tab = "article" | "video" | "presentation" | "notes" | "pdf" | "sketch";
 
 function youtubeEmbed(src: string) {
   try {
@@ -124,7 +130,7 @@ function DocumentPanel({ href, type }: { href: string; type: "notes" | "pdf" }) 
   );
 }
 
-export function LessonMediaHub({ media, presentationHref, children }: Props) {
+export function LessonMediaHub({ media, presentationHref, children, sketch }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -134,6 +140,7 @@ export function LessonMediaHub({ media, presentationHref, children }: Props) {
     ];
     if (media?.video) out.push({ id: "video", label: "Video", icon: PlayCircle });
     out.push({ id: "presentation", label: "PPT / Slides", icon: Presentation, href: presentationHref });
+    if (sketch) out.push({ id: "sketch", label: "Sketch", icon: PencilLine });
     if (media?.notes) out.push({ id: "notes", label: "Notes", icon: StickyNote });
     if (media?.pdf) out.push({ id: "pdf", label: "PDF", icon: FileText });
     return out;
@@ -184,6 +191,14 @@ export function LessonMediaHub({ media, presentationHref, children }: Props) {
         {active === "video" && media?.video && <VideoPanel src={media.video} />}
         {active === "notes" && media?.notes && <DocumentPanel href={media.notes} type="notes" />}
         {active === "pdf" && media?.pdf && <DocumentPanel href={media.pdf} type="pdf" />}
+        {active === "sketch" && sketch && (
+          <ExcalidrawSketch
+            title={sketch.title}
+            subtitle="Redraw the core mechanism, annotate it, and open fullscreen when you want a clean teaching canvas."
+            labels={sketch.labels}
+            height={520}
+          />
+        )}
       </div>
     </div>
   );
