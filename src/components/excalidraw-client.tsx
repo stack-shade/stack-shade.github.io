@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Maximize2, Minimize2, RotateCcw, Sparkles } from "lucide-react";
-import type { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import "@excalidraw/excalidraw/index.css";
 
@@ -127,7 +126,7 @@ export default function ExcalidrawClient({
     const arrowColor = dark ? "#a78bfa" : "#6d4db1";
 
     const nextElements = api.getSceneElements().map((element) => {
-      const customData = (element as ExcalidrawElement & { customData?: { sketchMarker?: string } }).customData;
+      const customData = (element as { customData?: { sketchMarker?: string } }).customData;
       if (customData?.sketchMarker !== marker) return element;
 
       if (element.type === "rectangle") {
