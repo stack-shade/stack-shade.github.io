@@ -22,7 +22,7 @@ export function CourseCurriculumRail({
 
   return (
     <div className="course-curriculum-rail">
-      <details className="course-learning-card lg:hidden" open>
+      <details className="course-learning-card min-h-0 lg:hidden" open>
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3">
           <div className="min-w-0">
             <span className="lesson-kicker">COURSE CONTENTS</span>
@@ -30,7 +30,7 @@ export function CourseCurriculumRail({
           </div>
           <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform" />
         </summary>
-        <div className="max-h-[55svh] overflow-auto border-t border-border/70 p-2.5">
+        <div data-presentation-scroll className="max-h-[55svh] overscroll-contain overflow-auto border-t border-border/70 p-2.5">
           <CurriculumList
             course={course}
             currentModuleIndex={currentModuleIndex}
@@ -40,8 +40,8 @@ export function CourseCurriculumRail({
         </div>
       </details>
 
-      <aside className="course-learning-sidebar hidden lg:block">
-        <div className="course-learning-card overflow-hidden">
+      <aside className="course-learning-sidebar hidden h-full min-h-0 lg:block">
+        <div className="course-learning-card flex h-full min-h-0 flex-col overflow-hidden">
           <div className="course-curriculum-header">
             <div className="min-w-0">
               <span className="lesson-kicker">COURSE CONTENTS</span>
@@ -53,7 +53,7 @@ export function CourseCurriculumRail({
               <BookOpen className="h-4 w-4 shrink-0 text-muted-foreground" />
             )}
           </div>
-          <div className="max-h-[calc(100svh-7rem)] overflow-auto p-2.5">
+          <div data-presentation-scroll className="min-h-0 flex-1 overscroll-contain overflow-auto p-2.5">
             <CurriculumList
               course={course}
               currentModuleIndex={currentModuleIndex}
