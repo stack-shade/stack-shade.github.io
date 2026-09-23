@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   ChevronDown,
   Circle,
-  Clock3,
   FlaskConical,
   GraduationCap,
   MonitorPlay,
