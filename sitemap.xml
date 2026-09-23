@@ -31,6 +31,11 @@
 <priority>0.55</priority>
 </url>
 <url>
+<loc>https://stack-shade.github.io/practice/sketchflow</loc>
+<changefreq>monthly</changefreq>
+<priority>0.55</priority>
+</url>
+<url>
 <loc>https://stack-shade.github.io/contact</loc>
 <changefreq>monthly</changefreq>
 <priority>0.35</priority>
