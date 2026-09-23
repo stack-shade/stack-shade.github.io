@@ -1954,3 +1954,103 @@ h6 {
     width: 100%;
   }
 }
+
+/* Final responsive lesson-artifact hardening. */
+.lesson-visual-flow,
+.lesson-visual-flow-item,
+.sketchflow-embed-card,
+.sketchflow-embed-frame {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.lesson-visual-flow {
+  width: 100%;
+  overflow: visible;
+}
+
+.lesson-visual-flow-item {
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.lesson-visual-flow-item p {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.sketchflow-embed-card {
+  width: 100%;
+}
+
+.sketchflow-embed-frame {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sketchflow-embed-frame:fullscreen {
+  width: 100vw;
+  height: 100svh;
+  min-height: 100svh;
+  border-radius: 0;
+  background: var(--background);
+}
+
+@media (max-width: 1100px) {
+  .lesson-visual-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lesson-visual-flow-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .lesson-media-tabs-shell {
+    top: 3.55rem;
+    border-radius: .8rem;
+  }
+
+  .lesson-media-tab {
+    min-height: 2.25rem;
+    padding-inline: .58rem;
+    font-size: .64rem;
+  }
+
+  .lesson-visual-flow {
+    grid-template-columns: 1fr;
+    gap: .55rem;
+  }
+
+  .lesson-visual-flow-item {
+    padding: .78rem;
+  }
+
+  .lesson-visual-flow-item p {
+    -webkit-line-clamp: 4;
+  }
+
+  .sketchflow-embed-frame {
+    height: 70svh;
+    min-height: 20rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .lesson-figure-head {
+    align-items: flex-start;
+    gap: .6rem;
+  }
+
+  .lesson-figure-head h3 {
+    font-size: .92rem;
+  }
+
+  .sketchflow-embed-frame {
+    height: 68svh;
+  }
+}

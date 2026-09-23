@@ -3,6 +3,7 @@ import { ArrowRight, BrainCircuit, CheckCircle2, Lightbulb, Quote, Sparkles } fr
 import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
 import type { CourseLessonContent } from "@/lib/course-lesson-content";
 import { Card, CardContent } from "@/components/ui/card";
+import { SketchFlowEmbed } from "@/components/courses/sketchflow-embed";
 
 function ArticleDiagram({ title, flow }: { title: string; flow: CourseLessonContent["flow"] }) {
   const nodes = flow.slice(0, 4);
@@ -87,6 +88,7 @@ export function LessonArticle({
             <a href="#visual">Visual model</a>
             <a href="#artifact">Artifact</a>
             <a href="#recall">Active recall</a>
+            <a href="#sketchflow">Sketch practice</a>
             <a href="#practice">Teach-back</a>
           </div>
         </aside>
@@ -122,6 +124,18 @@ export function LessonArticle({
               <p>One diagram, one causal story, one reconstruction task.</p>
             </div>
             <ArticleDiagram title={lesson.title + " — causal map"} flow={content.flow} />
+          </section>
+
+          <section id="sketchflow" className="lesson-section">
+            <div className="lesson-section-header">
+              <span className="lesson-kicker">ACTIVE RECONSTRUCTION</span>
+              <h2>Draw the idea yourself</h2>
+              <p>Rebuild the core flow on a real canvas before moving to the worked walkthrough.</p>
+            </div>
+            <SketchFlowEmbed
+              title={lesson.title + " — practice canvas"}
+              prompt={"Sketch the " + lesson.title + " mechanism from memory. Label the input, transformation, observation, and transfer."}
+            />
           </section>
 
           <section className="lesson-section">
