@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Github, Youtube } from "lucide-react";
 
@@ -7,7 +8,7 @@ export function BlogFooter() {
       <div className="ss-shell">
         <div className="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="StackShade" className="h-6 w-6 rounded-md" />
+            <Image src="/logo.svg" alt="StackShade" width={24} height={24} className="h-6 w-6 rounded-md" />
             <span className="text-sm font-bold tracking-tight">StackShade Library</span>
           </div>
 
