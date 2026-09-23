@@ -28,8 +28,10 @@ function findLesson(
     const module = course.modules[moduleIndex];
     for (let lessonIndex = 0; lessonIndex < module.lessons.length; lessonIndex += 1) {
       const lesson = module.lessons[lessonIndex];
-      if (presentationLessonSlug(moduleIndex, lessonIndex, lesson.title) === lessonSlug) {
-        return { course, module, lesson, moduleIndex, lessonIndex };
+      const generatedSlug = presentationLessonSlug(moduleIndex, lessonIndex, lesson.title);
+      const legacySlug = lesson.href?.split("/").filter(Boolean).at(-1);
+      if (generatedSlug === lessonSlug || legacySlug === lessonSlug) {
+        return { course, module, lesson, moduleIndex, lessonIndex, generatedSlug, legacySlug };
       }
     }
   }
@@ -40,10 +42,14 @@ function findLesson(
 export function generateStaticParams() {
   return COURSES.flatMap((course) =>
     course.modules.flatMap((module, moduleIndex) =>
-      module.lessons.map((lesson, lessonIndex) => ({
-        slug: course.slug,
-        lesson: presentationLessonSlug(moduleIndex, lessonIndex, lesson.title),
-      })),
+      module.lessons.flatMap((lesson, lessonIndex) => {
+        const generatedSlug = presentationLessonSlug(moduleIndex, lessonIndex, lesson.title);
+        const legacySlug = lesson.href?.split("/").filter(Boolean).at(-1);
+        return [
+          { slug: course.slug, lesson: generatedSlug },
+          ...(legacySlug ? [{ slug: course.slug, lesson: legacySlug }] : []),
+        ];
+      }),
     ),
   );
 }
@@ -131,7 +137,19 @@ export default async function CourseLessonPage({ params }: PageProps) {
   const currentIndex = flat.findIndex((item) => item.slug === lessonSlug);
   const previous = currentIndex > 0 ? flat[currentIndex - 1] : null;
   const next = currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null;
-  const deckHref = "/courses/" + slug + "/present/" + lessonSlug;
+  const deckHref = "/courses/" + slug + "/present/" + found.generatedSlug;
+
+  if (found.legacySlug && found.legacySlug === lessonSlug) {
+    const canonicalPath = "/courses/" + slug + "/" + found.generatedSlug;
+    return (
+      <main className="stack-courses ss-shell py-16">
+        <p className="text-sm text-muted-foreground">This lesson has moved to its new learning page.</p>
+        <Link href={canonicalPath} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold">
+          Continue to the lesson <ArrowRight className="h-4 w-4" />
+        </Link>
+      </main>
+    );
+  }
 
   return (
     <main className="stack-courses lesson-page">
