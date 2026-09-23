@@ -7,7 +7,7 @@ export interface LessonProgress {
 export type CourseProgress = Record<string, LessonProgress>;
 
 const DAY = 24 * 60 * 60 * 1000;
-export const REVIEW_INTERVALS_DAYS = [1, 3, 7, 21, 60];
+export const REVIEW_INTERVALS_DAYS = [1, 3, 7, 21, 60];\n\nexport type ReviewRating = "again" | "good" | "easy";
 
 function key(slug: string) {
   return `ss-course-${slug}`;
@@ -49,7 +49,7 @@ export function toggleLesson(
   return next;
 }
 
-export function markReviewed(progress: CourseProgress, id: string): CourseProgress {
+export function reviewLesson(\n  progress: CourseProgress,\n  id: string,\n  rating: ReviewRating,\n): CourseProgress {\n  const entry = progress[id];\n  if (!entry) return progress;\n\n  const nextReviews =\n    rating === "again"\n      ? 0\n      : Math.min(\n          REVIEW_INTERVALS_DAYS.length,\n          entry.reviews + (rating === "easy" ? 2 : 1),\n        );\n\n  return {\n    ...progress,\n    [id]: { ...entry, reviews: nextReviews, lastReviewedAt: Date.now() },\n  };\n}\n\nexport function markReviewed(progress: CourseProgress, id: string): CourseProgress {
   const entry = progress[id];
   if (!entry) return progress;
   return {

@@ -149,7 +149,7 @@ export default async function CoursePage({ params }: PageProps) {
             <div className="mt-4 space-y-2.5 text-xs leading-5 text-muted-foreground">
               <p><strong className="text-foreground">Read</strong> — deep article with diagrams, artifacts and retrieval.</p>
               <p><strong className="text-foreground">Present</strong> — focused deck with notes, pointer, timer and fullscreen.</p>
-              <p><strong className="text-foreground">Review</strong> — completion plus spaced review on this device.</p>
+              <p><strong className="text-foreground">Review</strong> — spaced review queue with due dates and recall ratings.</p>\n              <p><strong className="text-foreground">Focus</strong> — Pomodoro sessions, daily goals and a persistent scratchpad.</p>
             </div>
           </CardContent>
         </Card>
