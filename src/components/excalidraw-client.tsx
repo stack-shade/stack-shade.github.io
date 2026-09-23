@@ -148,7 +148,7 @@ export default function ExcalidrawClient({
         <Excalidraw
           theme={dark ? "dark" : "light"}
           initialData={initialData}
-          onExcalidrawAPI={setApi}
+          excalidrawAPI={setApi}
           UIOptions={{
             canvasActions: {
               saveToActiveFile: false,
