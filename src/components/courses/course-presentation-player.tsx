@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  ArrowLeft,
   ChevronLeft,
   ChevronRight,
-  FileText,
+
   Grid2X2,
   Info,
   Maximize2,
@@ -17,6 +18,7 @@ import {
   TimerReset,
   X,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -133,7 +135,13 @@ function SlideContent({
   );
 }
 
-export function CoursePresentationPlayer({ presentation }: { presentation: CoursePresentation }) {
+export function CoursePresentationPlayer({
+  presentation,
+  backHref,
+}: {
+  presentation: CoursePresentation;
+  backHref?: string;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const stageRef = useRef<HTMLDivElement>(null);
@@ -292,7 +300,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
   return (
     <section
       ref={stageRef}
-      className="presentation-stage flex min-h-[100svh] flex-col overflow-hidden bg-[#050608] text-white"
+      className="presentation-stage flex h-full min-h-0 flex-col overflow-hidden bg-[#050608] text-white"
       onPointerMove={(event) => {
         if (!pointer || !stageRef.current) return;
         const rect = stageRef.current.getBoundingClientRect();
@@ -302,6 +310,8 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
         });
       }}
       onWheel={(event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest("[data-presentation-scroll]")) return;
         if (Math.abs(event.deltaY) < 24 && Math.abs(event.deltaX) < 24) return;
         event.preventDefault();
         if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) {
@@ -310,8 +320,20 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
           go(event.deltaY > 0 ? index + 1 : index - 1);
         }
       }}
-      onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)}
+      onTouchStart={(event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest("[data-presentation-scroll]")) {
+          setTouchStart(null);
+          return;
+        }
+        setTouchStart(event.touches[0]?.clientX ?? null);
+      }}
       onTouchEnd={(event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest("[data-presentation-scroll]")) {
+          setTouchStart(null);
+          return;
+        }
         if (touchStart === null) return;
         const end = event.changedTouches[0]?.clientX ?? touchStart;
         const delta = end - touchStart;
@@ -319,31 +341,45 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
         setTouchStart(null);
       }}
     >
-      <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] px-3 py-2.5 sm:px-5 sm:py-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/[0.1] bg-white/[0.03]">
-            <Presentation className="h-4 w-4 text-white/70" />
-          </div>
+      <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#07080b]/95 px-3 py-2.5 backdrop-blur-md sm:px-5 sm:py-3">
+        <div className="flex min-w-0 items-center gap-2.5">
+          {backHref ? (
+            <Link
+              href={backHref}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/[0.1] bg-white/[0.03] text-white/55 transition-colors hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+              aria-label="Back to topic"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          ) : (
+            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/[0.1] bg-white/[0.03]">
+              <Presentation className="h-4 w-4 text-white/65" />
+            </div>
+          )}
           <div className="min-w-0">
             <div className="truncate text-[8px] font-bold uppercase tracking-[0.16em] text-white/30 sm:text-[9px]">
-              {presentation.course.title}
+              {presentation.course.title} · {presentation.module.phase}
             </div>
-            <div className="truncate text-[11px] font-semibold text-white/80 sm:text-xs">
+            <div className="truncate text-[11px] font-semibold text-white/90 sm:text-xs">
               {presentation.lesson.title}
             </div>
           </div>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <Badge variant="outline" className="hidden border-white/[0.1] bg-white/[0.03] font-mono text-[8px] text-white/45 sm:inline-flex">
-            {presentation.module.phase}
+          <span className="hidden rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 font-mono text-[9px] text-white/40 sm:inline-flex">
+            {String(index + 1).padStart(2, "0")} / {String(presentation.slides.length).padStart(2, "0")}
+          </span>
+          <Badge variant="outline" className="hidden border-white/[0.1] bg-white/[0.03] text-[8px] text-white/45 md:inline-flex">
+            <Presentation className="mr-1.5 h-3 w-3" />
+            Present
           </Badge>
           <span className="font-mono text-[9px] text-white/30 sm:text-[10px]">{formatTime(elapsed)}</span>
         </div>
       </header>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[8rem_minmax(0,1fr)]">
-        <aside className="order-2 border-t border-white/[0.08] lg:order-1 lg:border-r lg:border-t-0">
+        <aside data-presentation-scroll className="order-2 min-h-0 border-t border-white/[0.08] lg:order-1 lg:border-r lg:border-t-0">
           <div className="h-full overflow-x-auto overflow-y-hidden px-2 py-2 lg:overflow-y-auto lg:px-2 lg:py-3">
             <div className="flex gap-2 lg:block">
               {presentation.slides.map((item, itemIndex) => {
@@ -378,7 +414,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
           </div>
         </aside>
 
-        <div className="order-1 flex min-h-0 min-w-0 items-center justify-center p-2 sm:p-4 lg:order-2 lg:p-6">
+        <div className="order-1 flex min-h-0 min-w-0 items-center justify-center overflow-hidden p-2 sm:p-4 lg:order-2 lg:p-6">
           <div className="w-full max-w-[1500px]">
             <div key={index} className="stackshade-slide-in">
               <SlideContent slide={slide} index={index} total={presentation.slides.length} />
@@ -420,9 +456,6 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
           <Button variant="ghost" size="icon" className="h-9 w-9 text-white/60 hover:bg-white/10 hover:text-white" onClick={() => setElapsed(0)} aria-label="Reset timer">
             <TimerReset className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon" className="h-9 w-9 text-white/60 hover:bg-white/10 hover:text-white" onClick={() => setUiState("overview", true)} aria-label="Open slide list">
-            <FileText className="h-4 w-4" />
-          </Button>
           <Button size="sm" className="h-9 bg-white px-3 text-black hover:bg-white/90" onClick={() => void toggleFullscreen()}>
             {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             <span className="ml-1.5 hidden sm:inline">{isFullscreen ? "Exit" : "Fullscreen"}</span>
@@ -431,7 +464,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
       </footer>
 
       {notes && (
-        <section className="border-t border-white/[0.08] bg-[#0a0c10] px-4 py-3 text-xs leading-6 text-white/60 sm:px-5 sm:py-4">
+        <section data-presentation-scroll className="max-h-[28svh] overflow-auto border-t border-white/[0.08] bg-[#0a0c10] px-4 py-3 text-xs leading-6 text-white/60 sm:px-5 sm:py-4">
           <div className="mb-1 flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.18em] text-white/30">
             <StickyNote className="h-3.5 w-3.5" />
             Presenter notes
@@ -441,7 +474,7 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
       )}
 
       {overview && (
-        <div className="fixed inset-0 z-[60] overflow-auto bg-[#050608]/96 p-3 backdrop-blur-xl sm:p-6">
+        <div data-presentation-scroll className="fixed inset-0 z-[60] overflow-auto overscroll-contain bg-[#050608]/96 p-3 backdrop-blur-xl sm:p-6">
           <div className="mx-auto max-w-[1500px]">
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
