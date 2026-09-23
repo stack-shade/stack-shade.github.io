@@ -5,6 +5,8 @@ import { presentationLessonSlug } from "@/lib/course-presentation";
 
 const BASE = "https://stack-shade.github.io";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { path: "/", priority: 1, changeFrequency: "weekly" as const },
