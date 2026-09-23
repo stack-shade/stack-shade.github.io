@@ -7,7 +7,6 @@ import {
   BrainCircuit,
   CalendarClock,
   CheckCircle2,
-  FileText,
   Flame,
   NotebookPen,
   Pause,
