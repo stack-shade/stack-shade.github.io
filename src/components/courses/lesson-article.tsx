@@ -127,7 +127,10 @@ export function LessonArticle({
 
         <div className="lesson-article-body">
           <div className="lesson-lede">
-            <div className="lesson-lede-kicker"><Sparkles className="h-4 w-4" /> Article companion</div>
+            <div className="lesson-lede-kicker">
+              <Sparkles className="h-4 w-4" /> Article companion
+              <span className="text-muted-foreground/60">· {module.phase}</span>
+            </div>
             <p>{content.overview}</p>
           </div>
 
