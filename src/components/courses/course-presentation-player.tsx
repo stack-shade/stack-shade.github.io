@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
-  Expand,
   FileText,
   Grid2X2,
   Info,
@@ -158,7 +157,6 @@ export function CoursePresentationPlayer({ presentation }: { presentation: Cours
   const intervalRef = useRef<number | null>(null);
 
   const slide = presentation.slides[index];
-  const progress = ((index + 1) / presentation.slides.length) * 100;
 
   const sync = useCallback(
     (nextIndex: number, extras?: Record<string, string | null>) => {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BookOpen, CheckCircle2, ChevronRight, Circle, Presentation } from "lucide-react";
 import type { Course } from "@/lib/courses-data";
-import { lessonId, loadProgress } from "@/lib/course-progress";
+import { lessonId } from "@/lib/course-progress";
 import { presentationLessonSlug } from "@/lib/course-presentation";
 
 interface Props {

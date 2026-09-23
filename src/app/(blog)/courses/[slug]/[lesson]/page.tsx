@@ -4,14 +4,12 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
-  BrainCircuit,
   BookOpen,
   Clock3,
   Layers,
   Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { CourseLessonActions } from "@/components/courses/course-lesson-actions";
 import { CourseCurriculumRail } from "@/components/courses/course-curriculum-rail";
 import { ComputerNetworkVisual } from "@/components/courses/computer-network-visual";
