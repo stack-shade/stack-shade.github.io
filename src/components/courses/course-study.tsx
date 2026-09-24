@@ -130,6 +130,17 @@ export function CourseStudy({ course }: { course: Course }) {
     setLoaded(true);
   }, [course.slug]);
 
+  useEffect(() => {
+    const onProgressChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ slug?: string }>).detail;
+      if (detail?.slug === course.slug) {
+        setProgress(loadProgress(course.slug));
+      }
+    };
+    window.addEventListener("ss-course-progress", onProgressChange);
+    return () => window.removeEventListener("ss-course-progress", onProgressChange);
+  }, [course.slug]);
+
   const update = (next: CourseProgress) => {
     setProgress(next);
     saveProgress(course.slug, next);
