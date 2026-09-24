@@ -19,7 +19,7 @@ export interface Article {
 export const ARTICLES: Article[] = [
   {
     slug: "jev-model-explained",
-    title: "Jev Model Explained: AI Decision Models, Typed Outputs, Probabilities and Agents",
+    title: "Jev Explained: AI Decision Models, Typed Outputs, Probabilities and Agents",
     description: "Jev explained for developers: understand TypeSafe AI's System One model, Choice, Score and Noul questions, typed decisions, confidence, AI agents, workflow automation, architecture and limitations.",
     category: "Artificial Intelligence",
     tags: ["ai", "jev", "ai-agents", "machine-learning", "llm", "developer-tools", "automation"],
