@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CourseStudy } from "@/components/courses/course-study";
 import { CybersecurityToolkit } from "@/components/courses/cybersecurity-toolkit";
+import { CybersecurityContent } from "@/components/courses/cybersecurity-content";
 import { CoursePoster } from "@/components/courses/course-poster";
 import { NlpSeoSections } from "@/components/courses/nlp-seo-sections";
 import { COURSES, getCourse, courseStats } from "@/lib/courses-data";
@@ -28,6 +29,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: course.title + " — StackShade Courses",
     description: course.description,
+    keywords: [course.title, "cybersecurity course", "ethical hacking", "application security", "SOC", "DFIR", "cloud security", "DevSecOps", "AI security", "NIST CSF", "OWASP", "MITRE ATT&CK"],
+    authors: [{ name: "StackShade" }],
     alternates: { canonical: url },
     openGraph: {
       title: course.title + " — StackShade Courses",
@@ -166,6 +169,7 @@ export default async function CoursePage({ params }: PageProps) {
       </div>
 
       {slug === "cybersecurity" && <CybersecurityToolkit />}
+      {slug === "cybersecurity" && <CybersecurityContent course={course} />}
 
       {slug === "natural-language-processing" && <NlpSeoSections course={course} />}
 
