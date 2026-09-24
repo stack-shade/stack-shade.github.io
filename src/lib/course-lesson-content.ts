@@ -248,7 +248,7 @@ function richSystemDesignScalingLesson(
       {
         title: "6. Scaling and availability are connected—but not identical",
         body:
-          "Horizontal scaling can improve availability when replicas fail independently, because traffic can be shifted away from unhealthy instances. But replicas only help if the surrounding dependencies are also redundant. Three app servers behind a single database with no failover still have a shared bottleneck and failure domain. AWS's Well-Architected guidance explicitly connects horizontal scaling with aggregate workload availability and recommends distributing requests across multiple smaller resources rather than depending on one large resource. citeturn466637search9",
+          "Horizontal scaling can improve availability when replicas fail independently, because traffic can be shifted away from unhealthy instances. But replicas only help if the surrounding dependencies are also redundant. Three app servers behind a single database with no failover still have a shared bottleneck and failure domain. AWS's Well-Architected guidance connects horizontal scaling with aggregate workload availability and recommends distributing requests across multiple smaller resources rather than depending on one large resource.",
       },
       {
         title: "7. A practical decision procedure",
