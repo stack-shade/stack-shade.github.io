@@ -7,6 +7,7 @@ import {
   Globe2,
   Layers3,
   Network,
+  Shield,
   Sparkles,
   Triangle,
 } from "lucide-react";
@@ -21,6 +22,7 @@ const ICONS: Record<string, ComponentType<{ className?: string }>> = {
   triangle: Triangle,
   gitBranch: GitBranch,
   layers: Layers3,
+  shield: Shield,
 };
 
 const VARIANTS: Record<string, string> = {
@@ -31,6 +33,7 @@ const VARIANTS: Record<string, string> = {
   "Computer Networks": "poster-network",
   "Data Mining": "poster-data",
   "System Design": "poster-system",
+  Cybersecurity: "poster-cybersecurity",
 };
 
 export function CoursePoster({
