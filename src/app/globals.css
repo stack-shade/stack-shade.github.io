@@ -892,6 +892,77 @@ a {
   margin-top: 2.4rem;
 }
 
+.lesson-practice-bridge {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.4rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--ss-hairline);
+  border-radius: 1.15rem;
+  background:
+    linear-gradient(180deg, color-mix(in oklch, var(--foreground) 4%, transparent), transparent),
+    color-mix(in oklch, var(--background) 92%, transparent);
+}
+
+.lesson-practice-bridge-icon {
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border: 1px solid var(--ss-hairline);
+  border-radius: .8rem;
+  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+}
+
+.lesson-practice-bridge h2 {
+  margin-top: .3rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  letter-spacing: -.025em;
+}
+
+.lesson-practice-bridge p {
+  margin-top: .35rem;
+  max-width: 62ch;
+  color: var(--ss-ink-soft);
+  font-size: .8rem;
+  line-height: 1.65;
+}
+
+.lesson-practice-bridge-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 2.55rem;
+  padding-inline: .85rem;
+  border: 1px solid var(--foreground);
+  border-radius: .75rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: .7rem;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: transform .16s ease, opacity .16s ease;
+}
+
+.lesson-practice-bridge-action:hover {
+  transform: translateY(-1px);
+  opacity: .92;
+}
+
+@media (max-width: 640px) {
+  .lesson-practice-bridge {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .lesson-practice-bridge-action {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
 .lesson-practice-card {
   border-color: var(--ss-hairline);
   background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 3.5%, transparent), transparent);
