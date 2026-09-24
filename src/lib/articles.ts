@@ -16,9 +16,33 @@ export interface Article {
   bannerAlt: string;
   author: string;
   featured?: boolean;
+  toc?: { id: string; label: string }[];
 }
 
 export const ARTICLES: Article[] = [
+  {
+    slug: "http-status-codes-explained",
+    title: "HTTP Status Codes Explained: Every 1xx, 2xx, 3xx, 4xx, and 5xx Response",
+    description: "A long-form HTTP status code reference covering every code documented by MDN, including redirects, caching, authentication, rate limits, WebDAV, gateway failures, legacy codes, debugging heuristics, and production API patterns.",
+    category: "Web Protocols",
+    tags: ["http", "web", "networking", "status-codes", "api", "debugging", "web-security"],
+    playlist: "Web Mechanics",
+    date: "2026-09-24",
+    displayDate: "September 24, 2026",
+    readTime: "28 min read",
+    banner: "/blog/http-status-codes-banner.svg",
+    bannerAlt: "HTTP response status code families from informational responses through client and server errors",
+    author: "Shaswat Raj",
+    featured: true,
+    toc: [
+      { id: "at-a-glance", label: "At a glance" },
+      { id: "status-1xx", label: "1xx · Informational" },
+      { id: "status-2xx", label: "2xx · Success" },
+      { id: "status-3xx", label: "3xx · Redirects" },
+      { id: "status-4xx", label: "4xx · Client errors" },
+      { id: "status-5xx", label: "5xx · Server errors" },
+    ],
+  },
   {
     slug: "jev-model-explained",
     title: "Jev Explained: AI Decision Models, Typed Outputs, Probabilities and Agents",
@@ -271,6 +295,8 @@ export function articleJsonLd(article: Article) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
     headline: article.title,
     description: article.description,
     image: "https://stack-shade.github.io" + article.banner,
