@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 import { ArrowRight, BrainCircuit, CheckCircle2, Lightbulb, Quote, Sparkles } from "lucide-react";
 import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
