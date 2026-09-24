@@ -2,7 +2,12 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState } from "react";
 import {
   Check,
   ChevronDown,
@@ -21,7 +26,6 @@ import {
   Save,
   Share2,
   Sparkles,
-  Sun,
   Trash2,
   Zap,
 } from "lucide-react";
