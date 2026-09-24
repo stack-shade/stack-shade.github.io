@@ -71,6 +71,9 @@ export default async function CoursePage({ params }: PageProps) {
               sameAs: "https://stack-shade.github.io/",
             },
             educationalLevel: course.level,
+            inLanguage: "en",
+            isAccessibleForFree: true,
+            teaches: course.outcomes,
             hasCourseInstance: {
               "@type": "CourseInstance",
               courseMode: "online",
