@@ -21,6 +21,7 @@ type Media = {
 type Props = {
   media?: Media;
   presentationHref: string;
+  initialTab?: Tab;
   children: React.ReactNode;
   lessonTitle?: string;
   lessonMeta?: string;
@@ -135,6 +136,7 @@ function DocumentPanel({ href, type }: { href: string; type: "notes" | "pdf" }) 
 export function LessonMediaHub({
   media,
   presentationHref,
+  initialTab,
   children,
   lessonTitle,
   lessonMeta,
@@ -155,12 +157,16 @@ export function LessonMediaHub({
     return out;
   }, [media, presentationHref, sketch]);
 
-  const [active, setActive] = useState<Tab>("article");
+  const [active, setActive] = useState<Tab>(initialTab ?? "article");
 
   useEffect(() => {
     const raw = new URLSearchParams(window.location.search).get("tab") as Tab | null;
-    if (raw && tabs.some((tab) => tab.id === raw)) setActive(raw);
-  }, [tabs]);
+    if (raw && tabs.some((tab) => tab.id === raw)) {
+      setActive(raw);
+    } else if (initialTab && tabs.some((tab) => tab.id === initialTab)) {
+      setActive(initialTab);
+    }
+  }, [tabs, initialTab]);
 
   const setTab = (tab: Tab) => {
     if (tab === "presentation") {

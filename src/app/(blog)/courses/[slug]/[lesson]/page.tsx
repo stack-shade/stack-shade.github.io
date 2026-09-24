@@ -250,6 +250,7 @@ export default async function CourseLessonPage({ params }: PageProps) {
               lessonMeta={found.module.phase + " · Topic " + (currentIndex + 1) + " / " + flat.length}
               presentationHref={deckHref}
               media={found.lesson.media}
+              initialTab={found.lesson.type === "video" ? "video" : "article"}
               sketch={{
                 title: content.title + " — sketch",
                 labels: [found.module.phase, found.module.title, "Core mechanism", "Apply"],
