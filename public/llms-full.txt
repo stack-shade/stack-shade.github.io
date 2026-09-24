@@ -187,3 +187,10 @@ All entries below are canonical StackShade pages. They are original rewrites and
 - Canonical URLs live under https://stack-shade.github.io/blog/<slug>.
 - Internal related links connect infrastructure, frontend, AI, networking, and systems concepts into topic clusters.
 - Primary documentation is linked alongside the cited source guide so version-sensitive facts can be checked.
+
+## HTTP Status Code Reference
+
+- https://stack-shade.github.io/blog/http-status-codes-explained — full HTTP status-code guide
+- Primary source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+- Standards registry: https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+- HTTP semantics: https://www.rfc-editor.org/rfc/rfc9110.html
