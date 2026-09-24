@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ARTICLES } from "@/lib/articles";
+import { IMPORTED_BLOGS } from "@/lib/imported-blogs";
 import { COURSES } from "@/lib/courses-data";
 import { presentationLessonSlug } from "@/lib/course-presentation";
 
@@ -55,6 +56,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
   }));
 
+  const importedArticleRoutes = IMPORTED_BLOGS.map((blog) => {
+    const parsed = new Date(blog.sourceDate);
+    const lastModified = Number.isNaN(parsed.getTime()) ? undefined : parsed;
+
+    return {
+      url: BASE + "/blog/" + blog.slug,
+      lastModified,
+      priority: 0.68,
+      changeFrequency: "monthly" as const,
+    };
+  });
+
   return [
     ...staticRoutes.map((route) => ({
       url: BASE + route.path,
@@ -63,5 +76,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...courseRoutes,
     ...articleRoutes,
+    ...importedArticleRoutes,
   ];
 }
