@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Layers, Signal } from "luci
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CourseStudy } from "@/components/courses/course-study";
+import { CybersecurityToolkit } from "@/components/courses/cybersecurity-toolkit";
 import { CoursePoster } from "@/components/courses/course-poster";
 import { COURSES, getCourse, courseStats } from "@/lib/courses-data";
 
@@ -159,6 +160,8 @@ export default async function CoursePage({ params }: PageProps) {
       <div className="mt-8">
         <CourseStudy course={course} />
       </div>
+
+      {slug === "cybersecurity" && <CybersecurityToolkit />}
 
       {slug === "natural-language-processing" && (
         <section className="mt-10 rounded-2xl border border-border bg-card/25 p-5 sm:p-6">
