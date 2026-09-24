@@ -1,0 +1,58 @@
+# StackShade Cybersecurity Course Index
+
+> Canonical cybersecurity syllabus for retrieval and AI-agent discovery.
+
+Course: https://stack-shade.github.io/courses/cybersecurity
+Stats: 18 modules, 108 lessons, 18 weeks.
+
+## Curriculum
+
+1. Security Foundations, Ethics & Threat Modeling
+2. Networking for Defenders
+3. Linux Security & Command-Line Fluency
+4. Windows, PowerShell & Active Directory
+5. Identity, Authentication & Cryptography
+6. Secure Design & Application Security Foundations
+7. OWASP Web Security Core
+8. Web & API Security Testing
+9. Reconnaissance & Vulnerability Management
+10. Ethical Pentesting Methodology & Lab Operations
+11. Wireless, Mobile & Physical Security
+12. SOC, Logging & SIEM
+13. Detection Engineering, MITRE ATT&CK & Threat Intelligence
+14. Digital Forensics & Incident Response
+15. Malware Analysis & Reverse Engineering
+16. Cloud, Containers & DevSecOps
+17. AI Security & Emerging Attack Surfaces
+18. Governance, Risk, Architecture & Security Careers
+
+## Core frameworks
+
+- NIST Cybersecurity Framework 2.0: https://www.nist.gov/cyberframework
+- NIST SP 800-61 Rev. 3: https://csrc.nist.gov/pubs/sp/800/61/r3/final
+- OWASP Top 10:2025: https://top10.owasp.org/2025/
+- OWASP API Security Project: https://owasp.org/projects/api-security-project
+- CIS Controls v8.1: https://www.cisecurity.org/controls/v8-1
+- MITRE ATT&CK Enterprise: https://attack.mitre.org/
+
+## Learning contract
+
+Practice only on systems you own or have explicit authorization to test. Define scope and stop conditions, preserve evidence before modifying state, validate findings, remediate, and retest.
+
+## Capabilities
+
+- Threat modeling and secure design
+- Network, Linux, Windows and identity security
+- Web/API security testing in controlled labs
+- Vulnerability management and remediation
+- SOC operations, SIEM and network telemetry
+- Detection engineering and ATT&CK mapping
+- Digital forensics and incident response
+- Malware analysis and reverse engineering in isolated environments
+- Cloud, containers and DevSecOps security
+- AI security, RAG security and model supply-chain risk
+- Governance, architecture and security communication
+
+## Lesson model
+
+Every lesson is generated as a self-contained learning resource with an answer-first overview, mental model, analogy, deep dive, evidence-oriented flow, reconstruction artifact, misconceptions, active recall, Feynman teach-back and exam/interview angle.
