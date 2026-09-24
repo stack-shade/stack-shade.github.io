@@ -657,7 +657,7 @@ export const COURSES: Course[] = [
       {
         title: "Applied NLP & Conversational Systems",
         phase: "Core · Week 4",
-        hook: "The playlist ends by connecting classical NLP to chatbots and modern language-model workflows; use that bridge to see what the rest of the course will unpack.",
+        hook: "The applied section connects classical NLP to chatbots and modern language-model workflows, creating a bridge into the systems you will build later.",
         feynman: "Treat a chatbot as a complete system: input understanding → retrieval or model inference → response generation → evaluation.",
         lessons: [
           YV("Introduction to Chatbots", "14:15", "https://www.youtube.com/watch?v=ZeoqOybAzdc"),
