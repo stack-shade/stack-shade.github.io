@@ -14,10 +14,10 @@ export default function SketchFlowPracticeClient() {
   });
 
   useEffect(() => {
-    const search = new URLSearchParams(window.location.search);
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
     setParams({
-      topic: search.get("topic")?.trim() || DEFAULT_TOPIC,
-      prompt: search.get("prompt")?.trim() || DEFAULT_PROMPT,
+      topic: hash.get("topic")?.trim() || DEFAULT_TOPIC,
+      prompt: hash.get("prompt")?.trim() || DEFAULT_PROMPT,
     });
   }, []);
 
