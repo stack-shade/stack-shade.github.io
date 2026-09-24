@@ -9,7 +9,7 @@ export function BlogFooter() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_.8fr_.8fr]">
           <div>
             <div className="flex items-center gap-2">
-              <Image src="/logo.svg" alt="StackShade" width={26} height={26} className="h-6.5 w-6.5 rounded-md" />
+              <Image src="/logo.svg" alt="StackShade" width={26} height={26} className="h-7 w-7 rounded-md" />
               <span className="text-sm font-black tracking-tight">StackShade Journal</span>
             </div>
             <p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">
