@@ -1,6 +1,8 @@
 
 import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
 import type { CNLesson } from "@/lib/computer-networks-lessons";
+import { getNlpTopicGuide, nlpTopicSlug } from "@/lib/nlp-course-content";
+import { NLP_LESSON_FOCUS } from "@/lib/nlp-lesson-focus";
 
 export interface CourseLessonContent {
   slug: string;
@@ -334,7 +336,93 @@ function richSystemDesignScalingLesson(
     ],
   };
 }
+function fromNlpTopicGuide(course: Course, module: CourseModule, lesson: Lesson, moduleIndex: number, lessonIndex: number, guide: ReturnType<typeof getNlpTopicGuide>): CourseLessonContent | null {
+  if (!guide) return null;
+  const allLessons = course.modules.flatMap((item) => item.lessons).map((item) => item.title);
+  const at = allLessons.indexOf(lesson.title);
+  return {
+    slug: "m" + (moduleIndex + 1) + "-l" + (lessonIndex + 1) + "-" + nlpTopicSlug(lesson.title),
+    title: lesson.title,
+    eyebrow: "NLP • " + module.title,
+    overview: guide.overview,
+    mentalModel: guide.mentalModel,
+    analogy: { title: "Build the picture first", body: guide.mentalModel + " Trace the flow below before reading the implementation details." },
+    neuroscience: { title: "Recall before reveal", body: "After reading, close the article and reconstruct the mechanism from memory. Then compare your version with the artifact and retrieval questions." },
+    deepDive: guide.deepDive,
+    flow: guide.flow.slice(0, 4),
+    artifact: { title: "Core artifact", language: guide.artifact.language, code: guide.artifact.value, explanation: guide.artifact.explanation },
+    mistakes: guide.mistakes,
+    recall: guide.recall,
+    feynman: guide.feynman,
+    examAngle: guide.examAngle,
+    next: [
+      ...(at >= 0 && allLessons[at + 1] ? [allLessons[at + 1]] : []),
+      ...(at >= 0 && allLessons[at + 2] ? [allLessons[at + 2]] : []),
+    ],
+  };
+}
 
+function buildNlpLessonContent(course: Course, module: CourseModule, lesson: Lesson, moduleIndex: number, lessonIndex: number): CourseLessonContent {
+  const focus = NLP_LESSON_FOCUS[moduleIndex]?.[lessonIndex] ?? (module.hook + " Apply the idea to a concrete NLP task and inspect its assumptions.");
+  const allLessons = course.modules.flatMap((item) => item.lessons).map((item) => item.title);
+  const at = allLessons.indexOf(lesson.title);
+  const next = [
+    ...(at >= 0 && allLessons[at + 1] ? [allLessons[at + 1]] : []),
+    ...(at >= 0 && allLessons[at + 2] ? [allLessons[at + 2]] : []),
+  ];
+  return {
+    slug: "m" + (moduleIndex + 1) + "-l" + (lessonIndex + 1) + "-" + nlpTopicSlug(lesson.title),
+    title: lesson.title,
+    eyebrow: "NLP • " + module.title,
+    overview: focus + " The goal is to explain the choice, reconstruct the mechanism, and recognize the boundary conditions where another method is better.",
+    mentalModel: focus,
+    analogy: { title: "A concrete mental simulation", body: "Pretend the input is moving through a small NLP system. " + focus + " Predict the intermediate representation before looking at the output." },
+    neuroscience: { title: "Learn by reconstruction", body: "Read the explanation once, close the page, redraw the mechanism, and then use the retrieval cards. This separates recognition from recall and makes gaps visible." },
+    deepDive: [
+      { title: "Why this topic exists", body: focus + " The engineering question is which information this technique preserves, which information it discards, and why that trade-off is acceptable for the task." },
+      { title: "How the mechanism works", body: module.hook + " Connect that module-level idea to " + lesson.title + " by tracing input → transformation → output → evaluation." },
+      { title: "Worked example and boundary", body: "Use this test case: " + focus + " Then vary the input or context and explain which assumption could break." },
+    ],
+    flow: [
+      { label: "Input", detail: "Identify the text, labels, context or model state entering the step." },
+      { label: "Transform", detail: focus },
+      { label: "Inspect", detail: "Check the intermediate representation or output against an expected behavior and record the failure case." },
+      { label: "Choose", detail: "Select the technique only when its assumptions match the task, data and operating constraints." },
+    ],
+    artifact: {
+      title: "Topic reconstruction card",
+      language: "text",
+      code: [
+        "TOPIC: " + lesson.title,
+        "MODULE: " + module.title,
+        "",
+        "CORE IDEA", focus,
+        "",
+        "RECONSTRUCT",
+        "1. What enters the system?",
+        "2. What changes?",
+        "3. What comes out?",
+        "4. What would make this approach fail?",
+      ].join("\n"),
+      explanation: "Complete the card from memory after studying. A correct answer should name the task, mechanism, example and limitation.",
+    },
+    mistakes: [
+      "Memorizing the definition without being able to explain the task it solves.",
+      "Skipping the intermediate representation and treating the model as a black box.",
+      "Assuming a preprocessing step is universally helpful without testing task-specific information loss.",
+      "Using a successful demo as evidence that the method generalizes to unseen data.",
+    ],
+    recall: [
+      { question: "What is the core idea of " + lesson.title + "?", answer: focus + " State the input, output and trade-off in your own words." },
+      { question: "What should you draw from memory?", answer: "The path input → transformation → intermediate representation → output, plus the main evaluation signal." },
+      { question: "What boundary case should you test?", answer: "Change the context, vocabulary, sequence length or data distribution and explain which assumption is most likely to fail." },
+      ...(module.recall.slice(0, 1).map((item) => ({ question: item.q, answer: item.a }))),
+    ].slice(0, 4),
+    feynman: "Teach " + lesson.title + " to a beginner using one example and one failure case. Do not use the title itself as the explanation.",
+    examAngle: "Answer with purpose → mechanism → example → limitation → evaluation. For implementation questions, also name the data shape and the main computational bottleneck.",
+    next,
+  };
+}
 export function getLessonContent(
   course: Course,
   module: CourseModule,
@@ -344,6 +432,20 @@ export function getLessonContent(
   rich?: CNLesson,
 ): CourseLessonContent {
   if (rich) return fromComputerNetworkLesson(rich);
+
+  if (course.slug === "natural-language-processing") {
+    const guided = fromNlpTopicGuide(
+      course,
+      module,
+      lesson,
+      moduleIndex,
+      lessonIndex,
+      getNlpTopicGuide(nlpTopicSlug(lesson.title)),
+    );
+    if (guided) return guided;
+    return buildNlpLessonContent(course, module, lesson, moduleIndex, lessonIndex);
+  }
+
   if (
     course.slug === "system-design-fundamentals" &&
     lesson.title.toLowerCase() === "vertical vs horizontal scaling"
