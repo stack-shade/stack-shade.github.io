@@ -160,8 +160,6 @@ export function LessonMediaHub({
     const raw = new URLSearchParams(window.location.search).get("tab") as Tab | null;
     if (raw && tabs.some((tab) => tab.id === raw)) {
       setActive(raw);
-    } else if (initialTab && tabs.some((tab) => tab.id === initialTab)) {
-      setActive(initialTab);
     }
   }, [tabs]);
 
