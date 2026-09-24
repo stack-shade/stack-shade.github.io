@@ -46,7 +46,7 @@ export interface Course {
 }
 
 const V = (title: string, duration: string, href?: string): Lesson => ({ title, type: "video", duration, href });
-// YV binds the supplied Codebasics playlist video directly to its StackShade lesson.
+// YV binds an external video reference directly to its StackShade lesson.
 const YV = (title: string, duration: string, video: string): Lesson => ({ title, type: "video", duration, media: { video } });
 const A = (title: string, duration: string, href?: string): Lesson => ({ title, type: "article", duration, href });
 const I = (title: string, duration: string, href?: string): Lesson => ({ title, type: "interactive", duration, href });
@@ -546,7 +546,7 @@ export const COURSES: Course[] = [
     title: "Natural Language Processing",
     tagline: "From text cleaning to Transformers, LLMs, RAG and production NLP",
     description:
-      "A complete NLP learning path built around the 28-video Codebasics NLP Tutorial Python playlist, then extended with the missing theory and modern practice from Stanford CS224N, DeepLearning.AI and the Hugging Face learning stack. Learn the foundations first, then build neural models, Transformers, pretrained systems, retrieval pipelines and production-grade NLP projects.",
+      "A complete NLP learning path from text processing and linguistic structure through probabilistic NLP, neural sequence models, attention, Transformers, pretrained language models, semantic search, RAG, fine-tuning, evaluation, safety and production systems. Learn the foundations first, then build and explain modern NLP applications from first principles.",
     level: "All Levels",
     duration: "16 weeks",
     category: "Artificial Intelligence",
@@ -564,15 +564,15 @@ export const COURSES: Course[] = [
     ],
     modules: [
       {
-        title: "Codebasics S1 — NLP Foundations",
-        phase: "Playlist · Videos 1–6",
+        title: "NLP Foundations",
+        phase: "Core · Week 1",
         hook: "Start with the question every NLP system must answer: how do we turn human language into something a computer can process?",
         feynman: "Teach NLP as a pipeline: raw language → structure → representation → model → task. Use a spam message as the running example.",
         lessons: [
           YV("Introduction | NLP Tutorial For Beginners In Python", "10:07", "https://www.youtube.com/watch?v=R-AG4-qZs1A"),
           YV("Why NLP is booming right now?", "7:08", "https://www.youtube.com/watch?v=3y2-IaBeIs0"),
           YV("Regex For NLP", "44:27", "https://www.youtube.com/watch?v=lK9gx4q_vfI"),
-          YV("Three Category Of Techniques for NLP", "12:35", "https://www.youtube.com/watch?v=nknYY32RGXQ"),
+          YV("Three Categories Of Techniques for NLP", "12:35", "https://www.youtube.com/watch?v=nknYY32RGXQ"),
           YV("NLP Tasks", "22:38", "https://www.youtube.com/watch?v=In7jB8TUGPA"),
           YV("NLP Pipeline", "26:02", "https://www.youtube.com/watch?v=S3EId9uatxI"),
         ],
@@ -582,8 +582,8 @@ export const COURSES: Course[] = [
         ],
       },
       {
-        title: "Codebasics S1 — spaCy Toolkit",
-        phase: "Playlist · Videos 7–9",
+        title: "spaCy & NLP Tooling",
+        phase: "Core · Week 2",
         hook: "A practical NLP toolkit turns the abstract pipeline into inspectable tokens, attributes and pipeline components.",
         feynman: "Open the same sentence in spaCy and explain what a Doc, Token and pipeline component contribute.",
         lessons: [
@@ -600,8 +600,8 @@ export const COURSES: Course[] = [
         ],
       },
       {
-        title: "Codebasics S1 — Core NLP Processing",
-        phase: "Playlist · Videos 10–12",
+        title: "Linguistic Analysis: Lemmas, POS & NER",
+        phase: "Core · Week 2–3",
         hook: "Once text is tokenized, linguistic annotations such as lemmas, POS tags and entities add structure that downstream models can use.",
         feynman: "Take the sentence 'Apple hired Sam in Delhi' and show how stemming, POS tagging and NER answer different questions.",
         lessons: [
@@ -618,8 +618,8 @@ export const COURSES: Course[] = [
         ],
       },
       {
-        title: "Codebasics S2 — Classical Text Representation",
-        phase: "Playlist · Videos 1–6",
+        title: "Classical Text Representation",
+        phase: "Core · Week 1",
         hook: "Before a model can learn from language, text needs a numerical representation — and each representation makes different information easy or hard to see.",
         feynman: "Represent one sentence as a set of labels, a sparse word-count vector and a TF-IDF vector, then compare what each preserves.",
         lessons: [
@@ -636,8 +636,8 @@ export const COURSES: Course[] = [
         ],
       },
       {
-        title: "Codebasics S2 — Word Vectors in Practice",
-        phase: "Playlist · Videos 7–13",
+        title: "Word Embeddings in Practice",
+        phase: "Core · Week 3–4",
         hook: "The distributional idea turns words into geometry: similar contexts can produce similar vectors.",
         feynman: "Use the words king, queen, coffee and laptop to show why dense vectors can capture graded similarity better than one-hot vectors.",
         lessons: [
@@ -655,15 +655,15 @@ export const COURSES: Course[] = [
         ],
       },
       {
-        title: "Codebasics S3 — Applied NLP Bridge",
-        phase: "Playlist · Videos 26–28 + bridge",
+        title: "Applied NLP & Conversational Systems",
+        phase: "Core · Week 4",
         hook: "The playlist ends by connecting classical NLP to chatbots and modern language-model workflows; use that bridge to see what the rest of the course will unpack.",
         feynman: "Treat a chatbot as a complete system: input understanding → retrieval or model inference → response generation → evaluation.",
         lessons: [
           YV("Introduction to Chatbots", "14:15", "https://www.youtube.com/watch?v=ZeoqOybAzdc"),
           YV("End-to-End NLP Project | Build a Chatbot in Dialogflow", "2:55:23", "https://www.youtube.com/watch?v=2e5pQqBvGco"),
           YV("Gen AI Project | Log Classification System Using Deepseek R1 LLM, NLP, Regex, BERT", "1:22:24", "https://www.youtube.com/watch?v=Ji3_VX80YJg"),
-          A("What the playlist covers — and what we still need to learn", "12 min"),
+          A("From Classical NLP to Modern Language Systems", "12 min"),
           I("Interactive: map a chatbot stack from input to response", "15 min"),
           PJ("Mini project: compare a regex/classical classifier with an LLM workflow", "1 day"),
         ],
