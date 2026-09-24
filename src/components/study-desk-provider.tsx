@@ -212,61 +212,57 @@ export function StudyDeskProvider({ children }: { children: React.ReactNode }) {
   }, [completeBlock, hydrated, pomodoro.endAt, pomodoro.running]);
 
   const togglePomodoro = useCallback((courseSlug?: string | null) => {
-    setPomodoro((current) => {
-      if (current.running && current.endAt) {
-        const remaining = Math.max(0, Math.ceil((current.endAt - Date.now()) / 1000));
-        const next = { ...current, remaining, running: false, endAt: null };
-        persistState(next);
-        return next;
-      }
-
-      const slug = courseSlug ?? current.courseSlug ?? null;
-      const remaining = Math.max(1, current.remaining);
-      const next = {
-        ...current,
-        courseSlug: slug,
-        running: true,
-        endAt: Date.now() + remaining * 1000,
-      };
+    if (pomodoro.running && pomodoro.endAt) {
+      const remaining = Math.max(0, Math.ceil((pomodoro.endAt - Date.now()) / 1000));
+      const next = { ...pomodoro, remaining, running: false, endAt: null };
+      setPomodoro(next);
       persistState(next);
-      return next;
-    });
-  }, []);
+      return;
+    }
+
+    const slug = courseSlug ?? pomodoro.courseSlug ?? null;
+    const remaining = Math.max(1, pomodoro.remaining);
+    const next = {
+      ...pomodoro,
+      courseSlug: slug,
+      running: true,
+      endAt: Date.now() + remaining * 1000,
+    };
+    setPomodoro(next);
+    persistState(next);
+  }, [pomodoro]);
 
   const setPomodoroPreset = useCallback(
     (minutes: number, courseSlug?: string | null) => {
-      setPomodoro((current) => {
-        if (current.running) return current;
-        const focusMinutes = minutes === 50 ? 50 : 25;
-        const next = {
-          ...current,
-          courseSlug: courseSlug ?? current.courseSlug ?? null,
-          mode: "focus" as const,
-          focusMinutes,
-          remaining: focusMinutes * 60,
-          running: false,
-          endAt: null,
-        };
-        persistState(next);
-        return next;
-      });
-    },
-    [],
-  );
+      if (pomodoro.running) return;
 
-  const resetPomodoro = useCallback(() => {
-    setPomodoro((current) => {
+      const focusMinutes = minutes === 50 ? 50 : 25;
       const next = {
-        ...current,
+        ...pomodoro,
+        courseSlug: courseSlug ?? pomodoro.courseSlug ?? null,
         mode: "focus" as const,
-        remaining: current.focusMinutes * 60,
+        focusMinutes,
+        remaining: focusMinutes * 60,
         running: false,
         endAt: null,
       };
+      setPomodoro(next);
       persistState(next);
-      return next;
-    });
-  }, []);
+    },
+    [pomodoro],
+  );
+
+  const resetPomodoro = useCallback(() => {
+    const next = {
+      ...pomodoro,
+      mode: "focus" as const,
+      remaining: pomodoro.focusMinutes * 60,
+      running: false,
+      endAt: null,
+    };
+    setPomodoro(next);
+    persistState(next);
+  }, [pomodoro]);
 
   const value = useMemo(
     () => ({
