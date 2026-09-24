@@ -7,6 +7,7 @@ import {
   URLJourneyLab,
 } from "@/components/url-journey-lab";
 import { buildArticleMetadata, getArticle } from "@/lib/articles";
+import { URLJourneyDeepDive } from "@/components/url-journey-deep-dive";
 
 const article = getArticle("what-happens-when-you-type-url")!;
 export const metadata: Metadata = buildArticleMetadata(article);
@@ -582,6 +583,8 @@ export default function WhatHappensWhenYouTypeUrlPage() {
           to go one layer deeper.
         </p>
       </section>
+
+      <URLJourneyDeepDive />
     </ArticleShell>
   );
 }
