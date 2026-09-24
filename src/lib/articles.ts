@@ -19,6 +19,21 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "http-status-codes-explained",
+    title: "HTTP Status Codes Explained: Every 1xx, 2xx, 3xx, 4xx, and 5xx Response",
+    description: "A long-form HTTP status code reference covering every code documented by MDN, including redirects, caching, authentication, rate limits, WebDAV, gateway failures, legacy codes, debugging heuristics, and production API patterns.",
+    category: "Web Protocols",
+    tags: ["http", "web", "networking", "status-codes", "api", "debugging", "web-security"],
+    playlist: "Web Mechanics",
+    date: "2026-09-24",
+    displayDate: "September 24, 2026",
+    readTime: "28 min read",
+    banner: "/blog/http-status-codes-banner.svg",
+    bannerAlt: "HTTP response status code families from informational responses through client and server errors",
+    author: "Shaswat Raj",
+    featured: true,
+  },
+  {
     slug: "jev-model-explained",
     title: "Jev Explained: AI Decision Models, Typed Outputs, Probabilities and Agents",
     description: "Jev explained for developers: understand TypeSafe AI's System One model, Choice, Score and Noul questions, typed decisions, confidence, AI agents, workflow automation, architecture and limitations.",
@@ -270,11 +285,13 @@ export function articleJsonLd(article: Article) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
     headline: article.title,
     description: article.description,
     image: "https://stack-shade.github.io" + article.banner,
     datePublished: article.date + "T00:00:00.000Z",
-    dateModified: "2026-09-21T00:00:00.000Z",
+    dateModified: article.date + "T00:00:00.000Z",
     keywords: article.tags?.join(", "),
     author: {
       "@type": "Person",
