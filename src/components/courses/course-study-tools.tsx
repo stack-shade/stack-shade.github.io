@@ -30,9 +30,9 @@ import {
   reviewLesson,
 } from "@/lib/course-progress";
 import { presentationLessonSlug } from "@/lib/course-presentation";
+import { formatPomodoroClock, useStudyDesk } from "@/components/study-desk-provider";
 
 type ToolTab = "focus" | "review" | "today" | "notes";
-type FocusMode = "focus" | "break";
 
 interface DeskState {
   notes: string;
@@ -76,12 +76,6 @@ function startOfLocalDay() {
   return date.getTime();
 }
 
-function formatClock(seconds: number) {
-  const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
-  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
-  return mins + ":" + secs;
-}
-
 function readDeskState(slug: string): DeskState {
   if (typeof window === "undefined") return DEFAULT_DESK_STATE;
   try {
@@ -119,10 +113,12 @@ export function CourseStudyTools({ course, progress, update }: Props) {
   const [deskLoaded, setDeskLoaded] = useState(false);
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
 
-  const [focusMinutes, setFocusMinutes] = useState(25);
-  const [focusMode, setFocusMode] = useState<FocusMode>("focus");
-  const [remaining, setRemaining] = useState(25 * 60);
-  const [running, setRunning] = useState(false);
+  const {
+    pomodoro,
+    togglePomodoro,
+    setPomodoroPreset,
+    resetPomodoro,
+  } = useStudyDesk();
 
   const lessons = useMemo(
     () =>
@@ -215,6 +211,10 @@ export function CourseStudyTools({ course, progress, update }: Props) {
     reviewableCount - dueItems.length - masteredCount,
   );
 
+  const focusMinutes = pomodoro.focusMinutes;
+  const focusMode = pomodoro.mode;
+  const remaining = pomodoro.remaining;
+  const running = pomodoro.running;
   const focusWorkSeconds = focusMinutes * 60;
   const focusBreakSeconds = focusMinutes === 50 ? 10 * 60 : 5 * 60;
   const focusDuration = focusMode === "focus" ? focusWorkSeconds : focusBreakSeconds;
@@ -226,64 +226,6 @@ export function CourseStudyTools({ course, progress, update }: Props) {
   const notesWordCount = desk.notes.trim()
     ? desk.notes.trim().split(/\s+/).filter(Boolean).length
     : 0;
-
-  const bumpFocusSession = useCallback(() => {
-    patchDesk((current) => ({
-      ...current,
-      focusSessionsByDay: {
-        ...current.focusSessionsByDay,
-        [todayKey]: (current.focusSessionsByDay[todayKey] ?? 0) + 1,
-      },
-    }));
-  }, [patchDesk, todayKey]);
-
-  const completePomodoro = useCallback(() => {
-    if (focusMode === "focus") {
-      bumpFocusSession();
-      if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-        navigator.vibrate?.([120, 80, 120]);
-      }
-      setRunning(false);
-      setFocusMode("break");
-      setRemaining(focusBreakSeconds);
-      return;
-    }
-
-    setRunning(false);
-    setFocusMode("focus");
-    setRemaining(focusWorkSeconds);
-  }, [bumpFocusSession, focusBreakSeconds, focusMode, focusWorkSeconds]);
-
-  useEffect(() => {
-    if (!running) return;
-    const timer = window.setTimeout(() => {
-      if (remaining <= 1) {
-        completePomodoro();
-      } else {
-        setRemaining((current) => current - 1);
-      }
-    }, 1000);
-    return () => window.clearTimeout(timer);
-  }, [completePomodoro, remaining, running]);
-
-  useEffect(() => {
-    if (!running) {
-      setRemaining(focusMode === "focus" ? focusWorkSeconds : focusBreakSeconds);
-    }
-  }, [focusBreakSeconds, focusMode, focusWorkSeconds, running]);
-
-  const resetPomodoro = () => {
-    setRunning(false);
-    setFocusMode("focus");
-    setRemaining(focusMinutes * 60);
-  };
-
-  const selectPreset = (minutes: number) => {
-    if (running) return;
-    setFocusMinutes(minutes);
-    setFocusMode("focus");
-    setRemaining(minutes * 60);
-  };
 
   if (!deskLoaded) {
     return (
@@ -377,7 +319,7 @@ export function CourseStudyTools({ course, progress, update }: Props) {
                       key={minutes}
                       type="button"
                       disabled={running}
-                      onClick={() => selectPreset(minutes)}
+                      onClick={() => setPomodoroPreset(minutes, course.slug)}
                       className={
                         "rounded-lg border px-2.5 py-1.5 font-mono text-[9px] transition-colors " +
                         (focusMinutes === minutes
@@ -394,7 +336,7 @@ export function CourseStudyTools({ course, progress, update }: Props) {
 
               <div className="mt-6 text-center">
                 <div className="font-mono text-[clamp(3.8rem,10vw,7rem)] font-black leading-none tracking-[-0.06em] tabular-nums">
-                  {formatClock(remaining)}
+                  {formatPomodoroClock(remaining)}
                 </div>
                 <div className="mx-auto mt-4 h-2 max-w-xl overflow-hidden rounded-full bg-border">
                   <div
@@ -409,7 +351,7 @@ export function CourseStudyTools({ course, progress, update }: Props) {
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
                 <Button
-                  onClick={() => setRunning((current) => !current)}
+                  onClick={() => togglePomodoro(course.slug)}
                   className="min-w-28 cursor-pointer"
                 >
                   {running ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
