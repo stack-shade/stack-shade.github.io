@@ -3,6 +3,7 @@ import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
 import type { CNLesson } from "@/lib/computer-networks-lessons";
 import { getNlpTopicGuide, nlpTopicSlug } from "@/lib/nlp-course-content";
 import { NLP_LESSON_FOCUS } from "@/lib/nlp-lesson-focus";
+import { CYBERSECURITY_LESSON_FOCUS } from "@/lib/cybersecurity-lesson-focus";
 
 export interface CourseLessonContent {
   slug: string;
@@ -422,6 +423,88 @@ function buildNlpLessonContent(course: Course, module: CourseModule, lesson: Les
     examAngle: "Answer with purpose → mechanism → example → limitation → evaluation. For implementation questions, also name the data shape and the main computational bottleneck.",
     next,
   };
+}function buildCybersecurityLessonContent(course: Course, module: CourseModule, lesson: Lesson, moduleIndex: number, lessonIndex: number): CourseLessonContent {
+  const focus = CYBERSECURITY_LESSON_FOCUS[moduleIndex]?.[lessonIndex] ?? (module.hook + " Apply the idea to an authorized lab and document the evidence.");
+  const allLessons = course.modules.flatMap((item) => item.lessons).map((item) => item.title);
+  const at = allLessons.indexOf(lesson.title);
+  const next = [
+    ...(at >= 0 && allLessons[at + 1] ? [allLessons[at + 1]] : []),
+    ...(at >= 0 && allLessons[at + 2] ? [allLessons[at + 2]] : []),
+  ];
+  const toolHint = /Nmap/i.test(lesson.title) ? "Nmap"
+    : /Burp|ZAP|Web|API/i.test(lesson.title) ? "Burp Suite / OWASP ZAP"
+    : /Wi.?Fi|Wireless|Bluetooth|NFC/i.test(lesson.title) ? "Wireshark / wireless analysis tools"
+    : /Sysmon|Windows|PowerShell|Active Directory|Kerberos|NTLM/i.test(lesson.title) ? "PowerShell / Sysmon / Event Viewer"
+    : /Linux|SSH|journald|Filesystem|Processes|Shell/i.test(lesson.title) ? "Linux shell / audit logs"
+    : /SIEM|SOC|Wazuh|Security Onion|Zeek|Suricata/i.test(lesson.title) ? "Wazuh / Security Onion / Zeek / Suricata"
+    : /MITRE|ATT&CK|Sigma|YARA|Threat intelligence|Threat hunting/i.test(lesson.title) ? "MITRE ATT&CK / Sigma / YARA"
+    : /Forensics|Autopsy|Volatility|Timeline|Evidence/i.test(lesson.title) ? "Autopsy / Volatility"
+    : /Malware|Ghidra|VirusTotal|Reverse/i.test(lesson.title) ? "Ghidra / YARA / enrichment tools"
+    : /Cloud|Docker|Kubernetes|DevSecOps|Trivy|Semgrep|Gitleaks|Checkov/i.test(lesson.title) ? "Cloud IAM / Docker / Kubernetes / security scanners"
+    : /AI|RAG|Prompt|Model/i.test(lesson.title) ? "AI security test harnesses and controlled evaluation"
+    : /NIST|CIS|Governance|Risk|Zero Trust|Architecture|Policies|Business continuity|DR/i.test(lesson.title) ? "NIST CSF 2.0 / CIS Controls v8.1"
+    : "a controlled security lab";
+  return {
+    slug: "m" + (moduleIndex + 1) + "-l" + (lessonIndex + 1) + "-" + lesson.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""),
+    title: lesson.title,
+    eyebrow: "CYBERSECURITY • " + module.title,
+    overview: focus + " This lesson is framed for authorized, isolated training environments and focuses on reasoning, evidence and remediation rather than indiscriminate exploitation.",
+    mentalModel: focus,
+    analogy: { title: "Think like a defender first", body: "Treat the system as a set of assets and trust boundaries. " + focus + " Ask what evidence would confirm the hypothesis, what control could block it, and what telemetry would reveal it." },
+    neuroscience: { title: "Reconstruct the attack-and-defense loop", body: "After reading, close the page and redraw: asset → threat → weakness → observable behavior → control → validation. Then compare your reconstruction with the worked artifact and recall cards." },
+    deepDive: [
+      { title: "Security problem", body: focus + " Start by naming the asset, security property at risk, attacker capability or failure condition, and the impact if the control is absent." },
+      { title: "Mechanism and evidence", body: "Connect " + lesson.title + " to " + module.title + ". Identify the relevant protocol, process, identity, data flow or control, then state what logs, packet fields, filesystem artifacts or application responses would support the conclusion." },
+      { title: "Control and validation", body: "Practice with " + toolHint + ". Use the least risky technique needed in an owned or intentionally vulnerable environment, capture evidence, remediate the weakness, and retest to show whether the control actually changed the outcome." },
+    ],
+    flow: [
+      { label: "Scope", detail: "Name the authorized asset, boundaries, assumptions and stop conditions before touching the system." },
+      { label: "Hypothesis", detail: focus },
+      { label: "Evidence", detail: "Collect the smallest useful set of logs, packets, artifacts or application responses needed to test the hypothesis." },
+      { label: "Control", detail: "Apply or recommend a preventive, detective, response or recovery control and define how you will verify it." },
+    ],
+    artifact: {
+      title: "Security investigation card",
+      language: "text",
+      code: [
+        "TOPIC: " + lesson.title,
+        "MODULE: " + module.title,
+        "AUTHORIZED SCOPE: ____________________",
+        "",
+        "ASSET / TRUST BOUNDARY",
+        "____________________________",
+        "",
+        "HYPOTHESIS",
+        focus,
+        "",
+        "EVIDENCE TO COLLECT",
+        "- telemetry / packet / artifact: __________",
+        "- timestamp / identity: __________________",
+        "",
+        "CONTROL TO TEST",
+        "____________________________",
+        "",
+        "RESULT / REMEDIATION / RETEST",
+        "____________________________",
+      ].join("\n"),
+      explanation: "Complete this card during a lab. Keep observations separate from inference, preserve evidence before changing state, and record the control plus retest result.",
+    },
+    mistakes: [
+      "Testing a real system without explicit authorization or outside the stated scope.",
+      "Treating a scanner or alert as proof without validating the underlying evidence.",
+      "Collecting evidence after modifying the host or application and losing the original state.",
+      "Describing a vulnerability without explaining the affected asset, impact, root cause and remediation path.",
+    ],
+    recall: [
+      { question: "What asset or security property is this topic protecting?", answer: focus + " State the asset, property and likely failure mode in your own words." },
+      { question: "What evidence would you expect to see?", answer: "Name concrete telemetry or artifacts: packets, DNS/TLS metadata, process lineage, identity events, filesystem changes, application responses or cloud audit records." },
+      { question: "What control should change the outcome?", answer: "Choose a preventive, detective, response or recovery control and state exactly what signal would prove it is working." },
+      ...(module.recall.slice(0, 1).map((item) => ({ question: item.q, answer: item.a }))),
+    ].slice(0, 4),
+    feynman: "Explain " + lesson.title + " to a junior security analyst using one asset, one threat, one observable signal, one control and one failure case.",
+    examAngle: "Answer with asset → threat or failure → mechanism → evidence → control → validation. For practical questions, also state scope and the safest authorized test method.",
+    next,
+  };
 }
 export function getLessonContent(
   course: Course,
@@ -444,6 +527,10 @@ export function getLessonContent(
     );
     if (guided) return guided;
     return buildNlpLessonContent(course, module, lesson, moduleIndex, lessonIndex);
+  }
+
+  if (course.slug === "cybersecurity") {
+    return buildCybersecurityLessonContent(course, module, lesson, moduleIndex, lessonIndex);
   }
 
   if (
