@@ -571,6 +571,12 @@ export default function HTTPStatusCodesPage() {
             This page therefore links the source documents instead of reproducing the MDN page wholesale; the wording, examples,
             structure, visual treatment, and debugging heuristics here are newly authored for StackShade.
           </p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">
+            Because this page is a derivative educational work based on MDN material, this article is offered under
+            <a href="https://creativecommons.org/licenses/by-sa/2.5/" target="_blank" rel="noopener noreferrer" className="mx-1 underline underline-offset-4 hover:text-foreground">CC BY-SA 2.5 or later</a>
+            with attribution and a description of the changes made here: the content has been substantially rewritten,
+            expanded with implementation guidance, reorganized for study, and illustrated with original StackShade visuals.
+          </p>
           <div className="mt-5 grid gap-3">
             <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-border bg-background p-4 hover:border-foreground/40">
               <span className="text-sm font-bold text-foreground">MDN — HTTP response status codes</span>
