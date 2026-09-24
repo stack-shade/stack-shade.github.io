@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, BookOpen, Clock3, ShieldCheck } from "lucide-react";
 import { ContentBrowser, type BrowseItem } from "@/components/content-browser";
 import { ARTICLES } from "@/lib/articles";
+import { IMPORTED_BLOGS } from "@/lib/imported-blogs";
 
 export const metadata: Metadata = {
   title: "Engineering Blog — StackShade",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const blogItems: BrowseItem[] = ARTICLES.map((article) => ({
+const curatedItems: BrowseItem[] = ARTICLES.map((article) => ({
   id: article.slug,
   title: article.title,
   description: article.description,
@@ -53,11 +54,34 @@ const blogItems: BrowseItem[] = ARTICLES.map((article) => ({
   bannerAlt: article.bannerAlt,
 }));
 
-const categoryCount = new Set(ARTICLES.map((article) => article.category)).size;
-const tagCount = new Set(ARTICLES.flatMap((article) => article.tags ?? [])).size;
+const importedItems: BrowseItem[] = IMPORTED_BLOGS.map((blog) => {
+  const parsed = new Date(blog.sourceDate);
+  const date = Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString().slice(0, 10);
+
+  return {
+    id: blog.slug,
+    title: blog.title,
+    description: blog.description,
+    category: blog.category,
+    tags: blog.tags,
+    playlist: blog.playlist,
+    formats: ["article"],
+    duration: blog.readTime,
+    status: "published",
+    href: "/blog/" + blog.slug,
+    date,
+    banner: blog.banner,
+    bannerAlt: blog.bannerAlt,
+  };
+});
+
+const blogItems: BrowseItem[] = [...curatedItems, ...importedItems];
+
+const categoryCount = new Set(blogItems.map((item) => item.category)).size;
+const tagCount = new Set(blogItems.flatMap((item) => item.tags)).size;
 
 export default function BlogIndex() {
-  const featured = [...ARTICLES]
+  const featured = [...curatedItems]
     .filter((article) => article.featured)
     .sort((a, b) => b.date.localeCompare(a.date))[0];
 
@@ -69,7 +93,7 @@ export default function BlogIndex() {
             <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               <span>StackShade Journal</span>
               <span aria-hidden="true">·</span>
-              <span>{ARTICLES.length} stories</span>
+              <span>{blogItems.length} stories</span>
               <span aria-hidden="true">·</span>
               <span>{categoryCount} topics</span>
               <span aria-hidden="true">·</span>
