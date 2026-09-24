@@ -8,6 +8,8 @@ import {
   CheckCircle2,
   Code2,
   GitBranch,
+  Github,
+  Globe,
   Layers3,
   Play,
   Search,
@@ -490,6 +492,55 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="creator" className="border-b border-border bg-card/15">
+          <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+            <div className="mx-auto mb-9 max-w-2xl text-center">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                MEET THE CREATOR
+              </span>
+              <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
+                Building software with clarity and design.
+              </h2>
+            </div>
+            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card/30 p-6 sm:p-8">
+              <div className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--foreground)_7%,transparent),transparent_70%)]" />
+              <div className="relative flex flex-col items-center gap-7 md:flex-row">
+                <div className="rounded-[1.7rem] border border-border bg-background p-1.5 shadow-xl">
+                  <div
+                    role="img"
+                    aria-label="Shaswat Raj profile photo"
+                    className="h-28 w-28 rounded-[1.35rem] bg-cover bg-center sm:h-36 sm:w-36"
+                    style={{ backgroundImage: "url(https://github.com/sh20raj.png?size=256)" }}
+                  >
+                    <span className="sr-only">Profile photo of Shaswat Raj</span>
+                  </div>
+                </div>
+                <div className="min-w-0 flex-1 text-center md:text-left">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                    SOFTWARE ENGINEER &amp; TECH EDUCATOR
+                  </div>
+                  <h3 className="mt-2 text-2xl font-black tracking-tight">Shaswat Raj</h3>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+                    Shaswat is a software developer and the creator of StackShade. The work behind StackShade is driven by a simple idea: learn deeply, build practically, and explain visually.
+                  </p>
+                  <div className="mt-5 flex flex-wrap justify-center gap-2.5 md:justify-start">
+                    <a href="https://sh20raj.github.io/" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "secondary", size: "sm", className: "rounded-xl text-xs font-semibold" })}>
+                      <Globe className="mr-1.5 h-3.5 w-3.5" />
+                      Portfolio
+                      <ArrowUpRight className="ml-1 h-3 w-3" />
+                    </a>
+                    <a href="https://github.com/sh20raj/" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "secondary", size: "sm", className: "rounded-xl text-xs font-semibold" })}>
+                      <Github className="mr-1.5 h-3.5 w-3.5" />
+                      GitHub
+                      <ArrowUpRight className="ml-1 h-3 w-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-border bg-card/15">
           <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
             <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
@@ -539,6 +590,8 @@ export default function Home() {
               <div className="text-[10px] text-muted-foreground">Learn deeply. Build practically. Explain visually.</div>
             </div>
           </div>
+
+          <a href="https://stack-shade.github.io/algoforge" target="_blank" rel="noopener noreferrer" className="rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:border-foreground/25">StackShade&apos;s Algoforge</a>
 
           <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted-foreground">
             <Link href="/courses" className="hover:text-foreground">Courses</Link>
