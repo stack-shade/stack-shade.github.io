@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#070b14"/><stop offset="1" stop-color="#111b31"/></linearGradient><linearGradient id="a" x1="0" x2="1"><stop stop-color="#67e8f9"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+<rect width="1600" height="900" fill="url(#g)"/><circle cx="1360" cy="150" r="270" fill="#312e81" opacity=".17"/>
+<text x="110" y="130" fill="#67e8f9" font-family="Arial,sans-serif" font-size="30" font-weight="700" letter-spacing="5">STACKSHADE • AI EXPLAINED</text>
+<text x="110" y="280" fill="#fff" font-family="Arial,sans-serif" font-size="96" font-weight="800">JEV</text>
+<text x="110" y="365" fill="#fff" font-family="Arial,sans-serif" font-size="57" font-weight="700">AI THAT DOESN'T NEED</text>
+<text x="110" y="435" fill="url(#a)" font-family="Arial,sans-serif" font-size="70" font-weight="800">TO TALK.</text>
+<text x="110" y="500" fill="#aab6c9" font-family="Arial,sans-serif" font-size="26">Typed decisions • confidence • AI agents • automation</text>
+<rect x="110" y="610" width="1380" height="150" rx="28" fill="#0b1220" stroke="#29364f" stroke-width="2"/>
+<text x="165" y="665" fill="#8390a6" font-family="monospace" font-size="20">LLM</text>
+<text x="165" y="713" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Generate → explain → write</text>
+<line x1="790" y1="640" x2="790" y2="735" stroke="#29364f" stroke-width="2"/>
+<text x="875" y="665" fill="#67e8f9" font-family="monospace" font-size="20">JEV</text>
+<text x="875" y="713" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Decide → score → route</text>
+<text x="110" y="835" fill="#64738d" font-family="Arial,sans-serif" font-size="19">Complex Tech, Explained Simply</text></svg>
