@@ -143,7 +143,8 @@ export function ContentBrowser({
   }, [items]);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const syncFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
 
     const requestedTag = params.get(PARAMS.tag);
     const requestedPlaylist = params.get(PARAMS.playlist);
@@ -170,8 +171,13 @@ export function ContentBrowser({
     if (PAGE_SIZES.includes(requestedSize)) setSize(requestedSize);
     if (requestedView === "grid" || requestedView === "list") setView(requestedView);
 
-    setPage(requestedPage);
+      setPage(requestedPage);
+    };
+
+    syncFromUrl();
     setHydrated(true);
+    window.addEventListener("popstate", syncFromUrl);
+    return () => window.removeEventListener("popstate", syncFromUrl);
   }, [categories, formats, pageSize, playlists, tags]);
 
   useEffect(() => {
