@@ -2581,3 +2581,28 @@ h6 {
   .sketchflow-canvas-shell { height: 72svh; min-height: 23rem; border-radius: .75rem; }
   .sketchflow-canvas-topline { top: .4rem; left: .4rem; right: .4rem; }
 }
+
+/* Accessible text selection: educational content must remain copyable. */
+html, body {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.stack-courses,
+.stack-courses .lesson-article,
+.stack-courses .lesson-article-body,
+.stack-courses .lesson-prose-block,
+.stack-courses .lesson-callout,
+.stack-courses .lesson-lede,
+.stack-courses .lesson-practice-card,
+.stack-courses .lesson-endnote,
+.stack-courses pre,
+.stack-courses code {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--foreground) 18%, transparent);
+  color: var(--foreground);
+}
