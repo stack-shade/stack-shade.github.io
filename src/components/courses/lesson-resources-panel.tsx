@@ -82,7 +82,7 @@ export default function LessonResourcesPanel({ courseSlug, lessonTitle, previous
             description: previousLessonTitle
               ? "Use the previous lesson as the bridge into this concept."
               : "This is the first topic in the course, so there is no previous lesson yet.",
-            href: "#curriculum",
+            href: "/courses/" + courseSlug,
             icon: "doc",
           },
         ];
