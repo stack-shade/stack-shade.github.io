@@ -450,7 +450,7 @@ export default function HTTPStatusCodesPage() {
         </div>
         <div className="rounded-2xl border border-border bg-card/30 p-5 sm:p-6">
           <p className="text-sm leading-7 text-muted-foreground">
-            HTTP is part of your API's vocabulary. Returning 200 with an application-specific error forces every client to
+            HTTP is part of your API&apos;s vocabulary. Returning 200 with an application-specific error forces every client to
             decode a second protocol before it can use ordinary HTTP behavior. A more expressive response gives proxies, SDKs,
             monitoring tools, and humans a clearer signal.
           </p>
@@ -566,7 +566,7 @@ export default function HTTPStatusCodesPage() {
         <div className="rounded-2xl border border-border bg-card/20 p-5">
           <p className="text-sm leading-7 text-muted-foreground">
             This StackShade article is an original rewrite and expansion built from the current MDN HTTP status-code reference
-            and the standards registry. MDN documentation prose is generally available under CC BY-SA 2.5 or later, and MDN's
+            and the standards registry. MDN documentation prose is generally available under CC BY-SA 2.5 or later, and MDN&apos;s
             attribution guidance asks reusers to credit Mozilla Contributors, link to the source, and describe modifications.
             This page therefore links the source documents instead of reproducing the MDN page wholesale; the wording, examples,
             structure, visual treatment, and debugging heuristics here are newly authored for StackShade.
@@ -633,7 +633,7 @@ export default function HTTPStatusCodesPage() {
       </section>
 
       <p className="text-xs leading-6 text-muted-foreground">
-        Coverage note: this article expands every status code shown in MDN's current status-code hierarchy, including legacy
+        Coverage note: this article expands every status code shown in MDN&apos;s current status-code hierarchy, including legacy
         entries 102, 305, 306, 418, and 510. The MDN hierarchy currently enumerates 60 non-legacy entries; the extra entries
         are retained because they are visible on the reference page and/or important when interpreting historical traffic.
         Total entries covered here: {activeEntries.length} non-legacy entries plus {legacyEntries.length} legacy or special entries.
