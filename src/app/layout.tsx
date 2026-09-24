@@ -74,6 +74,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site index" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM-readable detailed site index" />
         <Script id="stackshade-theme-init" strategy="beforeInteractive">
           {`try{const s=localStorage.getItem("stackshade-theme");const d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d)}catch(e){document.documentElement.classList.add("dark")}`}
         </Script>
@@ -81,6 +83,29 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  name: "StackShade",
+                  url: "https://stack-shade.github.io/",
+                  description: "A technical learning library for computer science and software engineering.",
+                  inLanguage: "en",
+                },
+                {
+                  "@type": "Organization",
+                  name: "StackShade",
+                  url: "https://stack-shade.github.io/",
+                  logo: "https://stack-shade.github.io/logo.svg",
+                },
+              ],
+            }),
+          }}
+        />
         <StudyDeskProvider>
           {children}
           <StudyDeskGlobal />
