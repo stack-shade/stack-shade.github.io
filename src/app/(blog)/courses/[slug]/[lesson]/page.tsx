@@ -224,7 +224,7 @@ export default async function CourseLessonPage({ params }: PageProps) {
             <BookOpen className="h-4 w-4" /> Learn
           </a>
           <Link href={deckHref} className="lesson-topic-action">
-            <Sparkles className="h-4 w-4" /> Presentation
+            <Sparkles className="h-4 w-4" /> Deck
           </Link>
         </div>
       </header>
