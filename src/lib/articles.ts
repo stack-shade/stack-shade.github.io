@@ -10,6 +10,7 @@ export interface Article {
   playlist?: string;
   date: string;
   displayDate: string;
+  modifiedDate?: string;
   readTime: string;
   banner: string;
   bannerAlt: string;
@@ -251,7 +252,7 @@ export function buildArticleMetadata(article: Article): Metadata {
       locale: "en_US",
       type: "article",
       publishedTime: article.date + "T00:00:00.000Z",
-      modifiedTime: "2026-09-21T00:00:00.000Z",
+      modifiedTime: (article.modifiedDate ?? article.date) + "T00:00:00.000Z",
       authors: [article.author],
     },
     twitter: {
@@ -274,7 +275,7 @@ export function articleJsonLd(article: Article) {
     description: article.description,
     image: "https://stack-shade.github.io" + article.banner,
     datePublished: article.date + "T00:00:00.000Z",
-    dateModified: "2026-09-21T00:00:00.000Z",
+    dateModified: (article.modifiedDate ?? article.date) + "T00:00:00.000Z",
     keywords: article.tags?.join(", "),
     author: {
       "@type": "Person",
