@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SketchFlowStudio from "@/components/courses/sketchflow-studio";
+import SketchFlowPracticeClient from "@/components/courses/sketchflow-practice-client";
 
 export const metadata: Metadata = {
   title: "SketchFlow Practice — StackShade",
@@ -11,20 +11,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-interface PageProps {
-  searchParams: Promise<{ topic?: string; prompt?: string }>;
-}
-
-export default async function SketchFlowPracticePage({
-  searchParams,
-}: PageProps) {
-  const params = await searchParams;
-  const topic = params.topic?.trim() || "Core concept";
-  const prompt =
-    params.prompt?.trim() ||
-    "Rebuild the core mechanism from memory. Label the input, transformation, observation, and transfer.";
-
-  return (
-    <SketchFlowStudio initialTopic={topic} initialPrompt={prompt} />
-  );
+export default function SketchFlowPracticePage() {
+  return <SketchFlowPracticeClient />;
 }
