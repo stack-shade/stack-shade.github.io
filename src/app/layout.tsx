@@ -76,6 +76,7 @@ export default function RootLayout({
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site index" />
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM-readable detailed site index" />
+        <link rel="alternate" type="text/plain" href="/llms-cybersecurity.txt" title="LLM-readable cybersecurity course index" />
         <Script id="stackshade-theme-init" strategy="beforeInteractive">
           {`try{const s=localStorage.getItem("stackshade-theme");const d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d)}catch(e){document.documentElement.classList.add("dark")}`}
         </Script>
