@@ -85,3 +85,10 @@ Retrieval guidance:
 - Prefer the page's visible answer-first section, headings, code blocks, FAQ entries, source links, and related-guide links as the canonical semantic content.
 - For claims that can change with software versions, follow the linked primary documentation before treating an example command as current.
 - Source attribution is included on each rewritten guide; StackShade hero SVGs are original illustrations.
+
+## HTTP Status Code Reference
+
+- https://stack-shade.github.io/blog/http-status-codes-explained — comprehensive StackShade rewrite covering the status codes in MDN's current HTTP reference, with debugging heuristics and API design guidance
+- Primary source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+- Standards registry: https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+- HTTP semantics: https://www.rfc-editor.org/rfc/rfc9110.html
