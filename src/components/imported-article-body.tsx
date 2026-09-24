@@ -133,7 +133,6 @@ export default function ImportedArticleBody({ blog }: { blog: ImportedBlog }) {
       <section className="space-y-5">
         <h2 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">Sources & further reading</h2>
         <div className="space-y-2">
-          {blog.sources.map(([label, url]) => null)}
           {blog.sources.map((source) => (
             <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="block rounded-xl border border-border bg-card/20 px-4 py-3 text-sm text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground">
               {source.label}
