@@ -15,7 +15,7 @@ export interface ImportedBlog {
   slug: string; title: string; sourceTitle: string; sourceDate: string; sourceUrl: string;
   category: string; tags: string[]; playlist: string; readTime: string; description: string;
   intro: string; answer: string; banner: string; bannerAlt: string; author: string;
-  sections: ImportedSection[]; faqs: { q: string; a: string }[]; related: string[];
+  sections: ImportedSection[]; faqs: [string, string][]; related: string[];
   sources: [string, string][];
 }
 export const IMPORTED_BLOGS = [
