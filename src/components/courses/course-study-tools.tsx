@@ -145,6 +145,17 @@ export function CourseStudyTools({ course, progress, update }: Props) {
     setDeskLoaded(true);
   }, [course.slug]);
 
+  useEffect(() => {
+    const onDeskChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ slug?: string }>).detail;
+      if (detail?.slug === course.slug) {
+        setDesk(readDeskState(course.slug));
+      }
+    };
+    window.addEventListener("ss-study-desk-change", onDeskChange);
+    return () => window.removeEventListener("ss-study-desk-change", onDeskChange);
+  }, [course.slug]);
+
   const patchDesk = useCallback(
     (mutate: (current: DeskState) => DeskState) => {
       setDesk((current) => {
