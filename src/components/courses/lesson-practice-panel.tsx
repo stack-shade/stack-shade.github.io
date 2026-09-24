@@ -74,7 +74,7 @@ function buildQuiz(current: CourseLessonContent, previous: CourseLessonContent |
   }
 
   const source = [...current.recall, ...(previous?.recall ?? [])].slice(0, 5);
-  return source.map((item, index) => ({
+  return source.map((item) => ({
     question: item.question,
     options: [item.answer, "A plausible but incomplete explanation", "An unrelated mechanism", "A common misconception"],
     answer: item.answer,
