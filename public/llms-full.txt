@@ -1,0 +1,146 @@
+# StackShade NLP Course Index
+
+> Canonical NLP syllabus for retrieval, indexing and AI-agent discovery.
+
+Course URL: https://stack-shade.github.io/courses/natural-language-processing
+
+Stats: 16 modules, 97 lessons, 16 weeks.
+
+## Module 1 — NLP Foundations
+1. Introduction | NLP Tutorial For Beginners In Python
+2. Why NLP is booming right now?
+3. Regex For NLP
+4. Three Categories Of Techniques for NLP
+5. NLP Tasks
+6. NLP Pipeline
+
+## Module 2 — spaCy & NLP Tooling
+1. spaCy vs NLTK
+2. Tokenization in spaCy
+3. Language Processing Pipeline in spaCy
+4. NLTK vs spaCy: how to choose the right abstraction
+5. Interactive: inspect a spaCy Doc token by token
+6. Lab: build a reusable spaCy preprocessing function
+
+## Module 3 — Linguistic Analysis: Lemmas, POS & NER
+1. Stemming and Lemmatization
+2. Part Of Speech POS Tagging
+3. Named Entity Recognition (NER)
+4. Sentence segmentation, stopwords and normalization
+5. Interactive: compare stemming vs lemmatization
+6. Lab: extract POS tags and entities from a news paragraph
+
+## Module 4 — Classical Text Representation
+1. Text Representation Basics
+2. Text Representation: Label & One Hot Encoding
+3. Text Representation Using Bag Of Words (BOW)
+4. Stop Words
+5. Text Representation Using Bag Of n-grams
+6. Text Representation Using TF-IDF
+
+## Module 5 — Word Embeddings in Practice
+1. Text Representation Using Word Embeddings
+2. Word vectors in Spacy overview
+3. News classification using Spacy word vectors
+4. Word vectors in Gensim overview
+5. News classification using Gensim word vectors
+6. fastText Tutorial | Train Custom Word Vectors in fastText
+7. fastText tutorial | Text Classification Using fastText
+
+## Module 6 — Applied NLP & Conversational Systems
+1. Introduction to Chatbots
+2. End-to-End NLP Project | Build a Chatbot in Dialogflow
+3. Gen AI Project | Log Classification System Using Deepseek R1 LLM, NLP, Regex, BERT
+4. From Classical NLP to Modern Language Systems
+5. Interactive: map a chatbot stack from input to response
+6. Mini project: compare a regex/classical classifier with an LLM workflow
+
+## Module 7 — Classical & Probabilistic NLP
+1. Naive Bayes for text classification from first principles
+2. Logistic regression for NLP
+3. N-gram language models, smoothing and perplexity
+4. Minimum edit distance and autocorrect
+5. Hidden Markov Models + Viterbi for sequence labeling
+6. Classical NLP benchmark: when a linear model beats a neural baseline
+
+## Module 8 — Neural NLP — RNNs, LSTMs & Sequence Models
+1. Neural network foundations for NLP: embeddings, loss and backprop
+2. Interactive: watch an RNN hidden state evolve across a sentence
+3. RNN language modeling and teacher forcing
+4. LSTM and GRU gates: what problem they solve
+5. Bidirectional RNNs and sequence tagging
+6. Build a neural text classifier in PyTorch
+
+## Module 9 — Sequence-to-Sequence & Attention
+1. Encoder–decoder sequence-to-sequence architecture
+2. Bahdanau attention and alignment
+3. Attention alignment visualizer
+4. Dot-product and scaled dot-product attention
+5. Cross-attention vs self-attention
+6. Implement an encoder-decoder with attention in PyTorch
+
+## Module 10 — Transformers From First Principles
+1. Self-attention with Query, Key and Value
+2. Attention matrix playground
+3. Masking, causal attention and padding masks
+4. Multi-head attention and positional information
+5. Transformer encoder, decoder, residuals and LayerNorm
+6. Implement a mini Transformer in PyTorch
+
+## Module 11 — Pretrained Language Models & Hugging Face
+1. BERT vs GPT vs T5: encoder, decoder and encoder–decoder models
+2. BPE, WordPiece and Unigram tokenizers
+3. Tokenizer playground: text → tokens → IDs → masks
+4. Hugging Face Transformers: tokenizers, models and pipelines
+5. Datasets, Trainer, Accelerate and reproducible fine-tuning
+6. Fine-tune BERT for text classification and push the model to the Hub
+
+## Module 12 — Modern NLP Tasks
+1. Token classification and Transformer-based NER
+2. Text classification, zero-shot classification and calibration
+3. Text summarization with encoder–decoder models
+4. Machine translation and sequence generation
+5. Extractive vs generative question answering
+6. Build a multi-task NLP demo with Hugging Face pipelines
+
+## Module 13 — Embeddings, Semantic Search & RAG
+1. Contextual embeddings and Sentence Transformers
+2. Vector similarity and nearest-neighbor search
+3. Chunking strategies and metadata design
+4. Retrieval, reranking and context assembly
+5. RAG grounding, citations and failure modes
+6. Build a citation-grounded RAG assistant over your own documents
+
+## Module 14 — Fine-Tuning, PEFT & LLM Adaptation
+1. Prompting vs fine-tuning vs RAG
+2. Supervised fine-tuning and instruction tuning
+3. LoRA and parameter-efficient fine-tuning
+4. Domain adaptation and continued pretraining
+5. Quantization, memory budgets and inference trade-offs
+6. Adapt a small open model with LoRA on a focused dataset
+
+## Module 15 — Evaluation, Reliability & Safety
+1. Accuracy, precision, recall, F1 and calibration
+2. BLEU, ROUGE and why generation metrics can mislead
+3. Semantic and LLM-as-judge evaluation: benefits and limits
+4. Hallucination, grounding, robustness and uncertainty
+5. Bias, fairness, dataset artifacts and safety
+6. Build an automated NLP/LLM evaluation harness
+
+## Module 16 — Production NLP & Capstone
+1. Data splits, leakage, versioning and dataset quality
+2. Batching, caching, latency, throughput and cost
+3. Serving, quantization and practical deployment patterns
+4. Observability, drift, error analysis and incident loops
+5. Capstone: production-grade grounded NLP assistant with evaluation
+6. Final architecture review: explain every component and trade-off
+
+## URL patterns
+
+Course: https://stack-shade.github.io/courses/natural-language-processing
+
+Lesson URL pattern:
+https://stack-shade.github.io/courses/natural-language-processing/m{module}-l{lesson}-{slugified-title}
+
+Presentation URL pattern:
+https://stack-shade.github.io/courses/natural-language-processing/present/m{module}-l{lesson}-{slugified-title}
