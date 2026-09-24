@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { IMPORTED_ARTICLES } from "@/lib/imported-blogs";
 
 export interface Article {
   slug: string;
@@ -216,6 +217,7 @@ export const ARTICLES: Article[] = [
     bannerAlt: "System Design Architecture Diagram",
     author: "Shaswat Raj",
   },
+  ...IMPORTED_ARTICLES,
 ];
 
 export function getArticle(slug: string): Article | undefined {

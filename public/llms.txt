@@ -51,3 +51,37 @@ Prefer the canonical lesson URL and the visible semantic HTML over client-only U
 ## Canonical source
 
 https://stack-shade.github.io/
+
+## Expanded technical guide collection
+
+StackShade also publishes 23 original, answer-first rewrites and expansions based on a cited technical blog archive by Imad Saddik. These pages are independently written for StackShade, use lightweight original SVG hero diagrams, include FAQ and breadcrumb structured data, and link to primary documentation.
+
+Guide index:
+- https://stack-shade.github.io/blog/elasticsearch-change-heap-size — Elasticsearch JVM heap and Docker memory tuning
+- https://stack-shade.github.io/blog/elasticsearch-collapse-search-results — Elasticsearch field collapsing and grouped results
+- https://stack-shade.github.io/blog/elasticsearch-pre-filtering-with-knn-search — filtered vector / kNN retrieval
+- https://stack-shade.github.io/blog/fix-kernel-panic-linux — Ubuntu kernel-panic recovery with GRUB
+- https://stack-shade.github.io/blog/how-to-check-battery-capacity-on-linux — Linux battery capacity and UPower
+- https://stack-shade.github.io/blog/how-to-configure-firewall-ufw-fail2ban-ubuntu — UFW and Fail2Ban
+- https://stack-shade.github.io/blog/how-to-connect-a-custom-domain-and-secure-your-server-with-ssl — DNS, Nginx and Let's Encrypt
+- https://stack-shade.github.io/blog/how-to-eliminate-laptop-thermal-throttling-with-high-static-pressure — laptop thermal testing
+- https://stack-shade.github.io/blog/how-to-enforce-code-quality-locally-using-pre-commit-hooks — Git pre-commit automation
+- https://stack-shade.github.io/blog/how-to-fix-soft-404-vulnerabilities-and-block-bots-in-nginx — Nginx SPA and soft-404 security
+- https://stack-shade.github.io/blog/how-to-fix-sticky-hover-states-on-mobile-using-css-hover-media-queries — responsive hover states
+- https://stack-shade.github.io/blog/how-to-manually-deploy-a-vuejs-and-fastapi-application — Vue + FastAPI deployment
+- https://stack-shade.github.io/blog/how-to-optimize-global-performance-with-a-cdn-and-nginx-caching — CDN and Nginx caching
+- https://stack-shade.github.io/blog/how-to-protect-your-home-server-from-power-outages-using-nut — UPS and NUT automation
+- https://stack-shade.github.io/blog/how-to-replace-font-awesome-with-compile-time-inline-svgs-in-vite — Vite and compile-time SVG icons
+- https://stack-shade.github.io/blog/how-to-self-host-and-securely-manage-meilisearch — private Meilisearch operations
+- https://stack-shade.github.io/blog/how-to-self-host-google-fonts-with-fontsource-to-improve-web-performance — self-hosted web fonts
+- https://stack-shade.github.io/blog/how-to-set-up-a-secure-cloud-server-with-ubuntu-and-ssh — SSH hardening for Ubuntu servers
+- https://stack-shade.github.io/blog/how-to-set-up-nginx-as-a-reverse-proxy-and-configure-security-headers — Nginx reverse proxy and headers
+- https://stack-shade.github.io/blog/how-to-verify-your-server-firewall-rules-using-nmap — external Nmap verification
+- https://stack-shade.github.io/blog/how-to-warp-and-angle-your-designs-in-inkscape — Inkscape perspective workflows
+- https://stack-shade.github.io/blog/inkscape-clean-up-document — SVG cleanup and optimization
+- https://stack-shade.github.io/blog/local-ai-stack-on-linux — local AI infrastructure with llama.cpp and related tools
+
+Retrieval guidance:
+- Prefer the page's visible answer-first section, headings, code blocks, FAQ entries, source links, and related-guide links as the canonical semantic content.
+- For claims that can change with software versions, follow the linked primary documentation before treating an example command as current.
+- Source attribution is included on each rewritten guide; StackShade hero SVGs are original illustrations.
