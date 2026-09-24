@@ -18,9 +18,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "StackShade — Learn Faster, Remember Longer",
+  metadataBase: new URL("https://stack-shade.github.io"),
+  title: {
+    default: "StackShade — Learn Faster, Remember Longer",
+    template: "%s | StackShade",
+  },
   description:
-    "Visual explanations of DSA patterns, system design, backend engineering, DevOps, Next.js, and AI engineering. Build like real engineers.",
+    "A technical learning library for DSA, system design, backend engineering, DevOps, networking, AI and NLP. Learn from deep explanations, interactive artifacts, practice and projects.",
+  keywords: [
+    "computer science",
+    "DSA",
+    "system design",
+    "backend engineering",
+    "DevOps",
+    "computer networks",
+    "artificial intelligence",
+    "natural language processing",
+    "machine learning",
+    "LLM",
+    "RAG",
+    "technical education",
+  ],
+  authors: [{ name: "StackShade" }],
+  creator: "StackShade",
+  publisher: "StackShade",
   verification: { google: "_rPi-600gMFYjNa9qzMTuIQg1_aey417EeAdaiIqgFg" },
   other: { "google-adsense-account": "ca-pub-1828915420581549" },
   manifest: "/manifest.json",
