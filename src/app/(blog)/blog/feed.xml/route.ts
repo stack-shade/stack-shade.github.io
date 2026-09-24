@@ -1,4 +1,5 @@
 import { sortedArticles, articleUrl } from "@/lib/articles";
+import { IMPORTED_BLOGS } from "@/lib/imported-blogs";
 
 export const dynamic = "force-static";
 
@@ -7,7 +8,31 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
-  const articles = sortedArticles().slice(0, 100);
+  const curated = sortedArticles().map((article) => ({
+    title: article.title,
+    url: article.url,
+    description: article.description,
+    date: article.date,
+    category: article.category,
+  }));
+
+  const imported = IMPORTED_BLOGS.map((blog) => {
+    const parsed = new Date(blog.sourceDate);
+    const date = Number.isNaN(parsed.getTime()) ? "2026-01-01" : parsed.toISOString().slice(0, 10);
+
+    return {
+      title: blog.title,
+      url: articleUrl(blog.slug),
+      description: blog.description,
+      date,
+      category: blog.category,
+    };
+  });
+
+  const articles = [...curated, ...imported]
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 100);
+
   const items = articles.map((article) => [
     "<item>",
     "  <title>" + escapeXml(article.title) + "</title>",
