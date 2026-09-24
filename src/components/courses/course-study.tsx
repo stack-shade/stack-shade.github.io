@@ -300,7 +300,6 @@ export function CourseStudy({ course }: { course: Course }) {
         </div>
       </section>
 
-      </section>
     </div>
   );
 }
