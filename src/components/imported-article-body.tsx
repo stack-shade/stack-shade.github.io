@@ -57,8 +57,8 @@ export default function ImportedArticleBody({ blog }: { blog: ImportedBlog }) {
     "@type": "FAQPage",
     mainEntity: blog.faqs.map((faq) => ({
       "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: { "@type": "Answer", text: faq.a },
+      name: faq[0],
+      acceptedAnswer: { "@type": "Answer", text: faq[1] },
     })),
   };
   const breadcrumbJsonLd = {
@@ -110,9 +110,9 @@ export default function ImportedArticleBody({ blog }: { blog: ImportedBlog }) {
         <h2 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">Frequently asked questions</h2>
         <div className="space-y-3">
           {blog.faqs.map((faq) => (
-            <details key={faq.q} className="rounded-2xl border border-border bg-card/20 px-4 py-3 open:bg-card/40">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">{faq.q}</summary>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{faq.a}</p>
+            <details key={faq[0]} className="rounded-2xl border border-border bg-card/20 px-4 py-3 open:bg-card/40">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">{faq[0]}</summary>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{faq[1]}</p>
             </details>
           ))}
         </div>
