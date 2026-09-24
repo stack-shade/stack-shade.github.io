@@ -10,7 +10,6 @@ import {
   StickyNote,
   PencilLine,
 } from "lucide-react";
-import ExcalidrawSketch from "@/components/excalidraw-sketch";
 
 type Media = {
   video?: string;
@@ -21,17 +20,14 @@ type Media = {
 type Props = {
   media?: Media;
   presentationHref: string;
-  initialTab?: Tab;
   children: React.ReactNode;
   lessonTitle?: string;
   lessonMeta?: string;
-  sketch?: {
-    title: string;
-    labels: string[];
-  };
+  practice?: React.ReactNode;
+  resources?: React.ReactNode;
 };
 
-type Tab = "article" | "video" | "presentation" | "notes" | "pdf" | "sketch";
+type Tab = "article" | "video" | "practice" | "resources" | "presentation" | "notes" | "pdf";
 
 function youtubeEmbed(src: string) {
   try {
@@ -136,11 +132,11 @@ function DocumentPanel({ href, type }: { href: string; type: "notes" | "pdf" }) 
 export function LessonMediaHub({
   media,
   presentationHref,
-  initialTab,
   children,
   lessonTitle,
   lessonMeta,
-  sketch,
+  practice,
+  resources,
 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
@@ -150,14 +146,15 @@ export function LessonMediaHub({
       { id: "article", label: "Article", icon: BookOpen },
     ];
     if (media?.video) out.push({ id: "video", label: "Video", icon: PlayCircle });
+    if (practice) out.push({ id: "practice", label: "Practice", icon: PencilLine });
+    if (resources) out.push({ id: "resources", label: "Resources", icon: FileText });
     out.push({ id: "presentation", label: "Deck", icon: Presentation, href: presentationHref });
-    if (sketch) out.push({ id: "sketch", label: "Practice", icon: PencilLine });
     if (media?.notes) out.push({ id: "notes", label: "Notes", icon: StickyNote });
     if (media?.pdf) out.push({ id: "pdf", label: "PDF", icon: FileText });
     return out;
-  }, [media, presentationHref, sketch]);
+  }, [media, presentationHref, practice, resources]);
 
-  const [active, setActive] = useState<Tab>(initialTab ?? "article");
+  const [active, setActive] = useState<Tab>("article");
 
   useEffect(() => {
     const raw = new URLSearchParams(window.location.search).get("tab") as Tab | null;
@@ -166,7 +163,7 @@ export function LessonMediaHub({
     } else if (initialTab && tabs.some((tab) => tab.id === initialTab)) {
       setActive(initialTab);
     }
-  }, [tabs, initialTab]);
+  }, [tabs]);
 
   const setTab = (tab: Tab) => {
     if (tab === "presentation") {
@@ -212,16 +209,10 @@ export function LessonMediaHub({
       <div className="lesson-media-body">
         {active === "article" && children}
         {active === "video" && media?.video && <VideoPanel src={media.video} />}
+        {active === "practice" && practice}
+        {active === "resources" && resources}
         {active === "notes" && media?.notes && <DocumentPanel href={media.notes} type="notes" />}
         {active === "pdf" && media?.pdf && <DocumentPanel href={media.pdf} type="pdf" />}
-        {active === "sketch" && sketch && (
-          <ExcalidrawSketch
-            title={sketch.title}
-            subtitle="Redraw the core mechanism, annotate it, and open fullscreen when you want a clean teaching canvas."
-            labels={sketch.labels}
-            height={520}
-          />
-        )}
       </div>
     </div>
   );

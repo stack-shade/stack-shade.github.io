@@ -19,6 +19,8 @@ import { getCourse, COURSES } from "@/lib/courses-data";
 import { presentationLessonSlug } from "@/lib/course-presentation";
 import { getComputerNetworkLesson } from "@/lib/computer-networks-lessons";
 import { getLessonContent } from "@/lib/course-lesson-content";
+import LessonPracticePanel from "@/components/courses/lesson-practice-panel";
+import LessonResourcesPanel from "@/components/courses/lesson-resources-panel";
 
 interface PageProps {
   params: Promise<{ slug: string; lesson: string }>;
@@ -149,6 +151,24 @@ export default async function CourseLessonPage({ params }: PageProps) {
   const currentIndex = flat.findIndex((item) => item.slug === lessonSlug);
   const previous = currentIndex > 0 ? flat[currentIndex - 1] : null;
   const next = currentIndex < flat.length - 1 ? flat[currentIndex + 1] : null;
+
+  const previousFound = previous
+    ? {
+        module: found.course.modules[previous.moduleIndex],
+        lesson: found.course.modules[previous.moduleIndex]?.lessons[previous.lessonIndex],
+      }
+    : null;
+
+  const previousContent =
+    previousFound?.module && previousFound.lesson
+      ? getLessonContent(
+          found.course,
+          previousFound.module,
+          previousFound.lesson,
+          previous.moduleIndex,
+          previous.lessonIndex,
+        )
+      : null;
   const deckHref = "/courses/" + slug + "/present/" + found.generatedSlug;
 
   if (found.legacySlug && found.legacySlug === lessonSlug) {
@@ -250,11 +270,23 @@ export default async function CourseLessonPage({ params }: PageProps) {
               lessonMeta={found.module.phase + " · Topic " + (currentIndex + 1) + " / " + flat.length}
               presentationHref={deckHref}
               media={found.lesson.media}
-              initialTab={found.lesson.type === "video" ? "video" : "article"}
-              sketch={{
-                title: content.title + " — sketch",
-                labels: [found.module.phase, found.module.title, "Core mechanism", "Apply"],
-              }}
+              practice={
+                <LessonPracticePanel
+                  current={content}
+                  previous={previousContent}
+                  sketch={{
+                    title: content.title + " — sketch",
+                    labels: [found.module.phase, found.module.title, "Core mechanism", "Apply"],
+                  }}
+                />
+              }
+              resources={
+                <LessonResourcesPanel
+                  courseSlug={found.course.slug}
+                  lessonTitle={content.title}
+                  previousLessonTitle={previous?.title ?? null}
+                />
+              }
             >
               <div className="min-w-0">
                 {rich && <ComputerNetworkVisual kind={rich.visual} />}

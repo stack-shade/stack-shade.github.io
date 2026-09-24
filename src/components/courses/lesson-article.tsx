@@ -113,6 +113,28 @@ export function LessonArticle({
             </div>
           </section>
 
+          {content.analogy && (
+            <section className="lesson-callout">
+              <div className="lesson-callout-icon"><Lightbulb className="h-5 w-5" /></div>
+              <div>
+                <span className="lesson-kicker">ANALOGY</span>
+                <h2>{content.analogy.title}</h2>
+                <p>{content.analogy.body}</p>
+              </div>
+            </section>
+          )}
+
+          {content.neuroscience && (
+            <section className="lesson-callout">
+              <div className="lesson-callout-icon"><BrainCircuit className="h-5 w-5" /></div>
+              <div>
+                <span className="lesson-kicker">LEARNING SCIENCE</span>
+                <h2>{content.neuroscience.title}</h2>
+                <p>{content.neuroscience.body}</p>
+              </div>
+            </section>
+          )}
+
           <div id="mechanism">
             {content.deepDive.map((section, index) => (
               <MarkdownSection key={section.title} title={section.title} body={section.body} index={index} />
@@ -141,7 +163,7 @@ export function LessonArticle({
                 </p>
               </div>
               <Link
-                href="?tab=sketch"
+                href="?tab=practice"
                 className="lesson-practice-bridge-action"
               >
                 Open practice
