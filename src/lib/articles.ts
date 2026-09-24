@@ -15,6 +15,7 @@ export interface Article {
   bannerAlt: string;
   author: string;
   featured?: boolean;
+  toc?: { id: string; label: string }[];
 }
 
 export const ARTICLES: Article[] = [
@@ -32,6 +33,14 @@ export const ARTICLES: Article[] = [
     bannerAlt: "HTTP response status code families from informational responses through client and server errors",
     author: "Shaswat Raj",
     featured: true,
+    toc: [
+      { id: "at-a-glance", label: "At a glance" },
+      { id: "status-1xx", label: "1xx · Informational" },
+      { id: "status-2xx", label: "2xx · Success" },
+      { id: "status-3xx", label: "3xx · Redirects" },
+      { id: "status-4xx", label: "4xx · Client errors" },
+      { id: "status-5xx", label: "5xx · Server errors" },
+    ],
   },
   {
     slug: "jev-model-explained",
