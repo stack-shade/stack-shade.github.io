@@ -92,6 +92,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: content.title + " — " + found.course.title + " — StackShade",
     description: content.overview,
+    keywords: [found.course.title, found.module.title, content.title, "NLP", "natural language processing", "machine learning", "AI"],
+    authors: [{ name: "StackShade" }],
     alternates: { canonical: url },
     openGraph: {
       title: content.title + " — " + found.course.title,
@@ -197,6 +199,10 @@ export default async function CourseLessonPage({ params }: PageProps) {
             description: content.overview,
             educationalLevel: found.course.level,
             learningResourceType: "Course lesson",
+            inLanguage: "en",
+            isAccessibleForFree: true,
+            author: { "@type": "Organization", name: "StackShade", url: "https://stack-shade.github.io/" },
+            teaches: content.title,
             isPartOf: {
               "@type": "Course",
               name: found.course.title,
@@ -206,6 +212,29 @@ export default async function CourseLessonPage({ params }: PageProps) {
           }),
         }}
       />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Courses", item: "https://stack-shade.github.io/courses" },
+              { "@type": "ListItem", position: 2, name: found.course.title, item: "https://stack-shade.github.io/courses/" + found.course.slug },
+              { "@type": "ListItem", position: 3, name: content.title, item: "https://stack-shade.github.io/courses/" + found.course.slug + "/" + lessonSlug },
+            ],
+          }),
+        }}
+      />
+
+      <nav aria-label="Breadcrumb" className="mb-3 flex flex-wrap items-center gap-1.5 text-[10px] text-muted-foreground">
+        <Link href="/courses" className="hover:text-foreground">Courses</Link>
+        <span aria-hidden="true">/</span>
+        <Link href={"/courses/" + found.course.slug} className="hover:text-foreground">{found.course.title}</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{content.title}</span>
+      </nav>
 
       <div className="mb-5 flex items-center justify-between gap-3">
         <Link
