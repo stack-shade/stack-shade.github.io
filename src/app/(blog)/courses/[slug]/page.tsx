@@ -145,10 +145,10 @@ export default async function CoursePage({ params }: PageProps) {
         <Card className="border-border bg-card/25">
           <CardContent className="p-4 sm:p-5">
             <span className="lesson-kicker">TOPIC FORMAT</span>
-            <h2 className="mt-1 text-lg font-black">Every topic has two modes</h2>
+            <h2 className="mt-1 text-lg font-black">Every topic has a learning path</h2>
             <div className="mt-4 space-y-2.5 text-xs leading-5 text-muted-foreground">
-              <p><strong className="text-foreground">Read</strong> — deep article with diagrams, artifacts and retrieval.</p>
-              <p><strong className="text-foreground">Present</strong> — focused deck with notes, pointer, timer and fullscreen.</p>
+              <p><strong className="text-foreground">Article</strong> — the mandatory core lesson with explanations, examples, artifacts and retrieval.</p>
+              <p><strong className="text-foreground">Deck</strong> — optional presentation mode, available from inside the lesson.</p>
               <p><strong className="text-foreground">Review</strong> — spaced review queue with due dates and recall ratings.</p>
               <p><strong className="text-foreground">Focus</strong> — Pomodoro sessions, daily goals and a persistent scratchpad.</p>
             </div>
