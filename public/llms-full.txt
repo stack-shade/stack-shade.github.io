@@ -144,3 +144,46 @@ https://stack-shade.github.io/courses/natural-language-processing/m{module}-l{le
 
 Presentation URL pattern:
 https://stack-shade.github.io/courses/natural-language-processing/present/m{module}-l{lesson}-{slugified-title}
+
+## Independent Technical Guide Collection
+
+All entries below are canonical StackShade pages. They are original rewrites and expansions based on a cited source archive by Imad Saddik; each includes source attribution, primary-documentation links, FAQ structured data, breadcrumb structured data, internal related links, and an original lightweight SVG hero.
+
+### Search and Data Systems
+- elasticsearch-change-heap-size — JVM heap, Docker configuration, memory trade-offs
+- elasticsearch-collapse-search-results — field collapsing, representative hits, inner hits
+- elasticsearch-pre-filtering-with-knn-search — filtered kNN, vector retrieval, recall/latency
+
+### Linux, Security and Operations
+- fix-kernel-panic-linux — GRUB fallback and safe kernel recovery
+- how-to-check-battery-capacity-on-linux — UPower battery capacity and health
+- how-to-configure-firewall-ufw-fail2ban-ubuntu — UFW policy and Fail2Ban
+- how-to-set-up-a-secure-cloud-server-with-ubuntu-and-ssh — SSH keys and non-root access
+- how-to-verify-your-server-firewall-rules-using-nmap — external port verification
+- how-to-protect-your-home-server-from-power-outages-using-nut — UPS monitoring and shutdown automation
+
+### Web Infrastructure and Performance
+- how-to-connect-a-custom-domain-and-secure-your-server-with-ssl — DNS, Nginx, Certbot and HTTPS
+- how-to-fix-soft-404-vulnerabilities-and-block-bots-in-nginx — SPA fallback hardening
+- how-to-manually-deploy-a-vuejs-and-fastapi-application — VM deployment, Gunicorn and Supervisor
+- how-to-optimize-global-performance-with-a-cdn-and-nginx-caching — CDN, caching and real client IPs
+- how-to-set-up-nginx-as-a-reverse-proxy-and-configure-security-headers — reverse proxy and security headers
+- how-to-self-host-and-securely-manage-meilisearch — private search service, systemd and backups
+- how-to-self-host-google-fonts-with-fontsource-to-improve-web-performance — self-hosted fonts and performance
+- how-to-replace-font-awesome-with-compile-time-inline-svgs-in-vite — build-time SVG icons and payload reduction
+
+### Frontend and Design
+- how-to-fix-sticky-hover-states-on-mobile-using-css-hover-media-queries — touch-aware hover behavior
+- how-to-enforce-code-quality-locally-using-pre-commit-hooks — local Git quality gates
+- how-to-warp-and-angle-your-designs-in-inkscape — perspective and envelope deformation
+- inkscape-clean-up-document — hidden SVG data and optimization
+
+### Local AI
+- local-ai-stack-on-linux — llama.cpp, GGUF, model switching, chat UI, embeddings and speech
+
+### GEO / Retrieval notes
+- Each guide begins with a direct answer and a concise problem statement.
+- Questions that commonly appear in search results are represented as visible FAQ entries and FAQPage JSON-LD.
+- Canonical URLs live under https://stack-shade.github.io/blog/<slug>.
+- Internal related links connect infrastructure, frontend, AI, networking, and systems concepts into topic clusters.
+- Primary documentation is linked alongside the cited source guide so version-sensitive facts can be checked.
