@@ -159,8 +159,19 @@ export default function BlogIndex() {
             </p>
           </div>
 
+          <a href="http://observatory.campusloop.space/" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-border bg-card/20 p-4 transition hover:border-foreground/30 hover:bg-card/40">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-border bg-background">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">CampusLoop tool</p>
+              <p className="mt-1 text-sm font-bold text-foreground">HTTP Observatory</p>
+              <p className="mt-1 text-xs text-muted-foreground">Inspect and understand the response chain from a practical observability angle.</p>
+            </div>
+            <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
           <Link
-            href="/blog/http-status-codes"
+            href="/blog/http-status-codes-explained"
             className="group flex items-center gap-4 rounded-2xl border border-border bg-card/20 p-4 transition hover:border-foreground/30 hover:bg-card/40"
           >
             <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-border bg-background">
