@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CourseStudy } from "@/components/courses/course-study";
 import { CybersecurityToolkit } from "@/components/courses/cybersecurity-toolkit";
 import { CoursePoster } from "@/components/courses/course-poster";
+import { NlpSeoSections } from "@/components/courses/nlp-seo-sections";
 import { COURSES, getCourse, courseStats } from "@/lib/courses-data";
 
 interface PageProps {
