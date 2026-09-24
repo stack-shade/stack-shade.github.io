@@ -29,6 +29,17 @@ export function CourseLessonActions({
     setProgress(loadProgress(courseSlug));
   }, [courseSlug]);
 
+  useEffect(() => {
+    const onProgressChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ slug?: string }>).detail;
+      if (detail?.slug === courseSlug) {
+        setProgress(loadProgress(courseSlug));
+      }
+    };
+    window.addEventListener("ss-course-progress", onProgressChange);
+    return () => window.removeEventListener("ss-course-progress", onProgressChange);
+  }, [courseSlug]);
+
   const toggle = () => {
     const next = toggleLesson(progress, id);
     setProgress(next);
