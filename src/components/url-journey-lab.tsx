@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState } from "react";
 import {
   AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Check,
   Copy,
-  Database,
   Globe,
   Layers,
-  Network,
   Play,
   RefreshCw,
-  Server,
-  ShieldCheck,
-  Timer,
   Zap,
 } from "lucide-react";
 
