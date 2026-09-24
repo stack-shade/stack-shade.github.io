@@ -270,6 +270,8 @@ p, li, dd { text-wrap: pretty; }
 .poster-network .poster-glow-one { background: #9fd5ff; }
 .poster-data .poster-glow-one { background: #d9b6ff; }
 .poster-system .poster-glow-one { background: #f1dfbd; }
+.poster-cybersecurity .poster-glow-one { background: #a9d6ff; }
+.poster-cybersecurity .poster-glow-two { background: #8aa7c7; }
 
 @media (max-width: 640px) {
   .course-poster-hero { min-height: 280px; }
