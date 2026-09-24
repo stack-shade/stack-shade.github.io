@@ -156,6 +156,8 @@ export default async function CourseLessonPage({ params }: PageProps) {
     ? {
         module: found.course.modules[previous.moduleIndex],
         lesson: found.course.modules[previous.moduleIndex]?.lessons[previous.lessonIndex],
+        moduleIndex: previous.moduleIndex,
+        lessonIndex: previous.lessonIndex,
       }
     : null;
 
@@ -165,8 +167,8 @@ export default async function CourseLessonPage({ params }: PageProps) {
           found.course,
           previousFound.module,
           previousFound.lesson,
-          previous.moduleIndex,
-          previous.lessonIndex,
+          previousFound.moduleIndex,
+          previousFound.lessonIndex,
         )
       : null;
   const deckHref = "/courses/" + slug + "/present/" + found.generatedSlug;
