@@ -111,7 +111,7 @@ Router / NAT
 Public Internet
       ↓
 Web server :443`}</code></pre>
-        <p>The router tracks connection state so returning traffic can be associated with the internal device. This is one reason a website generally cannot see your laptop's private LAN address.</p>
+        <p>The router tracks connection state so returning traffic can be associated with the internal device. This is one reason a website generally cannot see your laptop&apos;s private LAN address.</p>
       </section>
 
       <section>
@@ -178,7 +178,7 @@ Network
 Browser
       ↓
 Decompression`}</code></pre>
-        <p>Common content encodings include gzip, Brotli (<code>br</code>), and, where supported, newer formats such as zstd. Compression reduces transferred bytes, but it does not eliminate the browser's parsing and execution cost.</p>
+        <p>Common content encodings include gzip, Brotli (<code>br</code>), and, where supported, newer formats such as zstd. Compression reduces transferred bytes, but it does not eliminate the browser&apos;s parsing and execution cost.</p>
       </section>
 
       <section>
@@ -219,7 +219,7 @@ Server identifies session`}</code></pre>
 
       <section>
         <h2>31. 🏗️ Server-Side Rendering and Client-Side Rendering Change Where Work Happens</h2>
-        <p>A website does not have to generate all UI in the same place. With server-side rendering, the server can produce useful HTML before the browser executes the application's JavaScript. With client-side rendering, the browser can receive a smaller shell and construct more of the interface after JavaScript and API data arrive.</p>
+        <p>A website does not have to generate all UI in the same place. With server-side rendering, the server can produce useful HTML before the browser executes the application&apos;s JavaScript. With client-side rendering, the browser can receive a smaller shell and construct more of the interface after JavaScript and API data arrive.</p>
         <pre className="overflow-x-auto rounded-2xl border border-border bg-muted/20 p-4 text-sm leading-7"><code>{`Server-side rendering
 Browser → Server → HTML → Browser
 
