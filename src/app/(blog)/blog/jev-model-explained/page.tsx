@@ -15,7 +15,7 @@ export default function JevModelExplainedPage() {
         gate, retry, escalate, or choose a tool.
       </p>
       <p>
-        <strong>Jev</strong> is TypeSafe AI's first public System One model. Its core idea is:
+        <strong>Jev</strong> is TypeSafe AI&apos;s first public System One model. Its core idea is:
         pass application state plus typed questions, then consume typed probabilistic decisions
         in ordinary software.
       </p>
@@ -157,7 +157,7 @@ repeat`}</code></pre>
         <h2>Is this just JSON mode?</h2>
         <p>
           Not quite. Structured-output features make a general-purpose model emit data that matches
-          a schema. TypeSafe's pitch is that Jev is natively oriented around typed decisions:
+          a schema. TypeSafe&apos;s pitch is that Jev is natively oriented around typed decisions:
           Choice, Score and Noul questions, probabilities, confidence, and parallel decision
           sampling.
         </p>
