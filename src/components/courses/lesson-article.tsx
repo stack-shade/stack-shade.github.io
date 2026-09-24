@@ -3,7 +3,6 @@ import { ArrowRight, BrainCircuit, CheckCircle2, Lightbulb, Quote, Sparkles } fr
 import type { Course, CourseModule, Lesson } from "@/lib/courses-data";
 import type { CourseLessonContent } from "@/lib/course-lesson-content";
 import { Card, CardContent } from "@/components/ui/card";
-import { SketchFlowEmbed } from "@/components/courses/sketchflow-embed";
 
 function ArticleDiagram({ title, flow }: { title: string; flow: CourseLessonContent["flow"] }) {
   const nodes = flow.slice(0, 4);
@@ -88,7 +87,7 @@ export function LessonArticle({
             <a href="#visual">Visual model</a>
             <a href="#artifact">Artifact</a>
             <a href="#recall">Active recall</a>
-            <a href="#sketchflow">Sketch practice</a>
+            <a href="?tab=sketch">Practice canvas</a>
             <a href="#practice">Teach-back</a>
           </div>
         </aside>
@@ -126,34 +125,25 @@ export function LessonArticle({
             <ArticleDiagram title={lesson.title + " — causal map"} flow={content.flow} />
           </section>
 
-          <section id="sketchflow" className="lesson-section">
-            <div className="lesson-section-header">
-              <span className="lesson-kicker">ACTIVE RECONSTRUCTION</span>
-              <h2>Draw the idea yourself</h2>
-              <p>Rebuild the core flow on a real canvas before moving to the worked walkthrough.</p>
-            </div>
-            <SketchFlowEmbed
-              title={lesson.title + " — practice canvas"}
-              prompt={"Sketch the " + lesson.title + " mechanism from memory. Label the input, transformation, observation, and transfer."}
-            />
-          </section>
-
-          <section className="lesson-section">
-            <div className="lesson-section-header">
-              <span className="lesson-kicker">STEP BY STEP</span>
-              <h2>Walk the system</h2>
-            </div>
-            <div className="lesson-flow-list">
-              {content.flow.map((item, index) => (
-                <div key={item.label} className="lesson-flow-item">
-                  <span className="lesson-flow-number">{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3>{item.label}</h3>
-                    <p>{item.detail}</p>
-                  </div>
-                  {index < content.flow.length - 1 && <ArrowRight className="hidden shrink-0 text-muted-foreground sm:block" />}
-                </div>
-              ))}
+          <section id="practice-canvas" className="lesson-section">
+            <div className="lesson-practice-bridge">
+              <div className="lesson-practice-bridge-icon" aria-hidden="true">
+                <Sparkles className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <span className="lesson-kicker">ACTIVE RECONSTRUCTION</span>
+                <h2>Now draw it from memory</h2>
+                <p>
+                  You have seen the mechanism. Move to the Practice tab and reconstruct it without looking at the explanation.
+                </p>
+              </div>
+              <Link
+                href="?tab=sketch"
+                className="lesson-practice-bridge-action"
+              >
+                Open practice
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </section>
 
