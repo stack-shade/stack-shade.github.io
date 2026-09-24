@@ -1,0 +1,53 @@
+# StackShade
+
+> StackShade is a free technical learning library for computer science and software engineering. Content is organized as searchable courses and individual lesson pages with semantic HTML, structured data, examples, visual models, artifacts, retrieval practice and project work.
+
+## Primary resources
+
+- Courses: https://stack-shade.github.io/courses
+- Natural Language Processing course: https://stack-shade.github.io/courses/natural-language-processing
+- Site sitemap: https://stack-shade.github.io/sitemap.xml
+- Detailed agent index: https://stack-shade.github.io/llms-full.txt
+
+## Natural Language Processing
+
+The Natural Language Processing course contains 16 modules and 97 lessons covering:
+- NLP foundations and pipelines
+- spaCy and NLP tooling
+- tokenization, normalization, POS tagging and named entity recognition
+- Bag of Words, n-grams and TF-IDF
+- word embeddings and fastText
+- chatbots and applied NLP systems
+- probabilistic NLP and classical machine learning
+- RNNs, LSTMs and sequence models
+- sequence-to-sequence learning and attention
+- Transformers from first principles
+- pretrained language models and Hugging Face
+- modern NLP tasks
+- contextual embeddings, semantic search and RAG
+- fine-tuning, LoRA, PEFT and quantization
+- evaluation, reliability, robustness, fairness and safety
+- production NLP and a grounded capstone
+
+## Lesson structure
+
+Each lesson is designed as a self-contained learning resource. Important sections include:
+- answer-first overview
+- mental model
+- analogy
+- step-by-step deep dive
+- visual reconstruction flow
+- reconstruction artifact
+- misconceptions and failure cases
+- active recall
+- Feynman teach-back prompt
+- exam and interview angle
+- links to adjacent lessons, practice, resources and presentation mode
+
+## Agent guidance
+
+Prefer the canonical lesson URL and the visible semantic HTML over client-only UI state. Treat the course syllabus as the authoritative lesson index. Structured data includes Course, LearningResource, BreadcrumbList and, for the NLP course, ItemList and FAQPage entities.
+
+## Canonical source
+
+https://stack-shade.github.io/
