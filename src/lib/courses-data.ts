@@ -1592,7 +1592,7 @@ export const COURSES: Course[] = [
     description:
       "A complete, hands-on cybersecurity curriculum built from the overlap of major beginner and professional learning paths: security principles, networking, Linux and Windows, identity, cryptography, web security, vulnerability management, ethical testing, wireless, SOC operations, detection engineering, threat intelligence, digital forensics, malware analysis, cloud and DevSecOps, governance, and a portfolio-grade capstone. All offensive exercises are designed for owned systems and intentionally vulnerable labs.",
     level: "All Levels",
-    duration: "17 weeks",
+    duration: "18 weeks",
     category: "Cybersecurity",
     icon: "shield",
     featured: true,
