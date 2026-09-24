@@ -1593,7 +1593,7 @@ export const COURSES: Course[] = [
     description:
       "A complete, hands-on cybersecurity curriculum built from the overlap of major beginner and professional learning paths: security principles, networking, Linux and Windows, identity, cryptography, web security, vulnerability management, ethical testing, wireless, SOC operations, detection engineering, threat intelligence, digital forensics, malware analysis, cloud and DevSecOps, governance, and a portfolio-grade capstone. All offensive exercises are designed for owned systems and intentionally vulnerable labs.",
     level: "All Levels",
-    duration: "16 weeks",
+    duration: "17 weeks",
     category: "Cybersecurity",
     icon: "shield",
     featured: true,
@@ -1894,6 +1894,24 @@ export const COURSES: Course[] = [
         recall: [
           { q: "What is the shared-responsibility model?", a: "The provider secures the underlying cloud service and platform according to the service model; the customer remains responsible for the configurations, identities, data and workloads they control." },
           { q: "Why add security checks to CI?", a: "Earlier detection is cheaper: leaked secrets, vulnerable dependencies, risky IaC and coding flaws can be stopped before deployment rather than discovered after exposure." },
+        ],
+      },
+      {
+        title: "AI Security & Emerging Attack Surfaces",
+        phase: "Week 17",
+        hook: "AI systems inherit traditional security problems and add new trust boundaries around prompts, data, tools, models, retrieval and autonomous actions.",
+        feynman: "Explain an AI assistant as software that can read untrusted input, retrieve data and call tools; then ask which boundaries must be enforced by the surrounding system.",
+        lessons: [
+          V("AI security threat model: prompts, models, data, tools and agents", "24 min"),
+          V("Prompt injection, sensitive-data exposure and unsafe output handling", "26 min"),
+          V("RAG, vector stores, retrieval poisoning and tenant isolation", "24 min"),
+          V("Model supply chain, data poisoning and dependency risk", "22 min"),
+          V("AI red-team basics with Garak and PyRIT in a test environment", "28 min"),
+          PJ("AI security review: threat model + controls + evaluation harness", "2 hours"),
+        ],
+        recall: [
+          { q: "Why is prompt injection a system problem rather than only a model problem?", a: "The impact depends on what the surrounding application lets model output or user-controlled content influence: tools, data access, instructions, workflows and external actions." },
+          { q: "Why does RAG add a security boundary?", a: "Retrieved content can be untrusted or cross tenant boundaries, so retrieval, authorization, provenance and output handling must be secured independently of the model." },
         ],
       },
       {
