@@ -163,42 +163,7 @@ export default async function CoursePage({ params }: PageProps) {
 
       {slug === "cybersecurity" && <CybersecurityToolkit />}
 
-      {slug === "natural-language-processing" && (
-        <section className="mt-10 rounded-2xl border border-border bg-card/25 p-5 sm:p-6">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="lesson-kicker">REFERENCE STACK</span>
-              <h2 className="mt-1 text-xl font-black">Where this curriculum comes from</h2>
-              <p className="mt-2 max-w-3xl text-xs leading-6 text-muted-foreground">
-                The first six modules follow the supplied 28-video Codebasics playlist. The extension track fills the major gaps with current academic and tooling curricula, so the course moves from fundamentals to modern NLP without treating LLMs as a black box.
-              </p>
-            </div>
-            <span className="font-mono text-[9px] text-muted-foreground">28-video core + modern extensions</span>
-          </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <a href="https://www.youtube.com/playlist?list=PLeo1K3hjS3uuvuAXhYjV2lMEShq2UYSwX" target="_blank" rel="noreferrer" className="rounded-xl border border-border bg-background/25 p-4 transition hover:border-foreground/25">
-              <span className="font-mono text-[9px] text-muted-foreground">BASE</span>
-              <h3 className="mt-1 text-sm font-bold">Codebasics NLP Tutorial Python</h3>
-              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">The supplied 28-video learning spine.</p>
-            </a>
-            <a href="https://web.stanford.edu/class/cs224n/" target="_blank" rel="noreferrer" className="rounded-xl border border-border bg-background/25 p-4 transition hover:border-foreground/25">
-              <span className="font-mono text-[9px] text-muted-foreground">ACADEMIC</span>
-              <h3 className="mt-1 text-sm font-bold">Stanford CS224N</h3>
-              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Deep learning, Transformers, LLMs and evaluation.</p>
-            </a>
-            <a href="https://www.deeplearning.ai/specializations/natural-language-processing/" target="_blank" rel="noreferrer" className="rounded-xl border border-border bg-background/25 p-4 transition hover:border-foreground/25">
-              <span className="font-mono text-[9px] text-muted-foreground">FOUNDATIONS</span>
-              <h3 className="mt-1 text-sm font-bold">DeepLearning.AI NLP</h3>
-              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Probabilistic models, RNNs, attention and classic NLP.</p>
-            </a>
-            <a href="https://huggingface.co/learn/llm-course/chapter1/1" target="_blank" rel="noreferrer" className="rounded-xl border border-border bg-background/25 p-4 transition hover:border-foreground/25">
-              <span className="font-mono text-[9px] text-muted-foreground">MODERN STACK</span>
-              <h3 className="mt-1 text-sm font-bold">Hugging Face LLM Course</h3>
-              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Transformers, fine-tuning, datasets, tokenizers and modern LLM practice.</p>
-            </a>
-          </div>
-        </section>
-      )}
+      {slug === "natural-language-processing" && <NlpSeoSections course={course} />}
 
       <section className="mt-12 border-t border-border pt-8">
         <div className="mb-4 flex items-end justify-between gap-3">
