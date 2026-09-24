@@ -56,7 +56,7 @@ export const ARTICLES: Article[] = [
     playlist: "Web Mechanics",
     date: "2026-09-20",
     displayDate: "September 20, 2026",
-    readTime: "18 min read",
+    readTime: "30 min read",
     banner: "/blog/url-journey-banner.svg",
     bannerAlt: "Browser-to-pixels URL journey map showing DNS, transport, TLS, HTTP, edge infrastructure and rendering",
     author: "Shaswat Raj",
