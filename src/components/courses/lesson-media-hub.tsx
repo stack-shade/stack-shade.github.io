@@ -150,7 +150,7 @@ export function LessonMediaHub({
       { id: "article", label: "Article", icon: BookOpen },
     ];
     if (media?.video) out.push({ id: "video", label: "Video", icon: PlayCircle });
-    out.push({ id: "presentation", label: "Slides", icon: Presentation, href: presentationHref });
+    out.push({ id: "presentation", label: "Deck", icon: Presentation, href: presentationHref });
     if (sketch) out.push({ id: "sketch", label: "Practice", icon: PencilLine });
     if (media?.notes) out.push({ id: "notes", label: "Notes", icon: StickyNote });
     if (media?.pdf) out.push({ id: "pdf", label: "PDF", icon: FileText });
