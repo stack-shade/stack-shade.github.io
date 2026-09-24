@@ -177,8 +177,7 @@ export function ContentBrowser({
   useEffect(() => {
     if (!hydrated) return;
 
-    const maxPage = Math.max(1, Math.ceil(items.length / size));
-    const safePage = Math.min(page, maxPage);
+    const safePage = Math.min(page, Math.max(1, Math.ceil(filteredItems.length / size)));
     if (safePage !== page) setPage(safePage);
 
     const params = new URLSearchParams();
@@ -212,7 +211,7 @@ export function ContentBrowser({
     return () => {
       if (syncFrame.current !== null) cancelAnimationFrame(syncFrame.current);
     };
-  }, [category, format, hydrated, items.length, page, pageSize, playlist, query, size, sort, status, tag, view]);
+  }, [category, filteredItems.length, format, hydrated, page, pageSize, playlist, query, size, sort, status, tag, view]);
 
   useEffect(() => {
     setPage(1);
