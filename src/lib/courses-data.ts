@@ -1587,10 +1587,10 @@ export const COURSES: Course[] = [
   },
   {
     slug: "cybersecurity",
-    title: "Cybersecurity: Complete Foundations & Practice",
-    tagline: "From packets and permissions to AppSec, SOC, DFIR, cloud security and threat-informed defense",
+    title: "Cybersecurity — From Foundations to SOC, AppSec, DFIR & Cloud Defense",
+    tagline: "From security principles and packets to AppSec, SOC, DFIR, cloud, DevSecOps and AI security",
     description:
-      "A complete, hands-on cybersecurity curriculum built from the overlap of major beginner and professional learning paths: security principles, networking, Linux and Windows, identity, cryptography, web security, vulnerability management, ethical testing, wireless, SOC operations, detection engineering, threat intelligence, digital forensics, malware analysis, cloud and DevSecOps, governance, and a portfolio-grade capstone. All offensive exercises are designed for owned systems and intentionally vulnerable labs.",
+      "A practical cybersecurity curriculum spanning security foundations, networking, Linux, Windows and identity; cryptography and secure design; modern web and API security; authorized testing; SOC operations; detection engineering; DFIR; malware analysis; cloud and DevSecOps; AI security; governance and a portfolio-grade capstone. The course emphasizes evidence, remediation and safe practice in owned systems and intentionally vulnerable labs.",
     level: "All Levels",
     duration: "18 weeks",
     category: "Cybersecurity",
@@ -1721,7 +1721,7 @@ export const COURSES: Course[] = [
         hook: "Web security becomes systematic when you reason about input, output, identity, state, parser boundaries and authorization.",
         feynman: "Explain the OWASP Top 10 as recurring failure modes in a web request pipeline.",
         lessons: [
-          V("OWASP Top 10:2021 as a mental map", "22 min"),
+          V("OWASP Top 10:2025 as a mental map", "22 min"),
           V("Broken access control", "24 min"),
           V("Injection and output-context safety", "26 min"),
           V("Authentication and session failures", "22 min"),
@@ -1847,7 +1847,7 @@ export const COURSES: Course[] = [
         hook: "DFIR is timeline reconstruction under uncertainty: preserve evidence, establish facts, infer scope and document every conclusion.",
         feynman: "Explain incident response as a medical investigation: stabilize first, preserve evidence, diagnose, treat, then prevent recurrence.",
         lessons: [
-          V("Incident lifecycle: prepare → detect → analyze → contain → eradicate → recover", "24 min"),
+          V("Incident response lifecycle: preparation → detection and analysis → response → recovery and lessons learned", "24 min"),
           V("Evidence handling, hashing and chain of custody", "22 min"),
           V("Disk forensics with Autopsy and common artifacts", "24 min"),
           V("Memory forensics with Volatility", "26 min"),
