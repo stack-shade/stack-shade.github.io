@@ -86,9 +86,11 @@ export function LessonArticle({
             <a href="#mental-model">Mental model</a>
             <a href="#mechanism">Mechanism</a>
             <a href="#visual">Visual model</a>
+            <a href="#step-by-step">Walk the system</a>
+            <a href="#practice-canvas">Practice canvas</a>
             <a href="#artifact">Artifact</a>
+            <a href="#misconceptions">Misconceptions</a>
             <a href="#recall">Active recall</a>
-            <a href="?tab=sketch">Practice canvas</a>
             <a href="#practice">Teach-back</a>
           </div>
         </aside>
@@ -163,7 +165,7 @@ export function LessonArticle({
             </div>
           </section>
 
-          <section className="lesson-section">
+          <section id="misconceptions" className="lesson-section">
             <div className="lesson-section-header">
               <span className="lesson-kicker">MISCONCEPTIONS</span>
               <h2>What usually goes wrong</h2>
