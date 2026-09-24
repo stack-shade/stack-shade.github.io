@@ -29,6 +29,9 @@ export function saveProgress(slug: string, progress: CourseProgress) {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(key(slug), JSON.stringify(progress));
+    window.dispatchEvent(
+      new CustomEvent("ss-course-progress", { detail: { slug } }),
+    );
   } catch {
     // storage full or unavailable — progress stays in memory
   }
