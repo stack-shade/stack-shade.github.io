@@ -13,7 +13,7 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  Terminal,
+
   Workflow,
   Youtube,
 } from "lucide-react";
@@ -533,7 +533,7 @@ export default function Home() {
       <footer className="bg-background py-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="StackShade" className="h-7 w-7 rounded-lg" />
+            <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-lg border border-border bg-card text-[10px] font-black">S</span>
             <div>
               <div className="text-sm font-black">StackShade</div>
               <div className="text-[10px] text-muted-foreground">Learn deeply. Build practically. Explain visually.</div>
