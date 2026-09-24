@@ -89,6 +89,7 @@ export function StudyDeskGlobal() {
 
   const hasSession =
     pomodoro.running ||
+    pomodoro.mode === "break" ||
     pomodoro.remaining !== timerDuration;
 
   const timerTitle = pomodoro.mode === "focus" ? "Focus" : "Break";
