@@ -18,6 +18,21 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "jev-model-explained",
+    title: "Jev Model Explained: AI Decision Models, Typed Outputs, Probabilities and Agents",
+    description: "Jev explained for developers: understand TypeSafe AI's System One model, Choice, Score and Noul questions, typed decisions, confidence, AI agents, workflow automation, architecture and limitations.",
+    category: "Artificial Intelligence",
+    tags: ["ai", "jev", "ai-agents", "machine-learning", "llm", "developer-tools", "automation"],
+    playlist: "AI Systems, Demystified",
+    date: "2026-09-24",
+    displayDate: "September 24, 2026",
+    readTime: "10 min read",
+    banner: "/blog/jev-model-banner.svg",
+    bannerAlt: "Jev decision model architecture showing state, question, decision, policy and action",
+    author: "Shaswat Raj",
+    featured: true,
+  },
+  {
     slug: "nlp-from-text-to-transformers",
     title: "Natural Language Processing Explained: From Raw Text to Transformers and LLM Systems",
     description: "A visual guide to tokenization, linguistic structure, statistical NLP, embeddings, RNNs, attention, Transformers, pretraining, RAG, evaluation and production NLP.",
