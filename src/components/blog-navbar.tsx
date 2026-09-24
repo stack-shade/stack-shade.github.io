@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, BookOpen, Library, Menu, Sparkles, Youtube } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, BookOpen, ExternalLink, Library, Menu, Sparkles, Youtube } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
@@ -33,12 +33,12 @@ export function BlogNavbar() {
           <Link href="/blog" className="flex min-w-0 items-center gap-2">
             <Image src="/logo.svg" alt="StackShade" width={28} height={28} className="h-7 w-7 shrink-0 rounded-md object-cover" />
             <span className="truncate text-sm font-black tracking-tight sm:text-base">
-              StackShade <span className="font-medium text-muted-foreground">Library</span>
+              StackShade <span className="font-medium text-muted-foreground">Journal</span>
             </span>
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-border bg-card/30 p-1 md:flex" aria-label="Library navigation">
+        <nav className="hidden items-center gap-1 rounded-full border border-border bg-card/30 p-1 md:flex" aria-label="Journal navigation">
           {links.map((item) => {
             const Icon = item.icon;
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -49,9 +49,7 @@ export function BlogNavbar() {
                 aria-current={active ? "page" : undefined}
                 className={
                   "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold transition-colors " +
-                  (active
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground")
+                  (active ? "bg-foreground text-background" : "text-muted-foreground hover:bg-muted hover:text-foreground")
                 }
               >
                 <Icon className="h-3.5 w-3.5" />
@@ -62,6 +60,9 @@ export function BlogNavbar() {
         </nav>
 
         <div className="hidden items-center gap-2 sm:flex">
+          <a href="http://observatory.campusloop.space/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-[10px] font-semibold text-muted-foreground hover:text-foreground">
+            Observatory <ExternalLink className="h-3 w-3" />
+          </a>
           <ThemeToggle />
           <a
             href="https://www.youtube.com/@StackShade"
@@ -84,7 +85,7 @@ export function BlogNavbar() {
             <SheetHeader className="border-b border-border px-5 py-4">
               <SheetTitle className="flex items-center gap-2 text-left text-base">
                 <Image src="/logo.svg" alt="" width={32} height={32} className="h-8 w-8 rounded-lg object-cover" />
-                StackShade Library
+                StackShade Journal
               </SheetTitle>
             </SheetHeader>
             <div className="grid gap-1.5 p-4">
@@ -107,6 +108,14 @@ export function BlogNavbar() {
                   </Link>
                 );
               })}
+              <a
+                href="http://observatory.campusloop.space/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl border border-border px-3 py-3 text-sm font-semibold"
+              >
+                CampusLoop HTTP Observatory <ExternalLink className="h-4 w-4" />
+              </a>
               <div className="mt-1 flex items-center justify-between rounded-xl border border-border px-3 py-3">
                 <span className="text-sm font-semibold">Appearance</span>
                 <ThemeToggle />
