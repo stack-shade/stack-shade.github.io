@@ -176,7 +176,7 @@ export function CourseStudy({ course }: { course: Course }) {
       <CourseStudyTools course={course} progress={progress} update={update} />
 
 
-      <section className="rounded-2xl border border-border bg-card/25 p-4 sm:p-5">
+      <section id="study-loop" className="scroll-mt-24 rounded-2xl border border-border bg-card/25 p-4 sm:p-5">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="flex items-center gap-2">
