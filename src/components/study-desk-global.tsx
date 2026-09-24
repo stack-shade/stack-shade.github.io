@@ -19,7 +19,7 @@ function courseSlugFromPath(pathname: string | null) {
 
 export function StudyDeskGlobal() {
   const pathname = usePathname();
-  const { pomodoro, togglePomodoro, setPomodoroPreset, resetPomodoro } = useStudyDesk();
+  const { pomodoro, togglePomodoro, resetPomodoro } = useStudyDesk();
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState(false);
   const [activeCourseSlug, setActiveCourseSlug] = useState<string | null>(null);
