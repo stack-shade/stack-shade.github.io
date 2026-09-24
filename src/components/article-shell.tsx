@@ -99,9 +99,9 @@ export function ArticleShell({ article, children }: ArticleShellProps) {
             />
           </div>
 
-          <div className="blog-reading-layout">
+          <div className={"blog-reading-layout " + (article.toc?.length ? "xl:grid-cols-[12rem_minmax(0,1fr)_18rem]" : "")}>
             {article.toc && article.toc.length > 0 && (
-              <aside className="blog-reading-sidebar hidden lg:block">
+              <aside className="blog-reading-sidebar hidden xl:block">
                 <div className="blog-reading-sidebar-card sticky top-24 space-y-3">
                   <span className="lesson-kicker">ON THIS PAGE</span>
                   <nav aria-label="On this page" className="grid gap-1">
