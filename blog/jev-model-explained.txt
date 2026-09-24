@@ -1,0 +1,21 @@
+Jev Model Explained: AI Decision Models, Typed Outputs, Probabilities and Agents
+
+Jev is TypeSafe AI's first public System One model, designed around typed probabilistic decisions for software.
+
+The mental model
+Think of a writer versus a switchboard operator: one generates explanations; the other routes decisions.
+
+The three primitives
+Choice selects an option. Score rates an input. Noul answers a yes/no-style question probabilistically.
+
+AI agents
+Agents repeatedly choose tools, inspect results, retry, escalate, continue or stop.
+
+Speed and cost
+TypeSafe currently reports Jev responses around 70–500 ms and input pricing of $0.042 per million tokens. These are vendor-published figures and should be read with the relevant evaluation methodology.
+
+Sources
+https://typesafe.ai/blog/introducing-system-one-models-and-jev
+https://api.typesafe.ai/docs
+https://evals.typesafe.ai/
+https://madewithjev.com/what-is-jev
