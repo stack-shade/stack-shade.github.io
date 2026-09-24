@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { StudyDeskProvider } from "@/components/study-desk-provider";
+import { StudyDeskGlobal } from "@/components/study-desk-global";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -58,7 +60,10 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <StudyDeskProvider>
+          {children}
+          <StudyDeskGlobal />
+        </StudyDeskProvider>
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1828915420581549"
           strategy="afterInteractive"
