@@ -326,6 +326,14 @@ export default function SketchFlowStudio({
     [persist],
   );
 
+  useEffect(() => {
+    return () => {
+      if (saveTimerRef.current !== null) {
+        window.clearTimeout(saveTimerRef.current);
+      }
+    };
+  }, []);
+
   const toggleFullscreen = async () => {
     if (!shellRef.current) return;
     if (document.fullscreenElement === shellRef.current) {
@@ -363,7 +371,7 @@ export default function SketchFlowStudio({
 
   const clear = () => {
     if (!api) return;
-    if (!window.confirm("Clear the entire canvas? Your last autosave can still be recovered by refreshing before another save.")) return;
+    if (!window.confirm("Clear the entire canvas? This will replace the current local save.")) return;
     api.resetScene();
     persist([]);
   };
@@ -395,6 +403,10 @@ export default function SketchFlowStudio({
 
   const handleImport = (file?: File) => {
     if (!file || !api) return;
+    if (file.size > 5 * 1024 * 1024) {
+      window.alert("That drawing is larger than 5 MB and cannot be imported.");
+      return;
+    }
     setImporting(true);
     const reader = new FileReader();
     reader.onload = () => {
@@ -438,12 +450,19 @@ export default function SketchFlowStudio({
     const url = new URL(window.location.href);
     url.searchParams.set("topic", topic);
     url.searchParams.set("prompt", prompt);
-    if (navigator.share) {
-      await navigator.share({ title: topic + " — SketchFlow", text: prompt, url: url.toString() });
-      return;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: topic + " — SketchFlow", text: prompt, url: url.toString() });
+        return;
+      }
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(url.toString());
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      console.error("SketchFlow share failed:", error);
+      window.alert("Could not share the practice link. Please copy the page URL manually.");
     }
-    await navigator.clipboard.writeText(url.toString());
-    setSavedAt(Date.now());
   };
 
   const applyTemplate = async (id: TemplateId) => {
