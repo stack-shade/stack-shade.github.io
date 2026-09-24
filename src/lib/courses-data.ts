@@ -46,7 +46,8 @@ export interface Course {
 }
 
 const V = (title: string, duration: string, href?: string): Lesson => ({ title, type: "video", duration, href });
-// YV binds the supplied Codebasics playlist video directly to its StackShade lesson.\nconst YV = (title: string, duration: string, video: string): Lesson => ({ title, type: "video", duration, media: { video } });
+// YV binds the supplied Codebasics playlist video directly to its StackShade lesson.
+const YV = (title: string, duration: string, video: string): Lesson => ({ title, type: "video", duration, media: { video } });
 const A = (title: string, duration: string, href?: string): Lesson => ({ title, type: "article", duration, href });
 const I = (title: string, duration: string, href?: string): Lesson => ({ title, type: "interactive", duration, href });
 const P = (title: string, duration: string, href?: string): Lesson => ({ title, type: "practice", duration, href });
