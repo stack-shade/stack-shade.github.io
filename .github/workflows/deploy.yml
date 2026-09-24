@@ -1,56 +1,52 @@
-name: Publish Next.js export to GitHub Pages
+name: Build and deploy Next.js to GitHub Pages
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: "pages-static"
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
-  publish:
-    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[pages-sync]')
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: "1.4.2"
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Build static site
         run: bun run build
 
-      - name: Publish export to legacy Pages root
-        run: |
-          set -euo pipefail
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
-          touch .nojekyll
-          cp -R out/. .
-          rm -rf out
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A
-
-          if git diff --cached --quiet; then
-            echo "No generated Pages changes to commit."
-            exit 0
-          fi
-
-          git commit -m "chore(pages): sync static export [pages-sync]"
-          git push origin HEAD:${GITHUB_REF_NAME}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
