@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useMemo,
   useState,
+  useRef,
 } from "react";
 
 export type PomodoroMode = "focus" | "break";
@@ -28,8 +29,6 @@ interface StudyDeskContextValue {
 }
 
 const STORAGE_KEY = "ss-study-pomodoro";
-const DAY = 24 * 60 * 60 * 1000;
-
 const DEFAULT_POMODORO: PomodoroState = {
   mode: "focus",
   focusMinutes: 25,
@@ -145,7 +144,12 @@ export function formatPomodoroClock(seconds: number) {
 
 export function StudyDeskProvider({ children }: { children: React.ReactNode }) {
   const [pomodoro, setPomodoro] = useState<PomodoroState>(DEFAULT_POMODORO);
+  const pomodoroRef = useRef(pomodoro);
   const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    pomodoroRef.current = pomodoro;
+  }, [pomodoro]);
 
   useEffect(() => {
     setPomodoro(readState());
@@ -194,14 +198,21 @@ export function StudyDeskProvider({ children }: { children: React.ReactNode }) {
     if (!hydrated || !pomodoro.running || !pomodoro.endAt) return;
 
     const tick = () => {
-      const remaining = Math.max(0, Math.ceil((pomodoro.endAt! - Date.now()) / 1000));
+      const currentPomodoro = pomodoroRef.current;
+      if (!currentPomodoro.running || !currentPomodoro.endAt) return;
+
+      const remaining = Math.max(
+        0,
+        Math.ceil((currentPomodoro.endAt - Date.now()) / 1000),
+      );
+
       if (remaining <= 0) {
-        completeBlock(pomodoro);
+        completeBlock(currentPomodoro);
         return;
       }
 
       setPomodoro((current) => {
-        if (!current.running || current.endAt !== pomodoro.endAt) return current;
+        if (!current.running || current.endAt !== currentPomodoro.endAt) return current;
         return { ...current, remaining };
       });
     };
