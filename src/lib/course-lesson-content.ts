@@ -4,6 +4,7 @@ import type { CNLesson } from "@/lib/computer-networks-lessons";
 import { getNlpTopicGuide, nlpTopicSlug } from "@/lib/nlp-course-content";
 import { NLP_LESSON_FOCUS } from "@/lib/nlp-lesson-focus";
 import { CYBERSECURITY_LESSON_FOCUS } from "@/lib/cybersecurity-lesson-focus";
+import { buildMachineLearningLessonContent } from "@/lib/machine-learning-course-content";
 
 export interface CourseLessonContent {
   slug: string;
@@ -531,6 +532,10 @@ export function getLessonContent(
 
   if (course.slug === "cybersecurity") {
     return buildCybersecurityLessonContent(course, module, lesson, moduleIndex, lessonIndex);
+  }
+
+  if (course.slug === "machine-learning") {
+    return buildMachineLearningLessonContent(course, module, lesson, moduleIndex, lessonIndex);
   }
 
   if (
