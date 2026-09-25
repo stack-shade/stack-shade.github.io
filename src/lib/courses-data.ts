@@ -1932,8 +1932,8 @@ export const COURSES: Course[] = [
         ],
       },
     ],
-  },,
-{
+  },
+  {
     slug: "machine-learning",
     title: "Machine Learning",
     tagline: "From data and intuition to models, deep learning and production",
