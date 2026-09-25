@@ -65,7 +65,7 @@ export default function CoursesPage() {
 
         <div className="course-stat-strip">
           <div className="course-stat">
-            <b>8</b>
+            <b>9</b>
             <span>learning paths</span>
           </div>
           <div className="course-stat">
