@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "StackShade Learning Platform Architecture",
+    "output": "architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1100,650],
+    "repository": {
+      "url": "https://github.com/stack-shade/stack-shade.github.io",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "3218d79a9456978f3a9b2ec5ec7f03f09822bd6c"
+    },
+    "views": [
+      {"id":"learning-request","label":"Learning request","focus":["reader","app","catalog","lesson","canvas"],"note":"Follow a learner from the Next.js app into content and an interactive artifact."},
+      {"id":"static-delivery","label":"Static delivery","focus":["app","catalog","static"],"note":"See how the static-export build turns source content into deployable site output."}
+    ]
+  },
+  "components": [
+    {"id":"reader","type":"external","label":"Learner","sublabel":"Browser","pos":[40,286],"size":[140,64],"sources":[{"path":"src/app/layout.tsx","line":74,"label":"Root layout"}]},
+    {"id":"app","type":"backend","label":"Next.js App Router","sublabel":"Page + route layer","pos":[245,286],"size":[180,72],"sources":[{"path":"src/app/page.tsx","line":127,"label":"Home route"}]},
+    {"id":"catalog","type":"backend","label":"Learning Content","sublabel":"Courses + articles","pos":[500,125],"size":[190,72],"sources":[{"path":"src/app/page.tsx","line":25,"label":"Course + article imports"},{"path":"src/lib/articles.ts","line":22,"label":"Article catalog"}]},
+    {"id":"lesson","type":"frontend","label":"Lesson Experience","sublabel":"Course + article UI","pos":[500,286],"size":[190,72],"sources":[{"path":"src/components/content-browser.tsx","line":109,"label":"Content browser"}]},
+    {"id":"canvas","type":"frontend","label":"Interactive Canvas","sublabel":"Excalidraw client","pos":[765,286],"size":[190,72],"sources":[{"path":"src/components/excalidraw-client.tsx","line":9,"label":"Dynamic Excalidraw"},{"path":"src/components/excalidraw-client.tsx","line":156,"label":"Canvas render"}]},
+    {"id":"static","type":"cloud","label":"Static Export","sublabel":"Next output: export","pos":[245,470],"size":[190,72],"sources":[{"path":"next.config.ts","line":4,"label":"output: export"}]}
+  ],
+  "boundaries": [
+    {"kind":"region","label":"Next.js application","wraps":["app","catalog","lesson","canvas"],"pad":24}
+  ],
+  "connections": [
+    {"id":"reader-app","from":"reader","to":"app","label":"page request","variant":"emphasis"},
+    {"id":"app-catalog","from":"app","to":"catalog","label":"resolve learning content","fromSide":"top","toSide":"bottom"},
+    {"id":"app-lesson","from":"app","to":"lesson","label":"render learning UI","labelDy":70},
+    {"id":"lesson-canvas","from":"lesson","to":"canvas","label":"load interactive canvas","variant":"dashed","labelDy":70},
+    {"id":"app-static","from":"app","to":"static","label":"build static site","variant":"dashed","fromSide":"bottom","toSide":"top","labelDy":-20}
+  ],
+  "cards": [
+    {"dot":"cyan","title":"Core path","items":["Next.js App Router owns page composition.","Courses and articles stay in the code-backed content layer.","Interactive lessons can hand off to an Excalidraw canvas."]},
+    {"dot":"emerald","title":"Deployment","items":["The project uses Next.js static export.","The final site is a set of deployable static assets."]}
+  ]
+}
