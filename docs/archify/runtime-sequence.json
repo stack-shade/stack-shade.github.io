@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "StackShade Reader Request Sequence",
+    "output": "runtime-sequence.html",
+    "viewBox": [1000, 760],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "request",
+        "label": "Request path",
+        "focus": ["reader", "router", "content", "page", "canvas"],
+        "note": "Follow the learner-facing request and the optional interactive handoff."
+      }
+    ]
+  },
+  "participants": [
+    {"id":"reader","type":"external","label":"Learner","sublabel":"Browser"},
+    {"id":"router","type":"backend","label":"App Router","sublabel":"route"},
+    {"id":"content","type":"backend","label":"Content Layer","sublabel":"articles / courses"},
+    {"id":"page","type":"frontend","label":"Learning Page","sublabel":"server-rendered UI"},
+    {"id":"canvas","type":"frontend","label":"Canvas","sublabel":"interactive artifact"}
+  ],
+  "messages": [
+    {"from":"reader","to":"router","y":180,"label":"GET learning page","variant":"emphasis"},
+    {"from":"router","to":"content","y":250,"label":"resolve course / article"},
+    {"from":"content","to":"page","y":320,"label":"content model"},
+    {"from":"router","to":"page","y":390,"label":"render route","variant":"emphasis"},
+    {"from":"page","to":"canvas","y":460,"label":"load interactive artifact","variant":"dashed"},
+    {"from":"canvas","to":"page","y":530,"label":"canvas ready","variant":"return"},
+    {"from":"page","to":"reader","y":600,"label":"HTML + UI","variant":"return"},
+    {"from":"reader","to":"router","y":670,"label":"follow-up navigation","variant":"dashed"}
+  ],
+  "activations": [
+    {"participant":"router","from":180,"to":390},
+    {"participant":"content","from":250,"to":320},
+    {"participant":"page","from":390,"to":600},
+    {"participant":"canvas","from":460,"to":530}
+  ],
+  "cards": [
+    {"dot":"emerald","title":"Request","items":["Routing and content resolution are separate stages.","The learner receives the rendered page after content is resolved."]},
+    {"dot":"rose","title":"Interactive handoff","items":["The canvas is a secondary client-side path.","Dashed messages keep the optional interaction visually distinct."]}
+  ]
+}
