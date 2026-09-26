@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "StackShade Content-to-Experience Dataflow",
+    "output": "learning-dataflow.html",
+    "viewBox": [1080,720],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {"id":"content-build","label":"Content build","focus":["courseData","articles","app","static"],"note":"Trace source content into the static site build."},
+      {"id":"interactive-read","label":"Interactive reading","focus":["static","reader","lesson","canvas"],"note":"Trace the published experience into interactive learning."}
+    ]
+  },
+  "stages": [
+    {"label":"Source content"},
+    {"label":"App composition"},
+    {"label":"Published site"},
+    {"label":"Reader experience"},
+    {"label":"Interactive learning"}
+  ],
+  "nodes": [
+    {"id":"courseData","type":"backend","label":"Course Data","sublabel":"courses-data.ts","stage":0,"row":0,"tag":"structured curriculum"},
+    {"id":"articles","type":"backend","label":"Article Catalog","sublabel":"articles.ts","stage":0,"row":2,"tag":"long-form guides"},
+    {"id":"app","type":"backend","label":"Next.js App","sublabel":"App Router","stage":1,"row":1},
+    {"id":"static","type":"cloud","label":"Static Site","sublabel":"exported assets","stage":2,"row":1},
+    {"id":"reader","type":"external","label":"Learner Browser","sublabel":"published UI","stage":3,"row":1},
+    {"id":"lesson","type":"frontend","label":"Lesson UI","sublabel":"content browser","stage":4,"row":0},
+    {"id":"canvas","type":"frontend","label":"Excalidraw","sublabel":"visual artifact","stage":4,"row":2}
+  ],
+  "flows": [
+    {"from":"courseData","to":"app","label":"curriculum data","classification":"typed source"},
+    {"from":"articles","to":"app","label":"article metadata","classification":"typed source"},
+    {"from":"app","to":"static","label":"Next export","classification":"build artifact"},
+    {"from":"static","to":"reader","label":"HTML / assets","classification":"published"},
+    {"from":"reader","to":"lesson","label":"open lesson","classification":"interaction"},
+    {"from":"lesson","to":"canvas","label":"open artifact","classification":"client module","labelDy":34}
+  ],
+  "cards": [
+    {"dot":"cyan","title":"Source layer","items":["Course definitions and article metadata are code-backed sources.","The App Router composes those sources into the site experience."]},
+    {"dot":"orange","title":"Experience layer","items":["Published assets reach the learner browser.","Interactive visuals branch from the lesson experience."]}
+  ]
+}
