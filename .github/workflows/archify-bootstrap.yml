@@ -1,0 +1,26 @@
+name: Bootstrap Archify diagrams
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/archify-bootstrap.yml"
+permissions:
+  contents: write
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install exact Archify skill
+        run: curl -L --fail --silent --show-error https://github.com/tt-a1i/archify/raw/main/archify.zip -o /tmp/archify.zip && rm -rf .agents/skills/archify /tmp/archify-src && mkdir -p .agents/skills && unzip -q /tmp/archify.zip "archify/*" -d /tmp/archify-src && cp -R /tmp/archify-src/archify .agents/skills/archify
+      - name: Render StackShade diagrams
+        run: mkdir -p public/diagrams/archify docs/archify && node .agents/skills/archify/bin/archify.mjs validate architecture docs/archify/architecture.json --quality showcase --json --repo-root . && node .agents/skills/archify/bin/archify.mjs validate sequence docs/archify/runtime-sequence.json --quality showcase --json && node .agents/skills/archify/bin/archify.mjs validate dataflow docs/archify/learning-dataflow.json --quality showcase --json && node .agents/skills/archify/bin/archify.mjs deliver architecture docs/archify/architecture.json public/diagrams/archify/architecture.html --quality showcase --repo-root . && node .agents/skills/archify/bin/archify.mjs deliver sequence docs/archify/runtime-sequence.json public/diagrams/archify/runtime-sequence.html --quality showcase && node .agents/skills/archify/bin/archify.mjs deliver dataflow docs/archify/learning-dataflow.json public/diagrams/archify/learning-dataflow.html --quality showcase
+      - name: Build gallery and README
+        run: printf '%s\n' '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archify diagrams</title></head><body><h1>Archify diagrams</h1><ul><li><a href="./architecture.html">Architecture</a></li><li><a href="./runtime-sequence.html">Runtime Sequence</a></li><li><a href="./learning-dataflow.html">Learning Dataflow</a></li></ul></body></html>' > public/diagrams/archify/index.html && printf '%s\n' '# Archify diagrams' '' 'Generated with the exact Archify skill installed at .agents/skills/archify.' > docs/archify/README.md
+      - name: Commit and remove bootstrap
+        run: git config user.name github-actions[bot] && git config user.email 41898282+github-actions[bot]@users.noreply.github.com && rm -f .github/workflows/archify-bootstrap.yml && git add -A && git commit -m "feat: install Archify and add project diagrams" && git push
